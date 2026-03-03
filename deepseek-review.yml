@@ -1,1 +1,14 @@
-
+name: Revue par DeepSeek
+on: [pull_request]
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Analyser le code
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_KEY }}
+        run: |
+          curl -X POST https://api.deepseek.com/v1/chat/completions \
+            -H "Authorization: Bearer $sk-664fe786b45c4961bd840feb9557794d" \
+            -d '{"messages":[{"role":"user","content":"Revue ce code"}],"model":"deepseek-chat"}'
