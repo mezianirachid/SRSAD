@@ -1,0 +1,86 @@
+﻿@model SRSAD.Models.ParticularitesUsagerRef
+
+@{
+    ViewBag.Title = "Détails de la particularité";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>
+                Détails de la particularité
+                <small class="pull-right">
+                    @Html.ActionLink("Modifier", "Edit", new { id = Model.ParticulariteID }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-default" })
+                </small>
+            </h2>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Informations</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th style="width: 30%">@Html.DisplayNameFor(model => model.Code)</th>
+                            <td><strong>@Html.DisplayFor(model => model.Code)</strong></td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Libelle)</th>
+                            <td>@Html.DisplayFor(model => model.Libelle)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.NiveauAlerte)</th>
+                            <td>
+                                @if (Model.NiveauAlerte == 0)
+                                {
+                                    <span class="label label-default">Info</span>
+                                }
+                                else if (Model.NiveauAlerte == 1)
+                                {
+                                    <span class="label label-info">Alerte</span>
+                                }
+                                else if (Model.NiveauAlerte == 2)
+                                {
+                                    <span class="label label-warning">Critique</span>
+                                }
+                                else
+                                {
+                                    <span class="label label-danger">Urgent</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Statut</th>
+                            <td>
+                                @if (Model.EstActif)
+                                {
+                                    <span class="label label-success">Actif</span>
+                                }
+                                else
+                                {
+                                    <span class="label label-default">Inactif</span>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @using (Html.BeginForm("Delete", "Particularite", new { id = Model.ParticulariteID }, FormMethod.Post, new { style = "display:inline", onsubmit = "return confirm('Êtes-vous sûr de vouloir supprimer cette particularité ?');" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span> Supprimer
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

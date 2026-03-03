@@ -1,0 +1,2231 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebPlatFormModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityContainer Name="EntitiesDbConnection" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="AgentsPayeurs" EntityType="WebPlatFormModel.AgentsPayeurs" />
+    <EntitySet Name="AspNetRoles" EntityType="WebPlatFormModel.AspNetRoles" />
+    <EntitySet Name="AspNetUserClaims" EntityType="WebPlatFormModel.AspNetUserClaims" />
+    <EntitySet Name="AspNetUserLogins" EntityType="WebPlatFormModel.AspNetUserLogins" />
+    <EntitySet Name="AspNetUsers" EntityType="WebPlatFormModel.AspNetUsers" />
+    <EntitySet Name="Assignations" EntityType="WebPlatFormModel.Assignations" />
+    <EntitySet Name="AssignationsRemplacants" EntityType="WebPlatFormModel.AssignationsRemplacants" />
+    <EntitySet Name="CLSC" EntityType="WebPlatFormModel.CLSC" />
+    <EntitySet Name="CodesPostauxSecteur" EntityType="WebPlatFormModel.CodesPostauxSecteur" />
+    <EntitySet Name="CommandeCylindreLignes" EntityType="WebPlatFormModel.CommandeCylindreLignes" />
+    <EntitySet Name="CommandesCylindres" EntityType="WebPlatFormModel.CommandesCylindres" />
+    <EntitySet Name="ControlesQualite" EntityType="WebPlatFormModel.ControlesQualite" />
+    <EntitySet Name="Entretiens" EntityType="WebPlatFormModel.Entretiens" />
+    <EntitySet Name="Equipements" EntityType="WebPlatFormModel.Equipements" />
+    <EntitySet Name="Fournisseurs" EntityType="WebPlatFormModel.Fournisseurs" />
+    <EntitySet Name="GabaritsEntretien" EntityType="WebPlatFormModel.GabaritsEntretien" />
+    <EntitySet Name="HistoriqueStatutsEquipement" EntityType="WebPlatFormModel.HistoriqueStatutsEquipement" />
+    <EntitySet Name="ImportFacturationCylindres" EntityType="WebPlatFormModel.ImportFacturationCylindres" />
+    <EntitySet Name="Intervenants" EntityType="WebPlatFormModel.Intervenants" />
+    <EntitySet Name="JournalAudit" EntityType="WebPlatFormModel.JournalAudit" />
+    <EntitySet Name="LecturesCompteur" EntityType="WebPlatFormModel.LecturesCompteur" />
+    <EntitySet Name="Manufacturiers" EntityType="WebPlatFormModel.Manufacturiers" />
+    <EntitySet Name="MotifsCommandeCylindreRef" EntityType="WebPlatFormModel.MotifsCommandeCylindreRef" />
+    <EntitySet Name="Notifications" EntityType="WebPlatFormModel.Notifications" />
+    <EntitySet Name="Pannes" EntityType="WebPlatFormModel.Pannes" />
+    <EntitySet Name="ParticularitesUsagerRef" EntityType="WebPlatFormModel.ParticularitesUsagerRef" />
+    <EntitySet Name="PeriodesFinancieresRef" EntityType="WebPlatFormModel.PeriodesFinancieresRef" />
+    <EntitySet Name="PretsEquipement" EntityType="WebPlatFormModel.PretsEquipement" />
+    <EntitySet Name="ReglesNotification" EntityType="WebPlatFormModel.ReglesNotification" />
+    <EntitySet Name="Reparations" EntityType="WebPlatFormModel.Reparations" />
+    <EntitySet Name="SecteursSRSAD" EntityType="WebPlatFormModel.SecteursSRSAD" />
+    <EntitySet Name="SeuilsInventaire" EntityType="WebPlatFormModel.SeuilsInventaire" />
+    <EntitySet Name="StatutsDossierUsager" EntityType="WebPlatFormModel.StatutsDossierUsager" />
+    <EntitySet Name="StatutsEquipementRef" EntityType="WebPlatFormModel.StatutsEquipementRef" />
+    <EntitySet Name="StatutsSuivi" EntityType="WebPlatFormModel.StatutsSuivi" />
+    <EntitySet Name="TypesAcquisitionRef" EntityType="WebPlatFormModel.TypesAcquisitionRef" />
+    <EntitySet Name="TypesCylindreRef" EntityType="WebPlatFormModel.TypesCylindreRef" />
+    <EntitySet Name="TypesEquipement" EntityType="WebPlatFormModel.TypesEquipement" />
+    <EntitySet Name="TypesInfection" EntityType="WebPlatFormModel.TypesInfection" />
+    <EntitySet Name="TypesInfestation" EntityType="WebPlatFormModel.TypesInfestation" />
+    <EntitySet Name="TypesIntervenant" EntityType="WebPlatFormModel.TypesIntervenant" />
+    <EntitySet Name="TypesLivraisonRef" EntityType="WebPlatFormModel.TypesLivraisonRef" />
+    <EntitySet Name="TypesPanneRef" EntityType="WebPlatFormModel.TypesPanneRef" />
+    <EntitySet Name="UsagerAdresses" EntityType="WebPlatFormModel.UsagerAdresses" />
+    <EntitySet Name="UsagerInfections" EntityType="WebPlatFormModel.UsagerInfections" />
+    <EntitySet Name="UsagerInfestations" EntityType="WebPlatFormModel.UsagerInfestations" />
+    <EntitySet Name="UsagerParticularites" EntityType="WebPlatFormModel.UsagerParticularites" />
+    <EntitySet Name="Usagers" EntityType="WebPlatFormModel.Usagers" />
+    <EntitySet Name="Visites" EntityType="WebPlatFormModel.Visites" />
+    <AssociationSet Name="FK_CC_AgentPayeur" Association="WebPlatFormModel.FK_CC_AgentPayeur">
+      <End Role="AgentsPayeurs" EntitySet="AgentsPayeurs" />
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usagers_AgentPayeur" Association="WebPlatFormModel.FK_Usagers_AgentPayeur">
+      <End Role="AgentsPayeurs" EntitySet="AgentsPayeurs" />
+      <End Role="Usagers" EntitySet="Usagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="WebPlatFormModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="WebPlatFormModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignations_CreePar" Association="WebPlatFormModel.FK_Assignations_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Assignations" EntitySet="Assignations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignations_ModifiePar" Association="WebPlatFormModel.FK_Assignations_ModifiePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Assignations" EntitySet="Assignations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssRemp_CreePar" Association="WebPlatFormModel.FK_AssRemp_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AssignationsRemplacants" EntitySet="AssignationsRemplacants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Audit_User" Association="WebPlatFormModel.FK_Audit_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="JournalAudit" EntitySet="JournalAudit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CC_User" Association="WebPlatFormModel.FK_CC_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CQ_User" Association="WebPlatFormModel.FK_CQ_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ControlesQualite" EntitySet="ControlesQualite" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ent_User" Association="WebPlatFormModel.FK_Ent_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Entretiens" EntitySet="Entretiens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_CreePar" Association="WebPlatFormModel.FK_Equip_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_ModifiePar" Association="WebPlatFormModel.FK_Equip_ModifiePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GE_User" Association="WebPlatFormModel.FK_GE_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="GabaritsEntretien" EntitySet="GabaritsEntretien" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HSE_User" Association="WebPlatFormModel.FK_HSE_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="HistoriqueStatutsEquipement" EntitySet="HistoriqueStatutsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IFC_User" Association="WebPlatFormModel.FK_IFC_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ImportFacturationCylindres" EntitySet="ImportFacturationCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervenants_AspNetUsers" Association="WebPlatFormModel.FK_Intervenants_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Intervenants" EntitySet="Intervenants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervenants_CreePar" Association="WebPlatFormModel.FK_Intervenants_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Intervenants" EntitySet="Intervenants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervenants_ModifiePar" Association="WebPlatFormModel.FK_Intervenants_ModifiePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Intervenants" EntitySet="Intervenants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LC_User" Association="WebPlatFormModel.FK_LC_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="LecturesCompteur" EntitySet="LecturesCompteur" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notif_User" Association="WebPlatFormModel.FK_Notif_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Notifications" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pannes_User" Association="WebPlatFormModel.FK_Pannes_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Pannes" EntitySet="Pannes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pret_CreePar" Association="WebPlatFormModel.FK_Pret_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="PretsEquipement" EntitySet="PretsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pret_ValidePar" Association="WebPlatFormModel.FK_Pret_ValidePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="PretsEquipement" EntitySet="PretsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Repar_User" Association="WebPlatFormModel.FK_Repar_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Reparations" EntitySet="Reparations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RN_User" Association="WebPlatFormModel.FK_RN_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ReglesNotification" EntitySet="ReglesNotification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seuils_User" Association="WebPlatFormModel.FK_Seuils_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="SeuilsInventaire" EntitySet="SeuilsInventaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerAdresses_CreePar" Association="WebPlatFormModel.FK_UsagerAdresses_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UsagerAdresses" EntitySet="UsagerAdresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerAdresses_ModifiePar" Association="WebPlatFormModel.FK_UsagerAdresses_ModifiePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UsagerAdresses" EntitySet="UsagerAdresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerInf_CreePar" Association="WebPlatFormModel.FK_UsagerInf_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UsagerInfestations" EntitySet="UsagerInfestations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerInfec_CreePar" Association="WebPlatFormModel.FK_UsagerInfec_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UsagerInfections" EntitySet="UsagerInfections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerParticularites_CreePar" Association="WebPlatFormModel.FK_UsagerParticularites_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UsagerParticularites" EntitySet="UsagerParticularites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usagers_CreePar" Association="WebPlatFormModel.FK_Usagers_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Usagers" EntitySet="Usagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usagers_ModifiePar" Association="WebPlatFormModel.FK_Usagers_ModifiePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Usagers" EntitySet="Usagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Visites_CreePar" Association="WebPlatFormModel.FK_Visites_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Visites" EntitySet="Visites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignations_Interv" Association="WebPlatFormModel.FK_Assignations_Interv">
+      <End Role="Intervenants" EntitySet="Intervenants" />
+      <End Role="Assignations" EntitySet="Assignations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignations_StatutSuivi" Association="WebPlatFormModel.FK_Assignations_StatutSuivi">
+      <End Role="StatutsSuivi" EntitySet="StatutsSuivi" />
+      <End Role="Assignations" EntitySet="Assignations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignations_TypeInterv" Association="WebPlatFormModel.FK_Assignations_TypeInterv">
+      <End Role="TypesIntervenant" EntitySet="TypesIntervenant" />
+      <End Role="Assignations" EntitySet="Assignations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignations_Usager" Association="WebPlatFormModel.FK_Assignations_Usager">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="Assignations" EntitySet="Assignations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssRemp_Assignation" Association="WebPlatFormModel.FK_AssRemp_Assignation">
+      <End Role="Assignations" EntitySet="Assignations" />
+      <End Role="AssignationsRemplacants" EntitySet="AssignationsRemplacants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssRemp_Interv" Association="WebPlatFormModel.FK_AssRemp_Interv">
+      <End Role="Intervenants" EntitySet="Intervenants" />
+      <End Role="AssignationsRemplacants" EntitySet="AssignationsRemplacants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervenants_CLSC" Association="WebPlatFormModel.FK_Intervenants_CLSC">
+      <End Role="CLSC" EntitySet="CLSC" />
+      <End Role="Intervenants" EntitySet="Intervenants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usagers_CLSC" Association="WebPlatFormModel.FK_Usagers_CLSC">
+      <End Role="CLSC" EntitySet="CLSC" />
+      <End Role="Usagers" EntitySet="Usagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CodesPostauxSecteur_SecteursSRSAD" Association="WebPlatFormModel.FK_CodesPostauxSecteur_SecteursSRSAD">
+      <End Role="SecteursSRSAD" EntitySet="SecteursSRSAD" />
+      <End Role="CodesPostauxSecteur" EntitySet="CodesPostauxSecteur" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CCL_Commande" Association="WebPlatFormModel.FK_CCL_Commande">
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+      <End Role="CommandeCylindreLignes" EntitySet="CommandeCylindreLignes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CCL_Type" Association="WebPlatFormModel.FK_CCL_Type">
+      <End Role="TypesCylindreRef" EntitySet="TypesCylindreRef" />
+      <End Role="CommandeCylindreLignes" EntitySet="CommandeCylindreLignes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CC_Fourn" Association="WebPlatFormModel.FK_CC_Fourn">
+      <End Role="Fournisseurs" EntitySet="Fournisseurs" />
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CC_Livraison" Association="WebPlatFormModel.FK_CC_Livraison">
+      <End Role="TypesLivraisonRef" EntitySet="TypesLivraisonRef" />
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CC_Motif" Association="WebPlatFormModel.FK_CC_Motif">
+      <End Role="MotifsCommandeCylindreRef" EntitySet="MotifsCommandeCylindreRef" />
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CC_Usager" Association="WebPlatFormModel.FK_CC_Usager">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CQ_Equip" Association="WebPlatFormModel.FK_CQ_Equip">
+      <End Role="Equipements" EntitySet="Equipements" />
+      <End Role="ControlesQualite" EntitySet="ControlesQualite" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CQ_Lecture" Association="WebPlatFormModel.FK_CQ_Lecture">
+      <End Role="LecturesCompteur" EntitySet="LecturesCompteur" />
+      <End Role="ControlesQualite" EntitySet="ControlesQualite" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ent_Equip" Association="WebPlatFormModel.FK_Ent_Equip">
+      <End Role="Equipements" EntitySet="Equipements" />
+      <End Role="Entretiens" EntitySet="Entretiens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ent_Lecture" Association="WebPlatFormModel.FK_Ent_Lecture">
+      <End Role="LecturesCompteur" EntitySet="LecturesCompteur" />
+      <End Role="Entretiens" EntitySet="Entretiens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_Fourn" Association="WebPlatFormModel.FK_Equip_Fourn">
+      <End Role="Fournisseurs" EntitySet="Fournisseurs" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_Manuf" Association="WebPlatFormModel.FK_Equip_Manuf">
+      <End Role="Manufacturiers" EntitySet="Manufacturiers" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_Type" Association="WebPlatFormModel.FK_Equip_Type">
+      <End Role="TypesEquipement" EntitySet="TypesEquipement" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_TypeAcq" Association="WebPlatFormModel.FK_Equip_TypeAcq">
+      <End Role="TypesAcquisitionRef" EntitySet="TypesAcquisitionRef" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_UsagerAchat" Association="WebPlatFormModel.FK_Equip_UsagerAchat">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HSE_Equip" Association="WebPlatFormModel.FK_HSE_Equip">
+      <End Role="Equipements" EntitySet="Equipements" />
+      <End Role="HistoriqueStatutsEquipement" EntitySet="HistoriqueStatutsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LC_Equip" Association="WebPlatFormModel.FK_LC_Equip">
+      <End Role="Equipements" EntitySet="Equipements" />
+      <End Role="LecturesCompteur" EntitySet="LecturesCompteur" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pannes_Equip" Association="WebPlatFormModel.FK_Pannes_Equip">
+      <End Role="Equipements" EntitySet="Equipements" />
+      <End Role="Pannes" EntitySet="Pannes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pret_Equip" Association="WebPlatFormModel.FK_Pret_Equip">
+      <End Role="Equipements" EntitySet="Equipements" />
+      <End Role="PretsEquipement" EntitySet="PretsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IFC_Fourn" Association="WebPlatFormModel.FK_IFC_Fourn">
+      <End Role="Fournisseurs" EntitySet="Fournisseurs" />
+      <End Role="ImportFacturationCylindres" EntitySet="ImportFacturationCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GE_Type" Association="WebPlatFormModel.FK_GE_Type">
+      <End Role="TypesEquipement" EntitySet="TypesEquipement" />
+      <End Role="GabaritsEntretien" EntitySet="GabaritsEntretien" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HSE_Statut" Association="WebPlatFormModel.FK_HSE_Statut">
+      <End Role="StatutsEquipementRef" EntitySet="StatutsEquipementRef" />
+      <End Role="HistoriqueStatutsEquipement" EntitySet="HistoriqueStatutsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IFC_Periode" Association="WebPlatFormModel.FK_IFC_Periode">
+      <End Role="PeriodesFinancieresRef" EntitySet="PeriodesFinancieresRef" />
+      <End Role="ImportFacturationCylindres" EntitySet="ImportFacturationCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervenants_Secteur" Association="WebPlatFormModel.FK_Intervenants_Secteur">
+      <End Role="SecteursSRSAD" EntitySet="SecteursSRSAD" />
+      <End Role="Intervenants" EntitySet="Intervenants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervenants_TypesIntervenant" Association="WebPlatFormModel.FK_Intervenants_TypesIntervenant">
+      <End Role="TypesIntervenant" EntitySet="TypesIntervenant" />
+      <End Role="Intervenants" EntitySet="Intervenants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Visites_Interv" Association="WebPlatFormModel.FK_Visites_Interv">
+      <End Role="Intervenants" EntitySet="Intervenants" />
+      <End Role="Visites" EntitySet="Visites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pannes_Type" Association="WebPlatFormModel.FK_Pannes_Type">
+      <End Role="TypesPanneRef" EntitySet="TypesPanneRef" />
+      <End Role="Pannes" EntitySet="Pannes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Repar_Panne" Association="WebPlatFormModel.FK_Repar_Panne">
+      <End Role="Pannes" EntitySet="Pannes" />
+      <End Role="Reparations" EntitySet="Reparations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerParticularites_Ref" Association="WebPlatFormModel.FK_UsagerParticularites_Ref">
+      <End Role="ParticularitesUsagerRef" EntitySet="ParticularitesUsagerRef" />
+      <End Role="UsagerParticularites" EntitySet="UsagerParticularites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pret_Usager" Association="WebPlatFormModel.FK_Pret_Usager">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="PretsEquipement" EntitySet="PretsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usagers_Secteur" Association="WebPlatFormModel.FK_Usagers_Secteur">
+      <End Role="SecteursSRSAD" EntitySet="SecteursSRSAD" />
+      <End Role="Usagers" EntitySet="Usagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seuils_Type" Association="WebPlatFormModel.FK_Seuils_Type">
+      <End Role="TypesEquipement" EntitySet="TypesEquipement" />
+      <End Role="SeuilsInventaire" EntitySet="SeuilsInventaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usagers_StatutDossier" Association="WebPlatFormModel.FK_Usagers_StatutDossier">
+      <End Role="StatutsDossierUsager" EntitySet="StatutsDossierUsager" />
+      <End Role="Usagers" EntitySet="Usagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerInfec_Type" Association="WebPlatFormModel.FK_UsagerInfec_Type">
+      <End Role="TypesInfection" EntitySet="TypesInfection" />
+      <End Role="UsagerInfections" EntitySet="UsagerInfections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerInf_Type" Association="WebPlatFormModel.FK_UsagerInf_Type">
+      <End Role="TypesInfestation" EntitySet="TypesInfestation" />
+      <End Role="UsagerInfestations" EntitySet="UsagerInfestations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Visites_TypeInterv" Association="WebPlatFormModel.FK_Visites_TypeInterv">
+      <End Role="TypesIntervenant" EntitySet="TypesIntervenant" />
+      <End Role="Visites" EntitySet="Visites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerAdresses_Usagers" Association="WebPlatFormModel.FK_UsagerAdresses_Usagers">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="UsagerAdresses" EntitySet="UsagerAdresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerInfec_Usager" Association="WebPlatFormModel.FK_UsagerInfec_Usager">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="UsagerInfections" EntitySet="UsagerInfections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerInf_Usager" Association="WebPlatFormModel.FK_UsagerInf_Usager">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="UsagerInfestations" EntitySet="UsagerInfestations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerParticularites_Usagers" Association="WebPlatFormModel.FK_UsagerParticularites_Usagers">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="UsagerParticularites" EntitySet="UsagerParticularites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Visites_Usager" Association="WebPlatFormModel.FK_Visites_Usager">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="Visites" EntitySet="Visites" />
+    </AssociationSet>
+    <AssociationSet Name="AspNetUserRoles" Association="WebPlatFormModel.AspNetUserRoles">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="AgentsPayeurs">
+    <Key>
+      <PropertyRef Name="AgentPayeurID" />
+    </Key>
+    <Property Name="AgentPayeurID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Nom" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CommandesCylindres" Relationship="WebPlatFormModel.FK_CC_AgentPayeur" FromRole="AgentsPayeurs" ToRole="CommandesCylindres" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_Usagers_AgentPayeur" FromRole="AgentsPayeurs" ToRole="Usagers" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Name" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.AspNetUserRoles" FromRole="AspNetRoles" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="ClaimValue" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUserClaims" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ProviderKey" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="UserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUserLogins" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="EmailConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="PasswordHash" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="SecurityStamp" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumber" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="PhoneNumberConfirmed" Type="Boolean" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="DateTime" Precision="3" />
+    <Property Name="LockoutEnabled" Type="Boolean" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="Int32" Nullable="false" />
+    <Property Name="UserName" Type="String" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+    <Property Name="Nom" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Prenom" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DateDerniereConnexion" Type="DateTime" Precision="3" />
+    <Property Name="EstSuperUtilisateur" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="AspNetUserClaims" Relationship="WebPlatFormModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserClaims" />
+    <NavigationProperty Name="AspNetUserLogins" Relationship="WebPlatFormModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" FromRole="AspNetUsers" ToRole="AspNetUserLogins" />
+    <NavigationProperty Name="Assignations" Relationship="WebPlatFormModel.FK_Assignations_CreePar" FromRole="AspNetUsers" ToRole="Assignations" />
+    <NavigationProperty Name="Assignations1" Relationship="WebPlatFormModel.FK_Assignations_ModifiePar" FromRole="AspNetUsers" ToRole="Assignations" />
+    <NavigationProperty Name="AssignationsRemplacants" Relationship="WebPlatFormModel.FK_AssRemp_CreePar" FromRole="AspNetUsers" ToRole="AssignationsRemplacants" />
+    <NavigationProperty Name="JournalAudit" Relationship="WebPlatFormModel.FK_Audit_User" FromRole="AspNetUsers" ToRole="JournalAudit" />
+    <NavigationProperty Name="CommandesCylindres" Relationship="WebPlatFormModel.FK_CC_User" FromRole="AspNetUsers" ToRole="CommandesCylindres" />
+    <NavigationProperty Name="ControlesQualite" Relationship="WebPlatFormModel.FK_CQ_User" FromRole="AspNetUsers" ToRole="ControlesQualite" />
+    <NavigationProperty Name="Entretiens" Relationship="WebPlatFormModel.FK_Ent_User" FromRole="AspNetUsers" ToRole="Entretiens" />
+    <NavigationProperty Name="Equipements" Relationship="WebPlatFormModel.FK_Equip_CreePar" FromRole="AspNetUsers" ToRole="Equipements" />
+    <NavigationProperty Name="Equipements1" Relationship="WebPlatFormModel.FK_Equip_ModifiePar" FromRole="AspNetUsers" ToRole="Equipements" />
+    <NavigationProperty Name="GabaritsEntretien" Relationship="WebPlatFormModel.FK_GE_User" FromRole="AspNetUsers" ToRole="GabaritsEntretien" />
+    <NavigationProperty Name="HistoriqueStatutsEquipement" Relationship="WebPlatFormModel.FK_HSE_User" FromRole="AspNetUsers" ToRole="HistoriqueStatutsEquipement" />
+    <NavigationProperty Name="ImportFacturationCylindres" Relationship="WebPlatFormModel.FK_IFC_User" FromRole="AspNetUsers" ToRole="ImportFacturationCylindres" />
+    <NavigationProperty Name="Intervenants" Relationship="WebPlatFormModel.FK_Intervenants_AspNetUsers" FromRole="AspNetUsers" ToRole="Intervenants" />
+    <NavigationProperty Name="Intervenants1" Relationship="WebPlatFormModel.FK_Intervenants_CreePar" FromRole="AspNetUsers" ToRole="Intervenants" />
+    <NavigationProperty Name="Intervenants2" Relationship="WebPlatFormModel.FK_Intervenants_ModifiePar" FromRole="AspNetUsers" ToRole="Intervenants" />
+    <NavigationProperty Name="LecturesCompteur" Relationship="WebPlatFormModel.FK_LC_User" FromRole="AspNetUsers" ToRole="LecturesCompteur" />
+    <NavigationProperty Name="Notifications" Relationship="WebPlatFormModel.FK_Notif_User" FromRole="AspNetUsers" ToRole="Notifications" />
+    <NavigationProperty Name="Pannes" Relationship="WebPlatFormModel.FK_Pannes_User" FromRole="AspNetUsers" ToRole="Pannes" />
+    <NavigationProperty Name="PretsEquipement" Relationship="WebPlatFormModel.FK_Pret_CreePar" FromRole="AspNetUsers" ToRole="PretsEquipement" />
+    <NavigationProperty Name="PretsEquipement1" Relationship="WebPlatFormModel.FK_Pret_ValidePar" FromRole="AspNetUsers" ToRole="PretsEquipement" />
+    <NavigationProperty Name="Reparations" Relationship="WebPlatFormModel.FK_Repar_User" FromRole="AspNetUsers" ToRole="Reparations" />
+    <NavigationProperty Name="ReglesNotification" Relationship="WebPlatFormModel.FK_RN_User" FromRole="AspNetUsers" ToRole="ReglesNotification" />
+    <NavigationProperty Name="SeuilsInventaire" Relationship="WebPlatFormModel.FK_Seuils_User" FromRole="AspNetUsers" ToRole="SeuilsInventaire" />
+    <NavigationProperty Name="UsagerAdresses" Relationship="WebPlatFormModel.FK_UsagerAdresses_CreePar" FromRole="AspNetUsers" ToRole="UsagerAdresses" />
+    <NavigationProperty Name="UsagerAdresses1" Relationship="WebPlatFormModel.FK_UsagerAdresses_ModifiePar" FromRole="AspNetUsers" ToRole="UsagerAdresses" />
+    <NavigationProperty Name="UsagerInfestations" Relationship="WebPlatFormModel.FK_UsagerInf_CreePar" FromRole="AspNetUsers" ToRole="UsagerInfestations" />
+    <NavigationProperty Name="UsagerInfections" Relationship="WebPlatFormModel.FK_UsagerInfec_CreePar" FromRole="AspNetUsers" ToRole="UsagerInfections" />
+    <NavigationProperty Name="UsagerParticularites" Relationship="WebPlatFormModel.FK_UsagerParticularites_CreePar" FromRole="AspNetUsers" ToRole="UsagerParticularites" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_Usagers_CreePar" FromRole="AspNetUsers" ToRole="Usagers" />
+    <NavigationProperty Name="Usagers1" Relationship="WebPlatFormModel.FK_Usagers_ModifiePar" FromRole="AspNetUsers" ToRole="Usagers" />
+    <NavigationProperty Name="Visites" Relationship="WebPlatFormModel.FK_Visites_CreePar" FromRole="AspNetUsers" ToRole="Visites" />
+    <NavigationProperty Name="AspNetRoles" Relationship="WebPlatFormModel.AspNetUserRoles" FromRole="AspNetUsers" ToRole="AspNetRoles" />
+  </EntityType>
+  <EntityType Name="Assignations">
+    <Key>
+      <PropertyRef Name="AssignationID" />
+    </Key>
+    <Property Name="AssignationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsagerID" Type="Int32" Nullable="false" />
+    <Property Name="TypeIntervenantID" Type="Int32" Nullable="false" />
+    <Property Name="IntervenantID" Type="Int32" Nullable="false" />
+    <Property Name="StatutSuiviID" Type="Int32" />
+    <Property Name="FrequenceValeur" Type="Int32" />
+    <Property Name="FrequenceUnite" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="DerniereVisiteDate" Type="DateTime" Precision="0" />
+    <Property Name="DerniereVisiteDureeMinutes" Type="Int32" />
+    <Property Name="ProchaineVisiteDate" Type="DateTime" annotation:StoreGeneratedPattern="Computed" Precision="0" />
+    <Property Name="DateDebut" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DateFin" Type="DateTime" Precision="0" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifieParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateModification" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Assignations_CreePar" FromRole="Assignations" ToRole="AspNetUsers" />
+    <NavigationProperty Name="AspNetUsers1" Relationship="WebPlatFormModel.FK_Assignations_ModifiePar" FromRole="Assignations" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Intervenants" Relationship="WebPlatFormModel.FK_Assignations_Interv" FromRole="Assignations" ToRole="Intervenants" />
+    <NavigationProperty Name="StatutsSuivi" Relationship="WebPlatFormModel.FK_Assignations_StatutSuivi" FromRole="Assignations" ToRole="StatutsSuivi" />
+    <NavigationProperty Name="TypesIntervenant" Relationship="WebPlatFormModel.FK_Assignations_TypeInterv" FromRole="Assignations" ToRole="TypesIntervenant" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_Assignations_Usager" FromRole="Assignations" ToRole="Usagers" />
+    <NavigationProperty Name="AssignationsRemplacants" Relationship="WebPlatFormModel.FK_AssRemp_Assignation" FromRole="Assignations" ToRole="AssignationsRemplacants" />
+  </EntityType>
+  <EntityType Name="AssignationsRemplacants">
+    <Key>
+      <PropertyRef Name="AssignationRemplacantID" />
+    </Key>
+    <Property Name="AssignationRemplacantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AssignationID" Type="Int32" Nullable="false" />
+    <Property Name="IntervenantRemplacantID" Type="Int32" Nullable="false" />
+    <Property Name="DateDebut" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DateFin" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="Commentaire" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_AssRemp_CreePar" FromRole="AssignationsRemplacants" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Assignations" Relationship="WebPlatFormModel.FK_AssRemp_Assignation" FromRole="AssignationsRemplacants" ToRole="Assignations" />
+    <NavigationProperty Name="Intervenants" Relationship="WebPlatFormModel.FK_AssRemp_Interv" FromRole="AssignationsRemplacants" ToRole="Intervenants" />
+  </EntityType>
+  <EntityType Name="CLSC">
+    <Key>
+      <PropertyRef Name="CLSCID" />
+    </Key>
+    <Property Name="CLSCID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeCLSC" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="NomCLSC" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Intervenants" Relationship="WebPlatFormModel.FK_Intervenants_CLSC" FromRole="CLSC" ToRole="Intervenants" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_Usagers_CLSC" FromRole="CLSC" ToRole="Usagers" />
+  </EntityType>
+  <EntityType Name="CodesPostauxSecteur">
+    <Key>
+      <PropertyRef Name="CodePostalPrefix" />
+    </Key>
+    <Property Name="CodePostalPrefix" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="SecteurID" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="SecteursSRSAD" Relationship="WebPlatFormModel.FK_CodesPostauxSecteur_SecteursSRSAD" FromRole="CodesPostauxSecteur" ToRole="SecteursSRSAD" />
+  </EntityType>
+  <EntityType Name="CommandeCylindreLignes">
+    <Key>
+      <PropertyRef Name="LigneID" />
+    </Key>
+    <Property Name="LigneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CommandeID" Type="Int32" Nullable="false" />
+    <Property Name="TypeCylindreID" Type="Int32" Nullable="false" />
+    <Property Name="Quantite" Type="Int32" Nullable="false" />
+    <Property Name="PrixUnitaire" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="PrixTotal" Type="Decimal" Precision="21" Scale="2" annotation:StoreGeneratedPattern="Computed" />
+    <NavigationProperty Name="CommandesCylindres" Relationship="WebPlatFormModel.FK_CCL_Commande" FromRole="CommandeCylindreLignes" ToRole="CommandesCylindres" />
+    <NavigationProperty Name="TypesCylindreRef" Relationship="WebPlatFormModel.FK_CCL_Type" FromRole="CommandeCylindreLignes" ToRole="TypesCylindreRef" />
+  </EntityType>
+  <EntityType Name="CommandesCylindres">
+    <Key>
+      <PropertyRef Name="CommandeID" />
+    </Key>
+    <Property Name="CommandeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsagerID" Type="Int32" Nullable="false" />
+    <Property Name="FournisseurID" Type="Int32" Nullable="false" />
+    <Property Name="AgentPayeurID" Type="Int32" />
+    <Property Name="CentreDeCout" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="BonCommande" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="TypeLivraisonID" Type="Int32" Nullable="false" />
+    <Property Name="MotifCommandeID" Type="Int32" Nullable="false" />
+    <Property Name="DateLivraisonDemandee" Type="DateTime" Precision="0" />
+    <Property Name="Commentaire" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Statut" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AgentsPayeurs" Relationship="WebPlatFormModel.FK_CC_AgentPayeur" FromRole="CommandesCylindres" ToRole="AgentsPayeurs" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_CC_User" FromRole="CommandesCylindres" ToRole="AspNetUsers" />
+    <NavigationProperty Name="CommandeCylindreLignes" Relationship="WebPlatFormModel.FK_CCL_Commande" FromRole="CommandesCylindres" ToRole="CommandeCylindreLignes" />
+    <NavigationProperty Name="Fournisseurs" Relationship="WebPlatFormModel.FK_CC_Fourn" FromRole="CommandesCylindres" ToRole="Fournisseurs" />
+    <NavigationProperty Name="TypesLivraisonRef" Relationship="WebPlatFormModel.FK_CC_Livraison" FromRole="CommandesCylindres" ToRole="TypesLivraisonRef" />
+    <NavigationProperty Name="MotifsCommandeCylindreRef" Relationship="WebPlatFormModel.FK_CC_Motif" FromRole="CommandesCylindres" ToRole="MotifsCommandeCylindreRef" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_CC_Usager" FromRole="CommandesCylindres" ToRole="Usagers" />
+  </EntityType>
+  <EntityType Name="ControlesQualite">
+    <Key>
+      <PropertyRef Name="ControleID" />
+    </Key>
+    <Property Name="ControleID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EquipementID" Type="Int32" Nullable="false" />
+    <Property Name="DateControle" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LectureID" Type="Int32" />
+    <Property Name="Conforme" Type="Boolean" Nullable="false" />
+    <Property Name="DetailsJSON" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Commentaire" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_CQ_User" FromRole="ControlesQualite" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Equipements" Relationship="WebPlatFormModel.FK_CQ_Equip" FromRole="ControlesQualite" ToRole="Equipements" />
+    <NavigationProperty Name="LecturesCompteur" Relationship="WebPlatFormModel.FK_CQ_Lecture" FromRole="ControlesQualite" ToRole="LecturesCompteur" />
+  </EntityType>
+  <EntityType Name="Entretiens">
+    <Key>
+      <PropertyRef Name="EntretienID" />
+    </Key>
+    <Property Name="EntretienID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EquipementID" Type="Int32" Nullable="false" />
+    <Property Name="DateEntretien" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="LectureID" Type="Int32" />
+    <Property Name="DetailsJSON" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Commentaire" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Ent_User" FromRole="Entretiens" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Equipements" Relationship="WebPlatFormModel.FK_Ent_Equip" FromRole="Entretiens" ToRole="Equipements" />
+    <NavigationProperty Name="LecturesCompteur" Relationship="WebPlatFormModel.FK_Ent_Lecture" FromRole="Entretiens" ToRole="LecturesCompteur" />
+  </EntityType>
+  <EntityType Name="Equipements">
+    <Key>
+      <PropertyRef Name="EquipementID" />
+    </Key>
+    <Property Name="EquipementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeEquipementID" Type="Int32" Nullable="false" />
+    <Property Name="NoInventaireSRSAD" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="Modele" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="NumeroSerie" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="FournisseurID" Type="Int32" />
+    <Property Name="ManufacturierID" Type="Int32" />
+    <Property Name="UsagerAchatID" Type="Int32" />
+    <Property Name="DateAchat" Type="DateTime" Precision="0" />
+    <Property Name="DateFacturation" Type="DateTime" Precision="0" />
+    <Property Name="PrixAchat" Type="Decimal" Precision="12" Scale="2" />
+    <Property Name="DateLivraisonCEMTL" Type="DateTime" Precision="0" />
+    <Property Name="DateMiseEnService" Type="DateTime" Precision="0" />
+    <Property Name="GarantieNbAnnees" Type="Int32" />
+    <Property Name="GarantieFin" Type="DateTime" annotation:StoreGeneratedPattern="Computed" Precision="0" />
+    <Property Name="DureeVieMois" Type="Int32" />
+    <Property Name="TypeAcquisitionID" Type="Int32" />
+    <Property Name="AgentPayeurAcquisition" Type="String" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="BonCommandeAcquisition" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="StatutTabagique" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="EstFumeurIrreversible" Type="Boolean" Nullable="false" />
+    <Property Name="EstInfestation" Type="Boolean" Nullable="false" />
+    <Property Name="EstInfection" Type="Boolean" Nullable="false" />
+    <Property Name="Commentaires" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifieParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateModification" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Equip_CreePar" FromRole="Equipements" ToRole="AspNetUsers" />
+    <NavigationProperty Name="AspNetUsers1" Relationship="WebPlatFormModel.FK_Equip_ModifiePar" FromRole="Equipements" ToRole="AspNetUsers" />
+    <NavigationProperty Name="ControlesQualite" Relationship="WebPlatFormModel.FK_CQ_Equip" FromRole="Equipements" ToRole="ControlesQualite" />
+    <NavigationProperty Name="Entretiens" Relationship="WebPlatFormModel.FK_Ent_Equip" FromRole="Equipements" ToRole="Entretiens" />
+    <NavigationProperty Name="Fournisseurs" Relationship="WebPlatFormModel.FK_Equip_Fourn" FromRole="Equipements" ToRole="Fournisseurs" />
+    <NavigationProperty Name="Manufacturiers" Relationship="WebPlatFormModel.FK_Equip_Manuf" FromRole="Equipements" ToRole="Manufacturiers" />
+    <NavigationProperty Name="TypesEquipement" Relationship="WebPlatFormModel.FK_Equip_Type" FromRole="Equipements" ToRole="TypesEquipement" />
+    <NavigationProperty Name="TypesAcquisitionRef" Relationship="WebPlatFormModel.FK_Equip_TypeAcq" FromRole="Equipements" ToRole="TypesAcquisitionRef" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_Equip_UsagerAchat" FromRole="Equipements" ToRole="Usagers" />
+    <NavigationProperty Name="HistoriqueStatutsEquipement" Relationship="WebPlatFormModel.FK_HSE_Equip" FromRole="Equipements" ToRole="HistoriqueStatutsEquipement" />
+    <NavigationProperty Name="LecturesCompteur" Relationship="WebPlatFormModel.FK_LC_Equip" FromRole="Equipements" ToRole="LecturesCompteur" />
+    <NavigationProperty Name="Pannes" Relationship="WebPlatFormModel.FK_Pannes_Equip" FromRole="Equipements" ToRole="Pannes" />
+    <NavigationProperty Name="PretsEquipement" Relationship="WebPlatFormModel.FK_Pret_Equip" FromRole="Equipements" ToRole="PretsEquipement" />
+  </EntityType>
+  <EntityType Name="Fournisseurs">
+    <Key>
+      <PropertyRef Name="FournisseurID" />
+    </Key>
+    <Property Name="FournisseurID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Nom" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CommandesCylindres" Relationship="WebPlatFormModel.FK_CC_Fourn" FromRole="Fournisseurs" ToRole="CommandesCylindres" />
+    <NavigationProperty Name="Equipements" Relationship="WebPlatFormModel.FK_Equip_Fourn" FromRole="Fournisseurs" ToRole="Equipements" />
+    <NavigationProperty Name="ImportFacturationCylindres" Relationship="WebPlatFormModel.FK_IFC_Fourn" FromRole="Fournisseurs" ToRole="ImportFacturationCylindres" />
+  </EntityType>
+  <EntityType Name="GabaritsEntretien">
+    <Key>
+      <PropertyRef Name="GabaritID" />
+    </Key>
+    <Property Name="GabaritID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeEquipementID" Type="Int32" Nullable="false" />
+    <Property Name="Modele" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="HeuresEntreControles" Type="Int32" />
+    <Property Name="HeuresEntreEntretiens" Type="Int32" />
+    <Property Name="MargeErreurHeures" Type="Int32" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_GE_User" FromRole="GabaritsEntretien" ToRole="AspNetUsers" />
+    <NavigationProperty Name="TypesEquipement" Relationship="WebPlatFormModel.FK_GE_Type" FromRole="GabaritsEntretien" ToRole="TypesEquipement" />
+  </EntityType>
+  <EntityType Name="HistoriqueStatutsEquipement">
+    <Key>
+      <PropertyRef Name="HistoriqueStatutID" />
+    </Key>
+    <Property Name="HistoriqueStatutID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EquipementID" Type="Int32" Nullable="false" />
+    <Property Name="StatutEquipementID" Type="Int32" Nullable="false" />
+    <Property Name="DateChangement" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Commentaire" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_HSE_User" FromRole="HistoriqueStatutsEquipement" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Equipements" Relationship="WebPlatFormModel.FK_HSE_Equip" FromRole="HistoriqueStatutsEquipement" ToRole="Equipements" />
+    <NavigationProperty Name="StatutsEquipementRef" Relationship="WebPlatFormModel.FK_HSE_Statut" FromRole="HistoriqueStatutsEquipement" ToRole="StatutsEquipementRef" />
+  </EntityType>
+  <EntityType Name="ImportFacturationCylindres">
+    <Key>
+      <PropertyRef Name="ImportID" />
+    </Key>
+    <Property Name="ImportID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="FournisseurID" Type="Int32" Nullable="false" />
+    <Property Name="PeriodeFinID" Type="Int32" />
+    <Property Name="NomFichier" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="DateImport" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ImporteParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="Statut" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_IFC_User" FromRole="ImportFacturationCylindres" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Fournisseurs" Relationship="WebPlatFormModel.FK_IFC_Fourn" FromRole="ImportFacturationCylindres" ToRole="Fournisseurs" />
+    <NavigationProperty Name="PeriodesFinancieresRef" Relationship="WebPlatFormModel.FK_IFC_Periode" FromRole="ImportFacturationCylindres" ToRole="PeriodesFinancieresRef" />
+  </EntityType>
+  <EntityType Name="Intervenants">
+    <Key>
+      <PropertyRef Name="IntervenantID" />
+    </Key>
+    <Property Name="IntervenantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeIntervenantID" Type="Int32" Nullable="false" />
+    <Property Name="CLSCID" Type="Int32" />
+    <Property Name="SecteurID" Type="Int32" />
+    <Property Name="Nom" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="Prenom" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="Email" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Telephone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <Property Name="UserIdAspNet" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifieParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateModification" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Intervenants_AspNetUsers" FromRole="Intervenants" ToRole="AspNetUsers" />
+    <NavigationProperty Name="AspNetUsers1" Relationship="WebPlatFormModel.FK_Intervenants_CreePar" FromRole="Intervenants" ToRole="AspNetUsers" />
+    <NavigationProperty Name="AspNetUsers2" Relationship="WebPlatFormModel.FK_Intervenants_ModifiePar" FromRole="Intervenants" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Assignations" Relationship="WebPlatFormModel.FK_Assignations_Interv" FromRole="Intervenants" ToRole="Assignations" />
+    <NavigationProperty Name="AssignationsRemplacants" Relationship="WebPlatFormModel.FK_AssRemp_Interv" FromRole="Intervenants" ToRole="AssignationsRemplacants" />
+    <NavigationProperty Name="CLSC" Relationship="WebPlatFormModel.FK_Intervenants_CLSC" FromRole="Intervenants" ToRole="CLSC" />
+    <NavigationProperty Name="SecteursSRSAD" Relationship="WebPlatFormModel.FK_Intervenants_Secteur" FromRole="Intervenants" ToRole="SecteursSRSAD" />
+    <NavigationProperty Name="TypesIntervenant" Relationship="WebPlatFormModel.FK_Intervenants_TypesIntervenant" FromRole="Intervenants" ToRole="TypesIntervenant" />
+    <NavigationProperty Name="Visites" Relationship="WebPlatFormModel.FK_Visites_Interv" FromRole="Intervenants" ToRole="Visites" />
+  </EntityType>
+  <EntityType Name="JournalAudit">
+    <Key>
+      <PropertyRef Name="AuditID" />
+    </Key>
+    <Property Name="AuditID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DateHeure" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Action" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="TableConcernee" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="ClePrimaire" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="AnciennesValeurs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="NouvellesValeurs" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="UtilisateurId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Audit_User" FromRole="JournalAudit" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="LecturesCompteur">
+    <Key>
+      <PropertyRef Name="LectureID" />
+    </Key>
+    <Property Name="LectureID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EquipementID" Type="Int32" Nullable="false" />
+    <Property Name="DateLecture" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Heures" Type="Int32" Nullable="false" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_LC_User" FromRole="LecturesCompteur" ToRole="AspNetUsers" />
+    <NavigationProperty Name="ControlesQualite" Relationship="WebPlatFormModel.FK_CQ_Lecture" FromRole="LecturesCompteur" ToRole="ControlesQualite" />
+    <NavigationProperty Name="Entretiens" Relationship="WebPlatFormModel.FK_Ent_Lecture" FromRole="LecturesCompteur" ToRole="Entretiens" />
+    <NavigationProperty Name="Equipements" Relationship="WebPlatFormModel.FK_LC_Equip" FromRole="LecturesCompteur" ToRole="Equipements" />
+  </EntityType>
+  <EntityType Name="Manufacturiers">
+    <Key>
+      <PropertyRef Name="ManufacturierID" />
+    </Key>
+    <Property Name="ManufacturierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Nom" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Equipements" Relationship="WebPlatFormModel.FK_Equip_Manuf" FromRole="Manufacturiers" ToRole="Equipements" />
+  </EntityType>
+  <EntityType Name="MotifsCommandeCylindreRef">
+    <Key>
+      <PropertyRef Name="MotifCommandeID" />
+    </Key>
+    <Property Name="MotifCommandeID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="ForfaitCode" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CommandesCylindres" Relationship="WebPlatFormModel.FK_CC_Motif" FromRole="MotifsCommandeCylindreRef" ToRole="CommandesCylindres" />
+  </EntityType>
+  <EntityType Name="Notifications">
+    <Key>
+      <PropertyRef Name="NotificationID" />
+    </Key>
+    <Property Name="NotificationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DestUserId" Type="String" Nullable="false" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="CodeEvenement" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="ObjetType" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="ObjetId" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="Message" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="EstLue" Type="Boolean" Nullable="false" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Notif_User" FromRole="Notifications" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="Pannes">
+    <Key>
+      <PropertyRef Name="PanneID" />
+    </Key>
+    <Property Name="PanneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EquipementID" Type="Int32" Nullable="false" />
+    <Property Name="DatePanne" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="TypePanneID" Type="Int32" Nullable="false" />
+    <Property Name="Gravite" Type="Byte" />
+    <Property Name="StatutPanne" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Pannes_User" FromRole="Pannes" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Equipements" Relationship="WebPlatFormModel.FK_Pannes_Equip" FromRole="Pannes" ToRole="Equipements" />
+    <NavigationProperty Name="TypesPanneRef" Relationship="WebPlatFormModel.FK_Pannes_Type" FromRole="Pannes" ToRole="TypesPanneRef" />
+    <NavigationProperty Name="Reparations" Relationship="WebPlatFormModel.FK_Repar_Panne" FromRole="Pannes" ToRole="Reparations" />
+  </EntityType>
+  <EntityType Name="ParticularitesUsagerRef">
+    <Key>
+      <PropertyRef Name="ParticulariteID" />
+    </Key>
+    <Property Name="ParticulariteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="NiveauAlerte" Type="Byte" Nullable="false" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UsagerParticularites" Relationship="WebPlatFormModel.FK_UsagerParticularites_Ref" FromRole="ParticularitesUsagerRef" ToRole="UsagerParticularites" />
+  </EntityType>
+  <EntityType Name="PeriodesFinancieresRef">
+    <Key>
+      <PropertyRef Name="PeriodeFinID" />
+    </Key>
+    <Property Name="PeriodeFinID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="DateDebut" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DateFin" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="EstActive" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="ImportFacturationCylindres" Relationship="WebPlatFormModel.FK_IFC_Periode" FromRole="PeriodesFinancieresRef" ToRole="ImportFacturationCylindres" />
+  </EntityType>
+  <EntityType Name="PretsEquipement">
+    <Key>
+      <PropertyRef Name="PretID" />
+    </Key>
+    <Property Name="PretID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="EquipementID" Type="Int32" Nullable="false" />
+    <Property Name="UsagerID" Type="Int32" Nullable="false" />
+    <Property Name="DateDebut" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DateFin" Type="DateTime" Precision="0" />
+    <Property Name="Commentaire" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="ValideParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateValidation" Type="DateTime" Precision="3" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Pret_CreePar" FromRole="PretsEquipement" ToRole="AspNetUsers" />
+    <NavigationProperty Name="AspNetUsers1" Relationship="WebPlatFormModel.FK_Pret_ValidePar" FromRole="PretsEquipement" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Equipements" Relationship="WebPlatFormModel.FK_Pret_Equip" FromRole="PretsEquipement" ToRole="Equipements" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_Pret_Usager" FromRole="PretsEquipement" ToRole="Usagers" />
+  </EntityType>
+  <EntityType Name="ReglesNotification">
+    <Key>
+      <PropertyRef Name="RegleNotifID" />
+    </Key>
+    <Property Name="RegleNotifID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CodeEvenement" Type="String" Nullable="false" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="CritereJSON" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="DestinatairesJSON" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="Canal" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EstActive" Type="Boolean" Nullable="false" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_RN_User" FromRole="ReglesNotification" ToRole="AspNetUsers" />
+  </EntityType>
+  <EntityType Name="Reparations">
+    <Key>
+      <PropertyRef Name="ReparationID" />
+    </Key>
+    <Property Name="ReparationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PanneID" Type="Int32" Nullable="false" />
+    <Property Name="DateIntervention" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="Resultat" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="Cout" Type="Decimal" Precision="12" Scale="2" />
+    <Property Name="Commentaire" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Repar_User" FromRole="Reparations" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Pannes" Relationship="WebPlatFormModel.FK_Repar_Panne" FromRole="Reparations" ToRole="Pannes" />
+  </EntityType>
+  <EntityType Name="SecteursSRSAD">
+    <Key>
+      <PropertyRef Name="SecteurID" />
+    </Key>
+    <Property Name="SecteurID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Nom" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CodesPostauxSecteur" Relationship="WebPlatFormModel.FK_CodesPostauxSecteur_SecteursSRSAD" FromRole="SecteursSRSAD" ToRole="CodesPostauxSecteur" />
+    <NavigationProperty Name="Intervenants" Relationship="WebPlatFormModel.FK_Intervenants_Secteur" FromRole="SecteursSRSAD" ToRole="Intervenants" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_Usagers_Secteur" FromRole="SecteursSRSAD" ToRole="Usagers" />
+  </EntityType>
+  <EntityType Name="SeuilsInventaire">
+    <Key>
+      <PropertyRef Name="TypeEquipementID" />
+    </Key>
+    <Property Name="TypeEquipementID" Type="Int32" Nullable="false" />
+    <Property Name="SeuilMin" Type="Int32" Nullable="false" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Seuils_User" FromRole="SeuilsInventaire" ToRole="AspNetUsers" />
+    <NavigationProperty Name="TypesEquipement" Relationship="WebPlatFormModel.FK_Seuils_Type" FromRole="SeuilsInventaire" ToRole="TypesEquipement" />
+  </EntityType>
+  <EntityType Name="StatutsDossierUsager">
+    <Key>
+      <PropertyRef Name="StatutDossierID" />
+    </Key>
+    <Property Name="StatutDossierID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_Usagers_StatutDossier" FromRole="StatutsDossierUsager" ToRole="Usagers" />
+  </EntityType>
+  <EntityType Name="StatutsEquipementRef">
+    <Key>
+      <PropertyRef Name="StatutEquipementID" />
+    </Key>
+    <Property Name="StatutEquipementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <Property Name="DeclencheNotif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="HistoriqueStatutsEquipement" Relationship="WebPlatFormModel.FK_HSE_Statut" FromRole="StatutsEquipementRef" ToRole="HistoriqueStatutsEquipement" />
+  </EntityType>
+  <EntityType Name="StatutsSuivi">
+    <Key>
+      <PropertyRef Name="StatutSuiviID" />
+    </Key>
+    <Property Name="StatutSuiviID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Assignations" Relationship="WebPlatFormModel.FK_Assignations_StatutSuivi" FromRole="StatutsSuivi" ToRole="Assignations" />
+  </EntityType>
+  <EntityType Name="TypesAcquisitionRef">
+    <Key>
+      <PropertyRef Name="TypeAcquisitionID" />
+    </Key>
+    <Property Name="TypeAcquisitionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Equipements" Relationship="WebPlatFormModel.FK_Equip_TypeAcq" FromRole="TypesAcquisitionRef" ToRole="Equipements" />
+  </EntityType>
+  <EntityType Name="TypesCylindreRef">
+    <Key>
+      <PropertyRef Name="TypeCylindreID" />
+    </Key>
+    <Property Name="TypeCylindreID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="PrixBase" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CommandeCylindreLignes" Relationship="WebPlatFormModel.FK_CCL_Type" FromRole="TypesCylindreRef" ToRole="CommandeCylindreLignes" />
+  </EntityType>
+  <EntityType Name="TypesEquipement">
+    <Key>
+      <PropertyRef Name="TypeEquipementID" />
+    </Key>
+    <Property Name="TypeEquipementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Equipements" Relationship="WebPlatFormModel.FK_Equip_Type" FromRole="TypesEquipement" ToRole="Equipements" />
+    <NavigationProperty Name="GabaritsEntretien" Relationship="WebPlatFormModel.FK_GE_Type" FromRole="TypesEquipement" ToRole="GabaritsEntretien" />
+    <NavigationProperty Name="SeuilsInventaire" Relationship="WebPlatFormModel.FK_Seuils_Type" FromRole="TypesEquipement" ToRole="SeuilsInventaire" />
+  </EntityType>
+  <EntityType Name="TypesInfection">
+    <Key>
+      <PropertyRef Name="TypeInfectionID" />
+    </Key>
+    <Property Name="TypeInfectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Categorie" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UsagerInfections" Relationship="WebPlatFormModel.FK_UsagerInfec_Type" FromRole="TypesInfection" ToRole="UsagerInfections" />
+  </EntityType>
+  <EntityType Name="TypesInfestation">
+    <Key>
+      <PropertyRef Name="TypeInfestationID" />
+    </Key>
+    <Property Name="TypeInfestationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="UsagerInfestations" Relationship="WebPlatFormModel.FK_UsagerInf_Type" FromRole="TypesInfestation" ToRole="UsagerInfestations" />
+    <Property Name="Categorie" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+  </EntityType>
+  <EntityType Name="TypesIntervenant">
+    <Key>
+      <PropertyRef Name="TypeIntervenantID" />
+    </Key>
+    <Property Name="TypeIntervenantID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Assignations" Relationship="WebPlatFormModel.FK_Assignations_TypeInterv" FromRole="TypesIntervenant" ToRole="Assignations" />
+    <NavigationProperty Name="Intervenants" Relationship="WebPlatFormModel.FK_Intervenants_TypesIntervenant" FromRole="TypesIntervenant" ToRole="Intervenants" />
+    <NavigationProperty Name="Visites" Relationship="WebPlatFormModel.FK_Visites_TypeInterv" FromRole="TypesIntervenant" ToRole="Visites" />
+  </EntityType>
+  <EntityType Name="TypesLivraisonRef">
+    <Key>
+      <PropertyRef Name="TypeLivraisonID" />
+    </Key>
+    <Property Name="TypeLivraisonID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+    <Property Name="Surcout" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="CommandesCylindres" Relationship="WebPlatFormModel.FK_CC_Livraison" FromRole="TypesLivraisonRef" ToRole="CommandesCylindres" />
+  </EntityType>
+  <EntityType Name="TypesPanneRef">
+    <Key>
+      <PropertyRef Name="TypePanneID" />
+    </Key>
+    <Property Name="TypePanneID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Libelle" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <NavigationProperty Name="Pannes" Relationship="WebPlatFormModel.FK_Pannes_Type" FromRole="TypesPanneRef" ToRole="Pannes" />
+  </EntityType>
+  <EntityType Name="UsagerAdresses">
+    <Key>
+      <PropertyRef Name="UsagerAdresseID" />
+    </Key>
+    <Property Name="UsagerAdresseID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsagerID" Type="Int32" Nullable="false" />
+    <Property Name="TypeAdresse" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="SourceAdresse" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="EstCourante" Type="Boolean" Nullable="false" />
+    <Property Name="Adresse1" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Adresse2" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Ville" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CodePostal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Pays" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Telephone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Commentaire" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="DateDebutValidite" Type="DateTime" Precision="0" />
+    <Property Name="DateFinValidite" Type="DateTime" Precision="0" />
+    <Property Name="EClinibaseAdresseId" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifieParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateModification" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_UsagerAdresses_CreePar" FromRole="UsagerAdresses" ToRole="AspNetUsers" />
+    <NavigationProperty Name="AspNetUsers1" Relationship="WebPlatFormModel.FK_UsagerAdresses_ModifiePar" FromRole="UsagerAdresses" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_UsagerAdresses_Usagers" FromRole="UsagerAdresses" ToRole="Usagers" />
+  </EntityType>
+  <EntityType Name="UsagerInfections">
+    <Key>
+      <PropertyRef Name="UsagerInfectionID" />
+    </Key>
+    <Property Name="UsagerInfectionID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsagerID" Type="Int32" Nullable="false" />
+    <Property Name="TypeInfectionID" Type="Int32" Nullable="false" />
+    <Property Name="DateDebut" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DateFin" Type="DateTime" Precision="0" />
+    <Property Name="Commentaire" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Source" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_UsagerInfec_CreePar" FromRole="UsagerInfections" ToRole="AspNetUsers" />
+    <NavigationProperty Name="TypesInfection" Relationship="WebPlatFormModel.FK_UsagerInfec_Type" FromRole="UsagerInfections" ToRole="TypesInfection" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_UsagerInfec_Usager" FromRole="UsagerInfections" ToRole="Usagers" />
+  </EntityType>
+  <EntityType Name="UsagerInfestations">
+    <Key>
+      <PropertyRef Name="UsagerInfestationID" />
+    </Key>
+    <Property Name="UsagerInfestationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsagerID" Type="Int32" Nullable="false" />
+    <Property Name="TypeInfestationID" Type="Int32" Nullable="false" />
+    <Property Name="DateDebut" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DateFin" Type="DateTime" Precision="0" />
+    <Property Name="Commentaire" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="Source" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_UsagerInf_CreePar" FromRole="UsagerInfestations" ToRole="AspNetUsers" />
+    <NavigationProperty Name="TypesInfestation" Relationship="WebPlatFormModel.FK_UsagerInf_Type" FromRole="UsagerInfestations" ToRole="TypesInfestation" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_UsagerInf_Usager" FromRole="UsagerInfestations" ToRole="Usagers" />
+  </EntityType>
+  <EntityType Name="UsagerParticularites">
+    <Key>
+      <PropertyRef Name="UsagerID" />
+      <PropertyRef Name="ParticulariteID" />
+      <PropertyRef Name="DateDebut" />
+    </Key>
+    <Property Name="UsagerID" Type="Int32" Nullable="false" />
+    <Property Name="ParticulariteID" Type="Int32" Nullable="false" />
+    <Property Name="DateDebut" Type="DateTime" Nullable="false" Precision="0" />
+    <Property Name="DateFin" Type="DateTime" Precision="0" />
+    <Property Name="Commentaire" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_UsagerParticularites_CreePar" FromRole="UsagerParticularites" ToRole="AspNetUsers" />
+    <NavigationProperty Name="ParticularitesUsagerRef" Relationship="WebPlatFormModel.FK_UsagerParticularites_Ref" FromRole="UsagerParticularites" ToRole="ParticularitesUsagerRef" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_UsagerParticularites_Usagers" FromRole="UsagerParticularites" ToRole="Usagers" />
+  </EntityType>
+  <EntityType Name="Usagers">
+    <Key>
+      <PropertyRef Name="UsagerID" />
+    </Key>
+    <Property Name="UsagerID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="NoDossierInterne" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="NoDossierIPM" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="NoDossierSRSAD" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="DateDerniereSyncEClinibase" Type="DateTime" Precision="3" />
+    <Property Name="RAMQ" Type="String" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="Nom" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="Prenom" Type="String" Nullable="false" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="DateNaissance" Type="DateTime" Precision="0" />
+    <Property Name="Sexe" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Adresse" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+    <Property Name="Ville" Type="String" MaxLength="120" FixedLength="false" Unicode="true" />
+    <Property Name="Province" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <Property Name="CodePostal" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+    <Property Name="Pays" Type="String" MaxLength="80" FixedLength="false" Unicode="true" />
+    <Property Name="Telephone" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="CLSCID" Type="Int32" />
+    <Property Name="SecteurID" Type="Int32" />
+    <Property Name="StatutDossierID" Type="Int32" />
+    <Property Name="CodeHydroQuebec" Type="Boolean" Nullable="false" />
+    <Property Name="AgentPayeurID" Type="Int32" />
+    <Property Name="CentreDeCout" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="BonCommande" Type="String" MaxLength="60" FixedLength="false" Unicode="true" />
+    <Property Name="StatutTabagique" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="ModifieParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateModification" Type="DateTime" Precision="3" />
+    <NavigationProperty Name="AgentsPayeurs" Relationship="WebPlatFormModel.FK_Usagers_AgentPayeur" FromRole="Usagers" ToRole="AgentsPayeurs" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Usagers_CreePar" FromRole="Usagers" ToRole="AspNetUsers" />
+    <NavigationProperty Name="AspNetUsers1" Relationship="WebPlatFormModel.FK_Usagers_ModifiePar" FromRole="Usagers" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Assignations" Relationship="WebPlatFormModel.FK_Assignations_Usager" FromRole="Usagers" ToRole="Assignations" />
+    <NavigationProperty Name="CLSC" Relationship="WebPlatFormModel.FK_Usagers_CLSC" FromRole="Usagers" ToRole="CLSC" />
+    <NavigationProperty Name="CommandesCylindres" Relationship="WebPlatFormModel.FK_CC_Usager" FromRole="Usagers" ToRole="CommandesCylindres" />
+    <NavigationProperty Name="Equipements" Relationship="WebPlatFormModel.FK_Equip_UsagerAchat" FromRole="Usagers" ToRole="Equipements" />
+    <NavigationProperty Name="PretsEquipement" Relationship="WebPlatFormModel.FK_Pret_Usager" FromRole="Usagers" ToRole="PretsEquipement" />
+    <NavigationProperty Name="SecteursSRSAD" Relationship="WebPlatFormModel.FK_Usagers_Secteur" FromRole="Usagers" ToRole="SecteursSRSAD" />
+    <NavigationProperty Name="StatutsDossierUsager" Relationship="WebPlatFormModel.FK_Usagers_StatutDossier" FromRole="Usagers" ToRole="StatutsDossierUsager" />
+    <NavigationProperty Name="UsagerAdresses" Relationship="WebPlatFormModel.FK_UsagerAdresses_Usagers" FromRole="Usagers" ToRole="UsagerAdresses" />
+    <NavigationProperty Name="UsagerInfections" Relationship="WebPlatFormModel.FK_UsagerInfec_Usager" FromRole="Usagers" ToRole="UsagerInfections" />
+    <NavigationProperty Name="UsagerInfestations" Relationship="WebPlatFormModel.FK_UsagerInf_Usager" FromRole="Usagers" ToRole="UsagerInfestations" />
+    <NavigationProperty Name="UsagerParticularites" Relationship="WebPlatFormModel.FK_UsagerParticularites_Usagers" FromRole="Usagers" ToRole="UsagerParticularites" />
+    <NavigationProperty Name="Visites" Relationship="WebPlatFormModel.FK_Visites_Usager" FromRole="Usagers" ToRole="Visites" />
+  </EntityType>
+  <EntityType Name="Visites">
+    <Key>
+      <PropertyRef Name="VisiteID" />
+    </Key>
+    <Property Name="VisiteID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UsagerID" Type="Int32" Nullable="false" />
+    <Property Name="IntervenantID" Type="Int32" Nullable="false" />
+    <Property Name="TypeIntervenantID" Type="Int32" Nullable="false" />
+    <Property Name="DateVisite" Type="DateTime" Nullable="false" Precision="3" />
+    <Property Name="DureeMinutes" Type="Int32" />
+    <Property Name="Notes" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <Property Name="CreeParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
+    <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Visites_CreePar" FromRole="Visites" ToRole="AspNetUsers" />
+    <NavigationProperty Name="Intervenants" Relationship="WebPlatFormModel.FK_Visites_Interv" FromRole="Visites" ToRole="Intervenants" />
+    <NavigationProperty Name="TypesIntervenant" Relationship="WebPlatFormModel.FK_Visites_TypeInterv" FromRole="Visites" ToRole="TypesIntervenant" />
+    <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_Visites_Usager" FromRole="Visites" ToRole="Usagers" />
+  </EntityType>
+  <Association Name="FK_CC_AgentPayeur">
+    <End Type="WebPlatFormModel.AgentsPayeurs" Role="AgentsPayeurs" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.CommandesCylindres" Role="CommandesCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AgentsPayeurs">
+        <PropertyRef Name="AgentPayeurID" />
+      </Principal>
+      <Dependent Role="CommandesCylindres">
+        <PropertyRef Name="AgentPayeurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usagers_AgentPayeur">
+    <End Type="WebPlatFormModel.AgentsPayeurs" Role="AgentsPayeurs" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AgentsPayeurs">
+        <PropertyRef Name="AgentPayeurID" />
+      </Principal>
+      <Dependent Role="Usagers">
+        <PropertyRef Name="AgentPayeurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="WebPlatFormModel.AspNetUserClaims" Role="AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Type="WebPlatFormModel.AspNetUserLogins" Role="AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignations_CreePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Assignations" Role="Assignations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Assignations">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignations_ModifiePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Assignations" Role="Assignations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Assignations">
+        <PropertyRef Name="ModifieParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssRemp_CreePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.AssignationsRemplacants" Role="AssignationsRemplacants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssignationsRemplacants">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Audit_User">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.JournalAudit" Role="JournalAudit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JournalAudit">
+        <PropertyRef Name="UtilisateurId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CC_User">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.CommandesCylindres" Role="CommandesCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CommandesCylindres">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CQ_User">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.ControlesQualite" Role="ControlesQualite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ControlesQualite">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ent_User">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Entretiens" Role="Entretiens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entretiens">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_CreePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Equipements" Role="Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_ModifiePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Equipements" Role="Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="ModifieParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GE_User">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.GabaritsEntretien" Role="GabaritsEntretien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GabaritsEntretien">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HSE_User">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.HistoriqueStatutsEquipement" Role="HistoriqueStatutsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistoriqueStatutsEquipement">
+        <PropertyRef Name="ParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IFC_User">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.ImportFacturationCylindres" Role="ImportFacturationCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ImportFacturationCylindres">
+        <PropertyRef Name="ImporteParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervenants_AspNetUsers">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Intervenants" Role="Intervenants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Intervenants">
+        <PropertyRef Name="UserIdAspNet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervenants_CreePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Intervenants" Role="Intervenants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Intervenants">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervenants_ModifiePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Intervenants" Role="Intervenants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Intervenants">
+        <PropertyRef Name="ModifieParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LC_User">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.LecturesCompteur" Role="LecturesCompteur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LecturesCompteur">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notif_User">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="1" />
+    <End Type="WebPlatFormModel.Notifications" Role="Notifications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Notifications">
+        <PropertyRef Name="DestUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pannes_User">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Pannes" Role="Pannes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pannes">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pret_CreePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.PretsEquipement" Role="PretsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PretsEquipement">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pret_ValidePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.PretsEquipement" Role="PretsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PretsEquipement">
+        <PropertyRef Name="ValideParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Repar_User">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Reparations" Role="Reparations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reparations">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RN_User">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.ReglesNotification" Role="ReglesNotification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ReglesNotification">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seuils_User">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.SeuilsInventaire" Role="SeuilsInventaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SeuilsInventaire">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerAdresses_CreePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.UsagerAdresses" Role="UsagerAdresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsagerAdresses">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerAdresses_ModifiePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.UsagerAdresses" Role="UsagerAdresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsagerAdresses">
+        <PropertyRef Name="ModifieParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerInf_CreePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.UsagerInfestations" Role="UsagerInfestations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsagerInfestations">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerInfec_CreePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.UsagerInfections" Role="UsagerInfections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsagerInfections">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerParticularites_CreePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.UsagerParticularites" Role="UsagerParticularites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsagerParticularites">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usagers_CreePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Usagers">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usagers_ModifiePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Usagers">
+        <PropertyRef Name="ModifieParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Visites_CreePar">
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Visites" Role="Visites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Visites">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignations_Interv">
+    <End Type="WebPlatFormModel.Intervenants" Role="Intervenants" Multiplicity="1" />
+    <End Type="WebPlatFormModel.Assignations" Role="Assignations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Intervenants">
+        <PropertyRef Name="IntervenantID" />
+      </Principal>
+      <Dependent Role="Assignations">
+        <PropertyRef Name="IntervenantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignations_StatutSuivi">
+    <End Type="WebPlatFormModel.StatutsSuivi" Role="StatutsSuivi" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Assignations" Role="Assignations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatutsSuivi">
+        <PropertyRef Name="StatutSuiviID" />
+      </Principal>
+      <Dependent Role="Assignations">
+        <PropertyRef Name="StatutSuiviID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignations_TypeInterv">
+    <End Type="WebPlatFormModel.TypesIntervenant" Role="TypesIntervenant" Multiplicity="1" />
+    <End Type="WebPlatFormModel.Assignations" Role="Assignations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesIntervenant">
+        <PropertyRef Name="TypeIntervenantID" />
+      </Principal>
+      <Dependent Role="Assignations">
+        <PropertyRef Name="TypeIntervenantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignations_Usager">
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="1" />
+    <End Type="WebPlatFormModel.Assignations" Role="Assignations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="Assignations">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssRemp_Assignation">
+    <End Type="WebPlatFormModel.Assignations" Role="Assignations" Multiplicity="1" />
+    <End Type="WebPlatFormModel.AssignationsRemplacants" Role="AssignationsRemplacants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Assignations">
+        <PropertyRef Name="AssignationID" />
+      </Principal>
+      <Dependent Role="AssignationsRemplacants">
+        <PropertyRef Name="AssignationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssRemp_Interv">
+    <End Type="WebPlatFormModel.Intervenants" Role="Intervenants" Multiplicity="1" />
+    <End Type="WebPlatFormModel.AssignationsRemplacants" Role="AssignationsRemplacants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Intervenants">
+        <PropertyRef Name="IntervenantID" />
+      </Principal>
+      <Dependent Role="AssignationsRemplacants">
+        <PropertyRef Name="IntervenantRemplacantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervenants_CLSC">
+    <End Type="WebPlatFormModel.CLSC" Role="CLSC" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Intervenants" Role="Intervenants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLSC">
+        <PropertyRef Name="CLSCID" />
+      </Principal>
+      <Dependent Role="Intervenants">
+        <PropertyRef Name="CLSCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usagers_CLSC">
+    <End Type="WebPlatFormModel.CLSC" Role="CLSC" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLSC">
+        <PropertyRef Name="CLSCID" />
+      </Principal>
+      <Dependent Role="Usagers">
+        <PropertyRef Name="CLSCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CodesPostauxSecteur_SecteursSRSAD">
+    <End Type="WebPlatFormModel.SecteursSRSAD" Role="SecteursSRSAD" Multiplicity="1" />
+    <End Type="WebPlatFormModel.CodesPostauxSecteur" Role="CodesPostauxSecteur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SecteursSRSAD">
+        <PropertyRef Name="SecteurID" />
+      </Principal>
+      <Dependent Role="CodesPostauxSecteur">
+        <PropertyRef Name="SecteurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CCL_Commande">
+    <End Type="WebPlatFormModel.CommandesCylindres" Role="CommandesCylindres" Multiplicity="1" />
+    <End Type="WebPlatFormModel.CommandeCylindreLignes" Role="CommandeCylindreLignes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CommandesCylindres">
+        <PropertyRef Name="CommandeID" />
+      </Principal>
+      <Dependent Role="CommandeCylindreLignes">
+        <PropertyRef Name="CommandeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CCL_Type">
+    <End Type="WebPlatFormModel.TypesCylindreRef" Role="TypesCylindreRef" Multiplicity="1" />
+    <End Type="WebPlatFormModel.CommandeCylindreLignes" Role="CommandeCylindreLignes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesCylindreRef">
+        <PropertyRef Name="TypeCylindreID" />
+      </Principal>
+      <Dependent Role="CommandeCylindreLignes">
+        <PropertyRef Name="TypeCylindreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CC_Fourn">
+    <End Type="WebPlatFormModel.Fournisseurs" Role="Fournisseurs" Multiplicity="1" />
+    <End Type="WebPlatFormModel.CommandesCylindres" Role="CommandesCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fournisseurs">
+        <PropertyRef Name="FournisseurID" />
+      </Principal>
+      <Dependent Role="CommandesCylindres">
+        <PropertyRef Name="FournisseurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CC_Livraison">
+    <End Type="WebPlatFormModel.TypesLivraisonRef" Role="TypesLivraisonRef" Multiplicity="1" />
+    <End Type="WebPlatFormModel.CommandesCylindres" Role="CommandesCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesLivraisonRef">
+        <PropertyRef Name="TypeLivraisonID" />
+      </Principal>
+      <Dependent Role="CommandesCylindres">
+        <PropertyRef Name="TypeLivraisonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CC_Motif">
+    <End Type="WebPlatFormModel.MotifsCommandeCylindreRef" Role="MotifsCommandeCylindreRef" Multiplicity="1" />
+    <End Type="WebPlatFormModel.CommandesCylindres" Role="CommandesCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MotifsCommandeCylindreRef">
+        <PropertyRef Name="MotifCommandeID" />
+      </Principal>
+      <Dependent Role="CommandesCylindres">
+        <PropertyRef Name="MotifCommandeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CC_Usager">
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="1" />
+    <End Type="WebPlatFormModel.CommandesCylindres" Role="CommandesCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="CommandesCylindres">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CQ_Equip">
+    <End Type="WebPlatFormModel.Equipements" Role="Equipements" Multiplicity="1" />
+    <End Type="WebPlatFormModel.ControlesQualite" Role="ControlesQualite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipements">
+        <PropertyRef Name="EquipementID" />
+      </Principal>
+      <Dependent Role="ControlesQualite">
+        <PropertyRef Name="EquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CQ_Lecture">
+    <End Type="WebPlatFormModel.LecturesCompteur" Role="LecturesCompteur" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.ControlesQualite" Role="ControlesQualite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LecturesCompteur">
+        <PropertyRef Name="LectureID" />
+      </Principal>
+      <Dependent Role="ControlesQualite">
+        <PropertyRef Name="LectureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ent_Equip">
+    <End Type="WebPlatFormModel.Equipements" Role="Equipements" Multiplicity="1" />
+    <End Type="WebPlatFormModel.Entretiens" Role="Entretiens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipements">
+        <PropertyRef Name="EquipementID" />
+      </Principal>
+      <Dependent Role="Entretiens">
+        <PropertyRef Name="EquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ent_Lecture">
+    <End Type="WebPlatFormModel.LecturesCompteur" Role="LecturesCompteur" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Entretiens" Role="Entretiens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LecturesCompteur">
+        <PropertyRef Name="LectureID" />
+      </Principal>
+      <Dependent Role="Entretiens">
+        <PropertyRef Name="LectureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_Fourn">
+    <End Type="WebPlatFormModel.Fournisseurs" Role="Fournisseurs" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Equipements" Role="Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fournisseurs">
+        <PropertyRef Name="FournisseurID" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="FournisseurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_Manuf">
+    <End Type="WebPlatFormModel.Manufacturiers" Role="Manufacturiers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Equipements" Role="Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manufacturiers">
+        <PropertyRef Name="ManufacturierID" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="ManufacturierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_Type">
+    <End Type="WebPlatFormModel.TypesEquipement" Role="TypesEquipement" Multiplicity="1" />
+    <End Type="WebPlatFormModel.Equipements" Role="Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesEquipement">
+        <PropertyRef Name="TypeEquipementID" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="TypeEquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_TypeAcq">
+    <End Type="WebPlatFormModel.TypesAcquisitionRef" Role="TypesAcquisitionRef" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Equipements" Role="Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesAcquisitionRef">
+        <PropertyRef Name="TypeAcquisitionID" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="TypeAcquisitionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_UsagerAchat">
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Equipements" Role="Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="UsagerAchatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HSE_Equip">
+    <End Type="WebPlatFormModel.Equipements" Role="Equipements" Multiplicity="1" />
+    <End Type="WebPlatFormModel.HistoriqueStatutsEquipement" Role="HistoriqueStatutsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipements">
+        <PropertyRef Name="EquipementID" />
+      </Principal>
+      <Dependent Role="HistoriqueStatutsEquipement">
+        <PropertyRef Name="EquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LC_Equip">
+    <End Type="WebPlatFormModel.Equipements" Role="Equipements" Multiplicity="1" />
+    <End Type="WebPlatFormModel.LecturesCompteur" Role="LecturesCompteur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipements">
+        <PropertyRef Name="EquipementID" />
+      </Principal>
+      <Dependent Role="LecturesCompteur">
+        <PropertyRef Name="EquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pannes_Equip">
+    <End Type="WebPlatFormModel.Equipements" Role="Equipements" Multiplicity="1" />
+    <End Type="WebPlatFormModel.Pannes" Role="Pannes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipements">
+        <PropertyRef Name="EquipementID" />
+      </Principal>
+      <Dependent Role="Pannes">
+        <PropertyRef Name="EquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pret_Equip">
+    <End Type="WebPlatFormModel.Equipements" Role="Equipements" Multiplicity="1" />
+    <End Type="WebPlatFormModel.PretsEquipement" Role="PretsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipements">
+        <PropertyRef Name="EquipementID" />
+      </Principal>
+      <Dependent Role="PretsEquipement">
+        <PropertyRef Name="EquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IFC_Fourn">
+    <End Type="WebPlatFormModel.Fournisseurs" Role="Fournisseurs" Multiplicity="1" />
+    <End Type="WebPlatFormModel.ImportFacturationCylindres" Role="ImportFacturationCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fournisseurs">
+        <PropertyRef Name="FournisseurID" />
+      </Principal>
+      <Dependent Role="ImportFacturationCylindres">
+        <PropertyRef Name="FournisseurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GE_Type">
+    <End Type="WebPlatFormModel.TypesEquipement" Role="TypesEquipement" Multiplicity="1" />
+    <End Type="WebPlatFormModel.GabaritsEntretien" Role="GabaritsEntretien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesEquipement">
+        <PropertyRef Name="TypeEquipementID" />
+      </Principal>
+      <Dependent Role="GabaritsEntretien">
+        <PropertyRef Name="TypeEquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HSE_Statut">
+    <End Type="WebPlatFormModel.StatutsEquipementRef" Role="StatutsEquipementRef" Multiplicity="1" />
+    <End Type="WebPlatFormModel.HistoriqueStatutsEquipement" Role="HistoriqueStatutsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatutsEquipementRef">
+        <PropertyRef Name="StatutEquipementID" />
+      </Principal>
+      <Dependent Role="HistoriqueStatutsEquipement">
+        <PropertyRef Name="StatutEquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IFC_Periode">
+    <End Type="WebPlatFormModel.PeriodesFinancieresRef" Role="PeriodesFinancieresRef" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.ImportFacturationCylindres" Role="ImportFacturationCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PeriodesFinancieresRef">
+        <PropertyRef Name="PeriodeFinID" />
+      </Principal>
+      <Dependent Role="ImportFacturationCylindres">
+        <PropertyRef Name="PeriodeFinID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervenants_Secteur">
+    <End Type="WebPlatFormModel.SecteursSRSAD" Role="SecteursSRSAD" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Intervenants" Role="Intervenants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SecteursSRSAD">
+        <PropertyRef Name="SecteurID" />
+      </Principal>
+      <Dependent Role="Intervenants">
+        <PropertyRef Name="SecteurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervenants_TypesIntervenant">
+    <End Type="WebPlatFormModel.TypesIntervenant" Role="TypesIntervenant" Multiplicity="1" />
+    <End Type="WebPlatFormModel.Intervenants" Role="Intervenants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesIntervenant">
+        <PropertyRef Name="TypeIntervenantID" />
+      </Principal>
+      <Dependent Role="Intervenants">
+        <PropertyRef Name="TypeIntervenantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Visites_Interv">
+    <End Type="WebPlatFormModel.Intervenants" Role="Intervenants" Multiplicity="1" />
+    <End Type="WebPlatFormModel.Visites" Role="Visites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Intervenants">
+        <PropertyRef Name="IntervenantID" />
+      </Principal>
+      <Dependent Role="Visites">
+        <PropertyRef Name="IntervenantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pannes_Type">
+    <End Type="WebPlatFormModel.TypesPanneRef" Role="TypesPanneRef" Multiplicity="1" />
+    <End Type="WebPlatFormModel.Pannes" Role="Pannes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesPanneRef">
+        <PropertyRef Name="TypePanneID" />
+      </Principal>
+      <Dependent Role="Pannes">
+        <PropertyRef Name="TypePanneID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Repar_Panne">
+    <End Type="WebPlatFormModel.Pannes" Role="Pannes" Multiplicity="1" />
+    <End Type="WebPlatFormModel.Reparations" Role="Reparations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pannes">
+        <PropertyRef Name="PanneID" />
+      </Principal>
+      <Dependent Role="Reparations">
+        <PropertyRef Name="PanneID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerParticularites_Ref">
+    <End Type="WebPlatFormModel.ParticularitesUsagerRef" Role="ParticularitesUsagerRef" Multiplicity="1" />
+    <End Type="WebPlatFormModel.UsagerParticularites" Role="UsagerParticularites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ParticularitesUsagerRef">
+        <PropertyRef Name="ParticulariteID" />
+      </Principal>
+      <Dependent Role="UsagerParticularites">
+        <PropertyRef Name="ParticulariteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pret_Usager">
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="1" />
+    <End Type="WebPlatFormModel.PretsEquipement" Role="PretsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="PretsEquipement">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usagers_Secteur">
+    <End Type="WebPlatFormModel.SecteursSRSAD" Role="SecteursSRSAD" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SecteursSRSAD">
+        <PropertyRef Name="SecteurID" />
+      </Principal>
+      <Dependent Role="Usagers">
+        <PropertyRef Name="SecteurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seuils_Type">
+    <End Type="WebPlatFormModel.TypesEquipement" Role="TypesEquipement" Multiplicity="1" />
+    <End Type="WebPlatFormModel.SeuilsInventaire" Role="SeuilsInventaire" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="TypesEquipement">
+        <PropertyRef Name="TypeEquipementID" />
+      </Principal>
+      <Dependent Role="SeuilsInventaire">
+        <PropertyRef Name="TypeEquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usagers_StatutDossier">
+    <End Type="WebPlatFormModel.StatutsDossierUsager" Role="StatutsDossierUsager" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatutsDossierUsager">
+        <PropertyRef Name="StatutDossierID" />
+      </Principal>
+      <Dependent Role="Usagers">
+        <PropertyRef Name="StatutDossierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerInfec_Type">
+    <End Type="WebPlatFormModel.TypesInfection" Role="TypesInfection" Multiplicity="1" />
+    <End Type="WebPlatFormModel.UsagerInfections" Role="UsagerInfections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesInfection">
+        <PropertyRef Name="TypeInfectionID" />
+      </Principal>
+      <Dependent Role="UsagerInfections">
+        <PropertyRef Name="TypeInfectionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerInf_Type">
+    <End Type="WebPlatFormModel.TypesInfestation" Role="TypesInfestation" Multiplicity="1" />
+    <End Type="WebPlatFormModel.UsagerInfestations" Role="UsagerInfestations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesInfestation">
+        <PropertyRef Name="TypeInfestationID" />
+      </Principal>
+      <Dependent Role="UsagerInfestations">
+        <PropertyRef Name="TypeInfestationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Visites_TypeInterv">
+    <End Type="WebPlatFormModel.TypesIntervenant" Role="TypesIntervenant" Multiplicity="1" />
+    <End Type="WebPlatFormModel.Visites" Role="Visites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesIntervenant">
+        <PropertyRef Name="TypeIntervenantID" />
+      </Principal>
+      <Dependent Role="Visites">
+        <PropertyRef Name="TypeIntervenantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerAdresses_Usagers">
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="1" />
+    <End Type="WebPlatFormModel.UsagerAdresses" Role="UsagerAdresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="UsagerAdresses">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerInfec_Usager">
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="1" />
+    <End Type="WebPlatFormModel.UsagerInfections" Role="UsagerInfections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="UsagerInfections">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerInf_Usager">
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="1" />
+    <End Type="WebPlatFormModel.UsagerInfestations" Role="UsagerInfestations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="UsagerInfestations">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerParticularites_Usagers">
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="1" />
+    <End Type="WebPlatFormModel.UsagerParticularites" Role="UsagerParticularites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="UsagerParticularites">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Visites_Usager">
+    <End Type="WebPlatFormModel.Usagers" Role="Usagers" Multiplicity="1" />
+    <End Type="WebPlatFormModel.Visites" Role="Visites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="Visites">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="AspNetUserRoles">
+    <End Type="WebPlatFormModel.AspNetRoles" Role="AspNetRoles" Multiplicity="*" />
+    <End Type="WebPlatFormModel.AspNetUsers" Role="AspNetUsers" Multiplicity="*" />
+  </Association>
+</Schema>

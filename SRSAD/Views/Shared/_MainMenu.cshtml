@@ -1,0 +1,78 @@
+﻿@* Menu principal condensé pour limiter le nombre d'entrées de premier niveau *@
+<ul class="navbar-nav me-auto mb-2 mb-lg-0">
+    <li class="nav-item">
+        <a class="nav-link" href="@Url.Action("Index","Dashboard")">
+            <i class="fa-solid fa-chart-pie"></i> Tableau de bord
+        </a>
+    </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="fa-solid fa-layer-group"></i> Opérations
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="@Url.Action("Index","Patient")"><i class="fa fa-user"></i> Patients</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Create","Patient")"><i class="fa fa-plus"></i> Nouveau patient</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","Evaluation")"><i class="fa fa-stethoscope"></i> Évaluations</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Create","Evaluation")"><i class="fa fa-plus"></i> Nouvelle évaluation</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","Demande")"><i class="fa fa-list"></i> Demandes</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Create","Demande")"><i class="fa fa-plus"></i> Nouvelle demande</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("EnCours","Demande")"><i class="fa fa-hourglass-half"></i> Demandes en cours</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Cloturees","Demande")"><i class="fa fa-check-circle"></i> Demandes clôturées</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","PretEquipement")"><i class="fa fa-hand-holding-medical"></i> Prêts</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Actifs","PretEquipement")"><i class="fa fa-play-circle"></i> Prêts actifs</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Create","PretEquipement")"><i class="fa fa-plus"></i> Nouveau prêt</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","Facturation")"><i class="fa fa-file-invoice-dollar"></i> Facturation</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Create","Facturation")"><i class="fa fa-plus"></i> Nouvelle facture</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","Equipement")"><i class="fa fa-cogs"></i> Équipements</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Disponibles","Equipement")"><i class="fa fa-check-circle"></i> Équipements disponibles</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Create","Equipement")"><i class="fa fa-plus"></i> Nouvel équipement</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","ControleQualite")"><i class="fa fa-clipboard-check"></i> Contrôles qualité</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","Panne")"><i class="fa fa-exclamation-triangle"></i> Pannes</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","Reparation")"><i class="fa fa-tools"></i> Réparations</a></li>
+        </ul>
+    </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="fa-solid fa-briefcase"></i> Référentiels
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="@Url.Action("Index","TypeEquipement")"><i class="fa fa-tags"></i> Types d'équipement</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","StatutEquipement")"><i class="fa fa-info-circle"></i> Statuts équipement</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","StatutDemande")"><i class="fa fa-tasks"></i> Statuts demande</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","TypeIntervenant")"><i class="fa fa-user-tag"></i> Types d'intervenant</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","Intervenant")"><i class="fa fa-user-md"></i> Intervenants</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Create","Intervenant")"><i class="fa fa-plus"></i> Nouvel intervenant</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","AgentPayeur")"><i class="fa fa-university"></i> Agents payeurs</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Create","AgentPayeur")"><i class="fa fa-plus"></i> Nouvel agent payeur</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","Fournisseur")"><i class="fa fa-truck"></i> Fournisseurs</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Create","Fournisseur")"><i class="fa fa-plus"></i> Nouveau fournisseur</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","CommandeCylindres")"><i class="fa fa-cart-shopping"></i> Commandes cylindres</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Create","CommandeCylindres")"><i class="fa fa-plus"></i> Nouvelle commande</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","JournalAudit")"><i class="fa fa-history"></i> Journal d'audit</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","Vue_Equipements_Disponibles")"><i class="fa fa-eye"></i> Vue équipements disponibles</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","Vue_Prets_Actifs")"><i class="fa fa-eye"></i> Vue prêts actifs</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("Index","Vue_Pannes_Critiques")"><i class="fa fa-eye"></i> Vue pannes critiques</a></li>
+        </ul>
+    </li>
+
+    <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
+            <i class="fa-solid fa-chart-bar"></i> Rapports
+        </a>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="@Url.Action("RapportDemandes","Rapport")"><i class="fa fa-file-alt"></i> Demandes par statut</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("RapportPrets","Rapport")"><i class="fa fa-chart-line"></i> Prêts par période</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("RapportPannes","Rapport")"><i class="fa fa-exclamation-circle"></i> Pannes par équipement</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("RapportInventaire","Rapport")"><i class="fa fa-clipboard-list"></i> Inventaire complet</a></li>
+            <li><a class="dropdown-item" href="@Url.Action("RapportFacturation","Rapport")"><i class="fa fa-money-bill-wave"></i> Facturation en attente</a></li>
+        </ul>
+    </li>
+</ul>

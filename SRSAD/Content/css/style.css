@@ -1,0 +1,176 @@
+﻿     #stages-data-table thead tr th {
+        background-color: #007ba3;
+        color: #fff;
+        font-weight: normal;
+        height: 28px;
+    }
+    #stages-data-table thead tr th:hover {
+        background-color: #007bb2;
+    }
+
+    #stages-data-table th:first-child { 
+        width: 60px!important; 
+
+    }
+    #stages-data-table th:nth-child(4) { 
+        width: 100px!important; 
+
+    }
+
+    #stages-data-table td:first-child { 
+        text-align: center; 
+
+    }
+
+    td .fas {
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    .fa-edit {
+        color: #2e6da4;
+    }
+
+    .fa-file-alt{
+        color: #2e6da4;
+    }
+    .fa-lock {
+        color: #d9534f;
+    }
+
+        .fa-lock:hover, 
+        .fa-lock-open:hover, 
+        .fa-file-alt:hover,
+        .fa-edit:hover {
+            color: #808080;
+        }
+
+    .fa-lock-open {
+        color: #4cae4c;
+    }
+
+    label.error {
+        font-weight: normal;
+        color: #a94442;
+    }
+
+    .inactive {
+        background-color: #f2dede;
+    }
+
+/* Styles pour les vues Patient */
+
+/* Amélioration des tableaux */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 0, 0, 0.075);
+}
+
+/* Cartes avec ombres */
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    margin-bottom: 1.5rem;
+}
+
+/* Badges améliorés */
+.badge {
+    font-size: 0.85em;
+    padding: 0.35em 0.65em;
+}
+
+/* Onglets Bootstrap */
+.nav-tabs .nav-link {
+    color: #495057;
+    border: 1px solid transparent;
+}
+
+    .nav-tabs .nav-link.active {
+        color: #0d6efd;
+        background-color: #fff;
+        border-color: #dee2e6 #dee2e6 #fff;
+    }
+
+/* Boutons avec icônes */
+.btn i {
+    margin-right: 5px;
+}
+
+/* Alerts améliorés */
+.alert {
+    border-radius: 0.375rem;
+}
+
+/* Responsive tables */
+.table-responsive {
+    border-radius: 0.375rem;
+    border: 1px solid #dee2e6;
+}
+
+/* Form spacing */
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+/* Required field indicators */
+.required:after {
+    content: " *";
+    color: #dc3545;
+}
+
+/* Styles spécifiques pour les types d'intervenant */
+
+/* Cartes pour les niveaux d'accès */
+.card-access-level {
+    border-left: 4px solid;
+    border-left-color: var(--access-color);
+}
+
+.card-access-level-1 {
+    --access-color: #28a745;
+}
+
+.card-access-level-2 {
+    --access-color: #17a2b8;
+}
+
+.card-access-level-3 {
+    --access-color: #ffc107;
+}
+
+.card-access-level-4 {
+    --access-color: #dc3545;
+}
+
+/* Badges améliorés pour les rôles */
+.badge-role {
+    font-family: 'Courier New', monospace;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* Table responsive */
+.table-types th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #dee2e6;
+    font-weight: 600;
+}
+
+/* Form layout improvements */
+.form-label {
+    font-weight: 500;
+    color: #495057;
+}
+
+/* Alert styling */
+.alert-type-delete {
+    border-left: 4px solid #dc3545;
+}
+
+/* Hover effects */
+.table-hover tbody tr:hover {
+    background-color: rgba(0, 123, 255, 0.05);
+}

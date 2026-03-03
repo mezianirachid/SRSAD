@@ -1,0 +1,94 @@
+﻿@model IEnumerable<Gl.Models.RolesViewModel>
+
+<link rel="stylesheet" type="text/css" href="~/Content/bootstrap/css/jquery.dataTables.min.css" />
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 style="text-align: center">Liste des utilisateurs</h2>
+
+<p>
+    <input type="button" class="btn btn-info" value="Nouvel utilisateur" onclick="location.href='@Url.Action("Register", "Account")'" />
+    @*<input type="button" class="btn btn-info" value="Réinitiliser un mot de passe" onclick="location.href='@Url.Action("ForgotPassword", "Account")'" />*@
+</p>
+
+<table id="covid-data-table" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+
+            <th style="min-width: 70px">
+                @Html.DisplayName("Nom utilisateur")
+            </th>
+            <th style="min-width: 70px">
+                @Html.DisplayName("Nom")
+            </th>
+            <th style="min-width: 70px">
+                @Html.DisplayName("Prénom")
+            </th>
+            <th style="min-width: 70px">
+                @Html.DisplayName("Courriel")
+            </th>
+
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.OrderByDescending(m => m.Nom))
+        {
+
+            <tr style="background-color:" id="@(String.Format("pr{0}", @item.UserName ))">
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserName)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Prenom)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Courriel)
+                </td>
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Content/bootstrap/js/jquery.dataTables.min.js"></script>
+<script>
+    $('#covid-data-table').DataTable({
+        "dom": '<"top"if>rt<"bottom"lp>',
+        "language": {
+            "sProcessing": "Traitement en cours ...",
+            "sLengthMenu": "Afficher _MENU_ lignes",
+            "sZeroRecords": "Aucun résultat trouvé",
+            "sEmptyTable": "Aucune donnée disponible",
+            "sInfo": "Lignes _START_ à _END_ sur _TOTAL_",
+            "sInfoEmpty": "Aucune ligne affichée",
+            "sInfoFiltered": "(Filtrer un maximum de_MAX_)",
+            "sInfoPostFix": "",
+            "sSearch": "Rechercher:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Chargement...",
+            "oPaginate": {
+                "sFirst": "Premier", "sLast": "Dernier", "sNext": "Suivant", "sPrevious": "Précédent"
+            },
+            "oAria": {
+                "sSortAscending": ": Trier par ordre croissant", "sSortDescending": ": Trier par ordre décroissant"
+            }
+        }
+    });
+</script>
+
+
+
+
+
+
+

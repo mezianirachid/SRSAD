@@ -1,0 +1,2096 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="WebPlatFormModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="AgentsPayeurs">
+    <Key>
+      <PropertyRef Name="AgentPayeurID" />
+    </Key>
+    <Property Name="AgentPayeurID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetRoles">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserClaims">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ClaimType" Type="nvarchar(max)" />
+    <Property Name="ClaimValue" Type="nvarchar(max)" />
+  </EntityType>
+  <EntityType Name="AspNetUserLogins">
+    <Key>
+      <PropertyRef Name="LoginProvider" />
+      <PropertyRef Name="ProviderKey" />
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="LoginProvider" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="ProviderKey" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUserRoles">
+    <Key>
+      <PropertyRef Name="UserId" />
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="UserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="RoleId" Type="nvarchar" MaxLength="128" Nullable="false" />
+  </EntityType>
+  <EntityType Name="AspNetUsers">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="256" />
+    <Property Name="EmailConfirmed" Type="bit" Nullable="false" />
+    <Property Name="PasswordHash" Type="nvarchar(max)" />
+    <Property Name="SecurityStamp" Type="nvarchar(max)" />
+    <Property Name="PhoneNumber" Type="nvarchar(max)" />
+    <Property Name="PhoneNumberConfirmed" Type="bit" Nullable="false" />
+    <Property Name="TwoFactorEnabled" Type="bit" Nullable="false" />
+    <Property Name="LockoutEndDateUtc" Type="datetime" />
+    <Property Name="LockoutEnabled" Type="bit" Nullable="false" />
+    <Property Name="AccessFailedCount" Type="int" Nullable="false" />
+    <Property Name="UserName" Type="nvarchar" MaxLength="256" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="100" />
+    <Property Name="Prenom" Type="nvarchar" MaxLength="100" />
+    <Property Name="Telephone" Type="nvarchar" MaxLength="20" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+    <Property Name="DateDerniereConnexion" Type="datetime" />
+    <Property Name="EstSuperUtilisateur" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Assignations">
+    <Key>
+      <PropertyRef Name="AssignationID" />
+    </Key>
+    <Property Name="AssignationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsagerID" Type="int" Nullable="false" />
+    <Property Name="TypeIntervenantID" Type="int" Nullable="false" />
+    <Property Name="IntervenantID" Type="int" Nullable="false" />
+    <Property Name="StatutSuiviID" Type="int" />
+    <Property Name="FrequenceValeur" Type="int" />
+    <Property Name="FrequenceUnite" Type="nvarchar" MaxLength="10" />
+    <Property Name="DerniereVisiteDate" Type="date" />
+    <Property Name="DerniereVisiteDureeMinutes" Type="int" />
+    <Property Name="ProchaineVisiteDate" Type="date" StoreGeneratedPattern="Computed" />
+    <Property Name="DateDebut" Type="date" Nullable="false" />
+    <Property Name="DateFin" Type="date" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+    <Property Name="ModifieParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateModification" Type="datetime" />
+  </EntityType>
+  <EntityType Name="AssignationsRemplacants">
+    <Key>
+      <PropertyRef Name="AssignationRemplacantID" />
+    </Key>
+    <Property Name="AssignationRemplacantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AssignationID" Type="int" Nullable="false" />
+    <Property Name="IntervenantRemplacantID" Type="int" Nullable="false" />
+    <Property Name="DateDebut" Type="date" Nullable="false" />
+    <Property Name="DateFin" Type="date" Nullable="false" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CLSC">
+    <Key>
+      <PropertyRef Name="CLSCID" />
+    </Key>
+    <Property Name="CLSCID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodeCLSC" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="NomCLSC" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CodesPostauxSecteur">
+    <Key>
+      <PropertyRef Name="CodePostalPrefix" />
+    </Key>
+    <Property Name="CodePostalPrefix" Type="nvarchar" MaxLength="10" Nullable="false" />
+    <Property Name="SecteurID" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="CommandeCylindreLignes">
+    <Key>
+      <PropertyRef Name="LigneID" />
+    </Key>
+    <Property Name="LigneID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CommandeID" Type="int" Nullable="false" />
+    <Property Name="TypeCylindreID" Type="int" Nullable="false" />
+    <Property Name="Quantite" Type="int" Nullable="false" />
+    <Property Name="PrixUnitaire" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="PrixTotal" Type="decimal" Precision="21" Scale="2" StoreGeneratedPattern="Computed" />
+  </EntityType>
+  <EntityType Name="CommandesCylindres">
+    <Key>
+      <PropertyRef Name="CommandeID" />
+    </Key>
+    <Property Name="CommandeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsagerID" Type="int" Nullable="false" />
+    <Property Name="FournisseurID" Type="int" Nullable="false" />
+    <Property Name="AgentPayeurID" Type="int" />
+    <Property Name="CentreDeCout" Type="nvarchar" MaxLength="60" />
+    <Property Name="BonCommande" Type="nvarchar" MaxLength="60" />
+    <Property Name="TypeLivraisonID" Type="int" Nullable="false" />
+    <Property Name="MotifCommandeID" Type="int" Nullable="false" />
+    <Property Name="DateLivraisonDemandee" Type="date" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="500" />
+    <Property Name="Statut" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ControlesQualite">
+    <Key>
+      <PropertyRef Name="ControleID" />
+    </Key>
+    <Property Name="ControleID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EquipementID" Type="int" Nullable="false" />
+    <Property Name="DateControle" Type="datetime" Nullable="false" />
+    <Property Name="LectureID" Type="int" />
+    <Property Name="Conforme" Type="bit" Nullable="false" />
+    <Property Name="DetailsJSON" Type="nvarchar(max)" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Entretiens">
+    <Key>
+      <PropertyRef Name="EntretienID" />
+    </Key>
+    <Property Name="EntretienID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EquipementID" Type="int" Nullable="false" />
+    <Property Name="DateEntretien" Type="datetime" Nullable="false" />
+    <Property Name="LectureID" Type="int" />
+    <Property Name="DetailsJSON" Type="nvarchar(max)" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Equipements">
+    <Key>
+      <PropertyRef Name="EquipementID" />
+    </Key>
+    <Property Name="EquipementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeEquipementID" Type="int" Nullable="false" />
+    <Property Name="NoInventaireSRSAD" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="Modele" Type="nvarchar" MaxLength="120" />
+    <Property Name="NumeroSerie" Type="nvarchar" MaxLength="120" Nullable="false" />
+    <Property Name="FournisseurID" Type="int" />
+    <Property Name="ManufacturierID" Type="int" />
+    <Property Name="UsagerAchatID" Type="int" />
+    <Property Name="DateAchat" Type="date" />
+    <Property Name="DateFacturation" Type="date" />
+    <Property Name="PrixAchat" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="DateLivraisonCEMTL" Type="date" />
+    <Property Name="DateMiseEnService" Type="date" />
+    <Property Name="GarantieNbAnnees" Type="int" />
+    <Property Name="GarantieFin" Type="date" StoreGeneratedPattern="Computed" />
+    <Property Name="DureeVieMois" Type="int" />
+    <Property Name="TypeAcquisitionID" Type="int" />
+    <Property Name="AgentPayeurAcquisition" Type="nvarchar" MaxLength="150" />
+    <Property Name="BonCommandeAcquisition" Type="nvarchar" MaxLength="60" />
+    <Property Name="StatutTabagique" Type="nvarchar" MaxLength="30" />
+    <Property Name="EstFumeurIrreversible" Type="bit" Nullable="false" />
+    <Property Name="EstInfestation" Type="bit" Nullable="false" />
+    <Property Name="EstInfection" Type="bit" Nullable="false" />
+    <Property Name="Commentaires" Type="nvarchar(max)" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+    <Property Name="ModifieParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateModification" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Fournisseurs">
+    <Key>
+      <PropertyRef Name="FournisseurID" />
+    </Key>
+    <Property Name="FournisseurID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="GabaritsEntretien">
+    <Key>
+      <PropertyRef Name="GabaritID" />
+    </Key>
+    <Property Name="GabaritID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeEquipementID" Type="int" Nullable="false" />
+    <Property Name="Modele" Type="nvarchar" MaxLength="120" />
+    <Property Name="HeuresEntreControles" Type="int" />
+    <Property Name="HeuresEntreEntretiens" Type="int" />
+    <Property Name="MargeErreurHeures" Type="int" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="HistoriqueStatutsEquipement">
+    <Key>
+      <PropertyRef Name="HistoriqueStatutID" />
+    </Key>
+    <Property Name="HistoriqueStatutID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EquipementID" Type="int" Nullable="false" />
+    <Property Name="StatutEquipementID" Type="int" Nullable="false" />
+    <Property Name="DateChangement" Type="datetime" Nullable="false" />
+    <Property Name="ParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="500" />
+  </EntityType>
+  <EntityType Name="ImportFacturationCylindres">
+    <Key>
+      <PropertyRef Name="ImportID" />
+    </Key>
+    <Property Name="ImportID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="FournisseurID" Type="int" Nullable="false" />
+    <Property Name="PeriodeFinID" Type="int" />
+    <Property Name="NomFichier" Type="nvarchar" MaxLength="255" />
+    <Property Name="DateImport" Type="datetime" Nullable="false" />
+    <Property Name="ImporteParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="Statut" Type="nvarchar" MaxLength="30" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Intervenants">
+    <Key>
+      <PropertyRef Name="IntervenantID" />
+    </Key>
+    <Property Name="IntervenantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeIntervenantID" Type="int" Nullable="false" />
+    <Property Name="CLSCID" Type="int" />
+    <Property Name="SecteurID" Type="int" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="120" Nullable="false" />
+    <Property Name="Prenom" Type="nvarchar" MaxLength="120" Nullable="false" />
+    <Property Name="Email" Type="nvarchar" MaxLength="255" />
+    <Property Name="Telephone" Type="nvarchar" MaxLength="30" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+    <Property Name="UserIdAspNet" Type="nvarchar" MaxLength="128" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+    <Property Name="ModifieParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateModification" Type="datetime" />
+  </EntityType>
+  <EntityType Name="JournalAudit">
+    <Key>
+      <PropertyRef Name="AuditID" />
+    </Key>
+    <Property Name="AuditID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DateHeure" Type="datetime" Nullable="false" />
+    <Property Name="Action" Type="nvarchar" MaxLength="50" Nullable="false" />
+    <Property Name="TableConcernee" Type="nvarchar" MaxLength="128" />
+    <Property Name="ClePrimaire" Type="nvarchar" MaxLength="128" />
+    <Property Name="AnciennesValeurs" Type="nvarchar(max)" />
+    <Property Name="NouvellesValeurs" Type="nvarchar(max)" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="UtilisateurId" Type="nvarchar" MaxLength="128" />
+  </EntityType>
+  <EntityType Name="LecturesCompteur">
+    <Key>
+      <PropertyRef Name="LectureID" />
+    </Key>
+    <Property Name="LectureID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EquipementID" Type="int" Nullable="false" />
+    <Property Name="DateLecture" Type="datetime" Nullable="false" />
+    <Property Name="Heures" Type="int" Nullable="false" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Manufacturiers">
+    <Key>
+      <PropertyRef Name="ManufacturierID" />
+    </Key>
+    <Property Name="ManufacturierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="MotifsCommandeCylindreRef">
+    <Key>
+      <PropertyRef Name="MotifCommandeID" />
+    </Key>
+    <Property Name="MotifCommandeID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="ForfaitCode" Type="nvarchar" MaxLength="30" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Notifications">
+    <Key>
+      <PropertyRef Name="NotificationID" />
+    </Key>
+    <Property Name="NotificationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DestUserId" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="CodeEvenement" Type="nvarchar" MaxLength="60" Nullable="false" />
+    <Property Name="ObjetType" Type="nvarchar" MaxLength="30" />
+    <Property Name="ObjetId" Type="nvarchar" MaxLength="60" />
+    <Property Name="Message" Type="nvarchar" MaxLength="500" Nullable="false" />
+    <Property Name="EstLue" Type="bit" Nullable="false" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Pannes">
+    <Key>
+      <PropertyRef Name="PanneID" />
+    </Key>
+    <Property Name="PanneID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EquipementID" Type="int" Nullable="false" />
+    <Property Name="DatePanne" Type="datetime" Nullable="false" />
+    <Property Name="TypePanneID" Type="int" Nullable="false" />
+    <Property Name="Gravite" Type="tinyint" />
+    <Property Name="StatutPanne" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Description" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ParticularitesUsagerRef">
+    <Key>
+      <PropertyRef Name="ParticulariteID" />
+    </Key>
+    <Property Name="ParticulariteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="NiveauAlerte" Type="tinyint" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PeriodesFinancieresRef">
+    <Key>
+      <PropertyRef Name="PeriodeFinID" />
+    </Key>
+    <Property Name="PeriodeFinID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="DateDebut" Type="date" Nullable="false" />
+    <Property Name="DateFin" Type="date" Nullable="false" />
+    <Property Name="EstActive" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PretsEquipement">
+    <Key>
+      <PropertyRef Name="PretID" />
+    </Key>
+    <Property Name="PretID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="EquipementID" Type="int" Nullable="false" />
+    <Property Name="UsagerID" Type="int" Nullable="false" />
+    <Property Name="DateDebut" Type="date" Nullable="false" />
+    <Property Name="DateFin" Type="date" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="500" />
+    <Property Name="ValideParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateValidation" Type="datetime" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ReglesNotification">
+    <Key>
+      <PropertyRef Name="RegleNotifID" />
+    </Key>
+    <Property Name="RegleNotifID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CodeEvenement" Type="nvarchar" MaxLength="60" Nullable="false" />
+    <Property Name="CritereJSON" Type="nvarchar(max)" />
+    <Property Name="DestinatairesJSON" Type="nvarchar(max)" />
+    <Property Name="Canal" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="EstActive" Type="bit" Nullable="false" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Reparations">
+    <Key>
+      <PropertyRef Name="ReparationID" />
+    </Key>
+    <Property Name="ReparationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PanneID" Type="int" Nullable="false" />
+    <Property Name="DateIntervention" Type="datetime" Nullable="false" />
+    <Property Name="Resultat" Type="nvarchar" MaxLength="200" />
+    <Property Name="Cout" Type="decimal" Precision="12" Scale="2" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SecteursSRSAD">
+    <Key>
+      <PropertyRef Name="SecteurID" />
+    </Key>
+    <Property Name="SecteurID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="SeuilsInventaire">
+    <Key>
+      <PropertyRef Name="TypeEquipementID" />
+    </Key>
+    <Property Name="TypeEquipementID" Type="int" Nullable="false" />
+    <Property Name="SeuilMin" Type="int" Nullable="false" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatutsDossierUsager">
+    <Key>
+      <PropertyRef Name="StatutDossierID" />
+    </Key>
+    <Property Name="StatutDossierID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="120" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatutsEquipementRef">
+    <Key>
+      <PropertyRef Name="StatutEquipementID" />
+    </Key>
+    <Property Name="StatutEquipementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+    <Property Name="DeclencheNotif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="StatutsSuivi">
+    <Key>
+      <PropertyRef Name="StatutSuiviID" />
+    </Key>
+    <Property Name="StatutSuiviID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="120" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypesAcquisitionRef">
+    <Key>
+      <PropertyRef Name="TypeAcquisitionID" />
+    </Key>
+    <Property Name="TypeAcquisitionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypesCylindreRef">
+    <Key>
+      <PropertyRef Name="TypeCylindreID" />
+    </Key>
+    <Property Name="TypeCylindreID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="PrixBase" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypesEquipement">
+    <Key>
+      <PropertyRef Name="TypeEquipementID" />
+    </Key>
+    <Property Name="TypeEquipementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypesInfection">
+    <Key>
+      <PropertyRef Name="TypeInfectionID" />
+    </Key>
+    <Property Name="TypeInfectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Categorie" Type="nvarchar" MaxLength="30" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypesInfestation">
+    <Key>
+      <PropertyRef Name="TypeInfestationID" />
+    </Key>
+    <Property Name="TypeInfestationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+    <Property Name="Categorie" Type="nvarchar" MaxLength="30" />
+  </EntityType>
+  <EntityType Name="TypesIntervenant">
+    <Key>
+      <PropertyRef Name="TypeIntervenantID" />
+    </Key>
+    <Property Name="TypeIntervenantID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="100" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypesLivraisonRef">
+    <Key>
+      <PropertyRef Name="TypeLivraisonID" />
+    </Key>
+    <Property Name="TypeLivraisonID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="150" Nullable="false" />
+    <Property Name="Surcout" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="TypesPanneRef">
+    <Key>
+      <PropertyRef Name="TypePanneID" />
+    </Key>
+    <Property Name="TypePanneID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
+    <Property Name="Libelle" Type="nvarchar" MaxLength="200" Nullable="false" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsagerAdresses">
+    <Key>
+      <PropertyRef Name="UsagerAdresseID" />
+    </Key>
+    <Property Name="UsagerAdresseID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsagerID" Type="int" Nullable="false" />
+    <Property Name="TypeAdresse" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="SourceAdresse" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="EstCourante" Type="bit" Nullable="false" />
+    <Property Name="Adresse1" Type="nvarchar" MaxLength="255" />
+    <Property Name="Adresse2" Type="nvarchar" MaxLength="255" />
+    <Property Name="Ville" Type="nvarchar" MaxLength="120" />
+    <Property Name="Province" Type="nvarchar" MaxLength="50" />
+    <Property Name="CodePostal" Type="nvarchar" MaxLength="10" />
+    <Property Name="Pays" Type="nvarchar" MaxLength="80" />
+    <Property Name="Telephone" Type="nvarchar" MaxLength="30" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="500" />
+    <Property Name="DateDebutValidite" Type="date" />
+    <Property Name="DateFinValidite" Type="date" />
+    <Property Name="EClinibaseAdresseId" Type="nvarchar" MaxLength="60" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+    <Property Name="ModifieParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateModification" Type="datetime" />
+  </EntityType>
+  <EntityType Name="UsagerInfections">
+    <Key>
+      <PropertyRef Name="UsagerInfectionID" />
+    </Key>
+    <Property Name="UsagerInfectionID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsagerID" Type="int" Nullable="false" />
+    <Property Name="TypeInfectionID" Type="int" Nullable="false" />
+    <Property Name="DateDebut" Type="date" Nullable="false" />
+    <Property Name="DateFin" Type="date" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="500" />
+    <Property Name="Source" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsagerInfestations">
+    <Key>
+      <PropertyRef Name="UsagerInfestationID" />
+    </Key>
+    <Property Name="UsagerInfestationID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsagerID" Type="int" Nullable="false" />
+    <Property Name="TypeInfestationID" Type="int" Nullable="false" />
+    <Property Name="DateDebut" Type="date" Nullable="false" />
+    <Property Name="DateFin" Type="date" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="500" />
+    <Property Name="Source" Type="nvarchar" MaxLength="20" Nullable="false" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="UsagerParticularites">
+    <Key>
+      <PropertyRef Name="UsagerID" />
+      <PropertyRef Name="ParticulariteID" />
+      <PropertyRef Name="DateDebut" />
+    </Key>
+    <Property Name="UsagerID" Type="int" Nullable="false" />
+    <Property Name="ParticulariteID" Type="int" Nullable="false" />
+    <Property Name="DateDebut" Type="date" Nullable="false" />
+    <Property Name="DateFin" Type="date" />
+    <Property Name="Commentaire" Type="nvarchar" MaxLength="500" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <EntityType Name="Usagers">
+    <Key>
+      <PropertyRef Name="UsagerID" />
+    </Key>
+    <Property Name="UsagerID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="NoDossierInterne" Type="nvarchar" MaxLength="60" />
+    <Property Name="NoDossierIPM" Type="nvarchar" MaxLength="30" />
+    <Property Name="NoDossierSRSAD" Type="nvarchar" MaxLength="30" />
+    <Property Name="DateDerniereSyncEClinibase" Type="datetime" />
+    <Property Name="RAMQ" Type="nvarchar" MaxLength="20" />
+    <Property Name="Nom" Type="nvarchar" MaxLength="120" Nullable="false" />
+    <Property Name="Prenom" Type="nvarchar" MaxLength="120" Nullable="false" />
+    <Property Name="DateNaissance" Type="date" />
+    <Property Name="Sexe" Type="nvarchar" MaxLength="10" />
+    <Property Name="Adresse" Type="nvarchar" MaxLength="255" />
+    <Property Name="Ville" Type="nvarchar" MaxLength="120" />
+    <Property Name="Province" Type="nvarchar" MaxLength="50" />
+    <Property Name="CodePostal" Type="nvarchar" MaxLength="10" />
+    <Property Name="Pays" Type="nvarchar" MaxLength="80" />
+    <Property Name="Telephone" Type="nvarchar" MaxLength="30" />
+    <Property Name="CLSCID" Type="int" />
+    <Property Name="SecteurID" Type="int" />
+    <Property Name="StatutDossierID" Type="int" />
+    <Property Name="CodeHydroQuebec" Type="bit" Nullable="false" />
+    <Property Name="AgentPayeurID" Type="int" />
+    <Property Name="CentreDeCout" Type="nvarchar" MaxLength="60" />
+    <Property Name="BonCommande" Type="nvarchar" MaxLength="60" />
+    <Property Name="StatutTabagique" Type="nvarchar" MaxLength="30" />
+    <Property Name="EstActif" Type="bit" Nullable="false" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+    <Property Name="ModifieParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateModification" Type="datetime" />
+  </EntityType>
+  <EntityType Name="Visites">
+    <Key>
+      <PropertyRef Name="VisiteID" />
+    </Key>
+    <Property Name="VisiteID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="UsagerID" Type="int" Nullable="false" />
+    <Property Name="IntervenantID" Type="int" Nullable="false" />
+    <Property Name="TypeIntervenantID" Type="int" Nullable="false" />
+    <Property Name="DateVisite" Type="datetime" Nullable="false" />
+    <Property Name="DureeMinutes" Type="int" />
+    <Property Name="Notes" Type="nvarchar(max)" />
+    <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
+    <Property Name="DateCreation" Type="datetime" Nullable="false" />
+  </EntityType>
+  <Association Name="FK_Assignations_CreePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Assignations" Type="Self.Assignations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Assignations">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignations_Interv">
+    <End Role="Intervenants" Type="Self.Intervenants" Multiplicity="1" />
+    <End Role="Assignations" Type="Self.Assignations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Intervenants">
+        <PropertyRef Name="IntervenantID" />
+      </Principal>
+      <Dependent Role="Assignations">
+        <PropertyRef Name="IntervenantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignations_ModifiePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Assignations" Type="Self.Assignations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Assignations">
+        <PropertyRef Name="ModifieParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignations_StatutSuivi">
+    <End Role="StatutsSuivi" Type="Self.StatutsSuivi" Multiplicity="0..1" />
+    <End Role="Assignations" Type="Self.Assignations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatutsSuivi">
+        <PropertyRef Name="StatutSuiviID" />
+      </Principal>
+      <Dependent Role="Assignations">
+        <PropertyRef Name="StatutSuiviID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignations_TypeInterv">
+    <End Role="TypesIntervenant" Type="Self.TypesIntervenant" Multiplicity="1" />
+    <End Role="Assignations" Type="Self.Assignations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesIntervenant">
+        <PropertyRef Name="TypeIntervenantID" />
+      </Principal>
+      <Dependent Role="Assignations">
+        <PropertyRef Name="TypeIntervenantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Assignations_Usager">
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="1" />
+    <End Role="Assignations" Type="Self.Assignations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="Assignations">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssRemp_Assignation">
+    <End Role="Assignations" Type="Self.Assignations" Multiplicity="1" />
+    <End Role="AssignationsRemplacants" Type="Self.AssignationsRemplacants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Assignations">
+        <PropertyRef Name="AssignationID" />
+      </Principal>
+      <Dependent Role="AssignationsRemplacants">
+        <PropertyRef Name="AssignationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssRemp_CreePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="AssignationsRemplacants" Type="Self.AssignationsRemplacants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AssignationsRemplacants">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_AssRemp_Interv">
+    <End Role="Intervenants" Type="Self.Intervenants" Multiplicity="1" />
+    <End Role="AssignationsRemplacants" Type="Self.AssignationsRemplacants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Intervenants">
+        <PropertyRef Name="IntervenantID" />
+      </Principal>
+      <Dependent Role="AssignationsRemplacants">
+        <PropertyRef Name="IntervenantRemplacantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Audit_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="JournalAudit" Type="Self.JournalAudit" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="JournalAudit">
+        <PropertyRef Name="UtilisateurId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CC_AgentPayeur">
+    <End Role="AgentsPayeurs" Type="Self.AgentsPayeurs" Multiplicity="0..1" />
+    <End Role="CommandesCylindres" Type="Self.CommandesCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AgentsPayeurs">
+        <PropertyRef Name="AgentPayeurID" />
+      </Principal>
+      <Dependent Role="CommandesCylindres">
+        <PropertyRef Name="AgentPayeurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CC_Fourn">
+    <End Role="Fournisseurs" Type="Self.Fournisseurs" Multiplicity="1" />
+    <End Role="CommandesCylindres" Type="Self.CommandesCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fournisseurs">
+        <PropertyRef Name="FournisseurID" />
+      </Principal>
+      <Dependent Role="CommandesCylindres">
+        <PropertyRef Name="FournisseurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CC_Livraison">
+    <End Role="TypesLivraisonRef" Type="Self.TypesLivraisonRef" Multiplicity="1" />
+    <End Role="CommandesCylindres" Type="Self.CommandesCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesLivraisonRef">
+        <PropertyRef Name="TypeLivraisonID" />
+      </Principal>
+      <Dependent Role="CommandesCylindres">
+        <PropertyRef Name="TypeLivraisonID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CC_Motif">
+    <End Role="MotifsCommandeCylindreRef" Type="Self.MotifsCommandeCylindreRef" Multiplicity="1" />
+    <End Role="CommandesCylindres" Type="Self.CommandesCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MotifsCommandeCylindreRef">
+        <PropertyRef Name="MotifCommandeID" />
+      </Principal>
+      <Dependent Role="CommandesCylindres">
+        <PropertyRef Name="MotifCommandeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CC_Usager">
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="1" />
+    <End Role="CommandesCylindres" Type="Self.CommandesCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="CommandesCylindres">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CC_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="CommandesCylindres" Type="Self.CommandesCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="CommandesCylindres">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CCL_Commande">
+    <End Role="CommandesCylindres" Type="Self.CommandesCylindres" Multiplicity="1" />
+    <End Role="CommandeCylindreLignes" Type="Self.CommandeCylindreLignes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CommandesCylindres">
+        <PropertyRef Name="CommandeID" />
+      </Principal>
+      <Dependent Role="CommandeCylindreLignes">
+        <PropertyRef Name="CommandeID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CCL_Type">
+    <End Role="TypesCylindreRef" Type="Self.TypesCylindreRef" Multiplicity="1" />
+    <End Role="CommandeCylindreLignes" Type="Self.CommandeCylindreLignes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesCylindreRef">
+        <PropertyRef Name="TypeCylindreID" />
+      </Principal>
+      <Dependent Role="CommandeCylindreLignes">
+        <PropertyRef Name="TypeCylindreID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CodesPostauxSecteur_SecteursSRSAD">
+    <End Role="SecteursSRSAD" Type="Self.SecteursSRSAD" Multiplicity="1" />
+    <End Role="CodesPostauxSecteur" Type="Self.CodesPostauxSecteur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SecteursSRSAD">
+        <PropertyRef Name="SecteurID" />
+      </Principal>
+      <Dependent Role="CodesPostauxSecteur">
+        <PropertyRef Name="SecteurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CQ_Equip">
+    <End Role="Equipements" Type="Self.Equipements" Multiplicity="1" />
+    <End Role="ControlesQualite" Type="Self.ControlesQualite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipements">
+        <PropertyRef Name="EquipementID" />
+      </Principal>
+      <Dependent Role="ControlesQualite">
+        <PropertyRef Name="EquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CQ_Lecture">
+    <End Role="LecturesCompteur" Type="Self.LecturesCompteur" Multiplicity="0..1" />
+    <End Role="ControlesQualite" Type="Self.ControlesQualite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LecturesCompteur">
+        <PropertyRef Name="LectureID" />
+      </Principal>
+      <Dependent Role="ControlesQualite">
+        <PropertyRef Name="LectureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_CQ_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="ControlesQualite" Type="Self.ControlesQualite" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ControlesQualite">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserClaims" Type="Self.AspNetUserClaims" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserClaims">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserLogins" Type="Self.AspNetUserLogins" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserLogins">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+    <End Role="AspNetRoles" Type="Self.AspNetRoles" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetRoles">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="RoleId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="AspNetUserRoles" Type="Self.AspNetUserRoles" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="AspNetUserRoles">
+        <PropertyRef Name="UserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ent_Equip">
+    <End Role="Equipements" Type="Self.Equipements" Multiplicity="1" />
+    <End Role="Entretiens" Type="Self.Entretiens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipements">
+        <PropertyRef Name="EquipementID" />
+      </Principal>
+      <Dependent Role="Entretiens">
+        <PropertyRef Name="EquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ent_Lecture">
+    <End Role="LecturesCompteur" Type="Self.LecturesCompteur" Multiplicity="0..1" />
+    <End Role="Entretiens" Type="Self.Entretiens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LecturesCompteur">
+        <PropertyRef Name="LectureID" />
+      </Principal>
+      <Dependent Role="Entretiens">
+        <PropertyRef Name="LectureID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Ent_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Entretiens" Type="Self.Entretiens" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Entretiens">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_CreePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Equipements" Type="Self.Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_Fourn">
+    <End Role="Fournisseurs" Type="Self.Fournisseurs" Multiplicity="0..1" />
+    <End Role="Equipements" Type="Self.Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fournisseurs">
+        <PropertyRef Name="FournisseurID" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="FournisseurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_Manuf">
+    <End Role="Manufacturiers" Type="Self.Manufacturiers" Multiplicity="0..1" />
+    <End Role="Equipements" Type="Self.Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Manufacturiers">
+        <PropertyRef Name="ManufacturierID" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="ManufacturierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_ModifiePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Equipements" Type="Self.Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="ModifieParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_Type">
+    <End Role="TypesEquipement" Type="Self.TypesEquipement" Multiplicity="1" />
+    <End Role="Equipements" Type="Self.Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesEquipement">
+        <PropertyRef Name="TypeEquipementID" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="TypeEquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_TypeAcq">
+    <End Role="TypesAcquisitionRef" Type="Self.TypesAcquisitionRef" Multiplicity="0..1" />
+    <End Role="Equipements" Type="Self.Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesAcquisitionRef">
+        <PropertyRef Name="TypeAcquisitionID" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="TypeAcquisitionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Equip_UsagerAchat">
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="0..1" />
+    <End Role="Equipements" Type="Self.Equipements" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="Equipements">
+        <PropertyRef Name="UsagerAchatID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GE_Type">
+    <End Role="TypesEquipement" Type="Self.TypesEquipement" Multiplicity="1" />
+    <End Role="GabaritsEntretien" Type="Self.GabaritsEntretien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesEquipement">
+        <PropertyRef Name="TypeEquipementID" />
+      </Principal>
+      <Dependent Role="GabaritsEntretien">
+        <PropertyRef Name="TypeEquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_GE_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="GabaritsEntretien" Type="Self.GabaritsEntretien" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="GabaritsEntretien">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HSE_Equip">
+    <End Role="Equipements" Type="Self.Equipements" Multiplicity="1" />
+    <End Role="HistoriqueStatutsEquipement" Type="Self.HistoriqueStatutsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipements">
+        <PropertyRef Name="EquipementID" />
+      </Principal>
+      <Dependent Role="HistoriqueStatutsEquipement">
+        <PropertyRef Name="EquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HSE_Statut">
+    <End Role="StatutsEquipementRef" Type="Self.StatutsEquipementRef" Multiplicity="1" />
+    <End Role="HistoriqueStatutsEquipement" Type="Self.HistoriqueStatutsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatutsEquipementRef">
+        <PropertyRef Name="StatutEquipementID" />
+      </Principal>
+      <Dependent Role="HistoriqueStatutsEquipement">
+        <PropertyRef Name="StatutEquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_HSE_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="HistoriqueStatutsEquipement" Type="Self.HistoriqueStatutsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="HistoriqueStatutsEquipement">
+        <PropertyRef Name="ParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IFC_Fourn">
+    <End Role="Fournisseurs" Type="Self.Fournisseurs" Multiplicity="1" />
+    <End Role="ImportFacturationCylindres" Type="Self.ImportFacturationCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Fournisseurs">
+        <PropertyRef Name="FournisseurID" />
+      </Principal>
+      <Dependent Role="ImportFacturationCylindres">
+        <PropertyRef Name="FournisseurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IFC_Periode">
+    <End Role="PeriodesFinancieresRef" Type="Self.PeriodesFinancieresRef" Multiplicity="0..1" />
+    <End Role="ImportFacturationCylindres" Type="Self.ImportFacturationCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PeriodesFinancieresRef">
+        <PropertyRef Name="PeriodeFinID" />
+      </Principal>
+      <Dependent Role="ImportFacturationCylindres">
+        <PropertyRef Name="PeriodeFinID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IFC_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="ImportFacturationCylindres" Type="Self.ImportFacturationCylindres" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ImportFacturationCylindres">
+        <PropertyRef Name="ImporteParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervenants_AspNetUsers">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Intervenants" Type="Self.Intervenants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Intervenants">
+        <PropertyRef Name="UserIdAspNet" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervenants_CLSC">
+    <End Role="CLSC" Type="Self.CLSC" Multiplicity="0..1" />
+    <End Role="Intervenants" Type="Self.Intervenants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLSC">
+        <PropertyRef Name="CLSCID" />
+      </Principal>
+      <Dependent Role="Intervenants">
+        <PropertyRef Name="CLSCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervenants_CreePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Intervenants" Type="Self.Intervenants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Intervenants">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervenants_ModifiePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Intervenants" Type="Self.Intervenants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Intervenants">
+        <PropertyRef Name="ModifieParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervenants_Secteur">
+    <End Role="SecteursSRSAD" Type="Self.SecteursSRSAD" Multiplicity="0..1" />
+    <End Role="Intervenants" Type="Self.Intervenants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SecteursSRSAD">
+        <PropertyRef Name="SecteurID" />
+      </Principal>
+      <Dependent Role="Intervenants">
+        <PropertyRef Name="SecteurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Intervenants_TypesIntervenant">
+    <End Role="TypesIntervenant" Type="Self.TypesIntervenant" Multiplicity="1" />
+    <End Role="Intervenants" Type="Self.Intervenants" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesIntervenant">
+        <PropertyRef Name="TypeIntervenantID" />
+      </Principal>
+      <Dependent Role="Intervenants">
+        <PropertyRef Name="TypeIntervenantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LC_Equip">
+    <End Role="Equipements" Type="Self.Equipements" Multiplicity="1" />
+    <End Role="LecturesCompteur" Type="Self.LecturesCompteur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipements">
+        <PropertyRef Name="EquipementID" />
+      </Principal>
+      <Dependent Role="LecturesCompteur">
+        <PropertyRef Name="EquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LC_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="LecturesCompteur" Type="Self.LecturesCompteur" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LecturesCompteur">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Notif_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="1" />
+    <End Role="Notifications" Type="Self.Notifications" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Notifications">
+        <PropertyRef Name="DestUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pannes_Equip">
+    <End Role="Equipements" Type="Self.Equipements" Multiplicity="1" />
+    <End Role="Pannes" Type="Self.Pannes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipements">
+        <PropertyRef Name="EquipementID" />
+      </Principal>
+      <Dependent Role="Pannes">
+        <PropertyRef Name="EquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pannes_Type">
+    <End Role="TypesPanneRef" Type="Self.TypesPanneRef" Multiplicity="1" />
+    <End Role="Pannes" Type="Self.Pannes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesPanneRef">
+        <PropertyRef Name="TypePanneID" />
+      </Principal>
+      <Dependent Role="Pannes">
+        <PropertyRef Name="TypePanneID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pannes_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Pannes" Type="Self.Pannes" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Pannes">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pret_CreePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="PretsEquipement" Type="Self.PretsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PretsEquipement">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pret_Equip">
+    <End Role="Equipements" Type="Self.Equipements" Multiplicity="1" />
+    <End Role="PretsEquipement" Type="Self.PretsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipements">
+        <PropertyRef Name="EquipementID" />
+      </Principal>
+      <Dependent Role="PretsEquipement">
+        <PropertyRef Name="EquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pret_Usager">
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="1" />
+    <End Role="PretsEquipement" Type="Self.PretsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="PretsEquipement">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Pret_ValidePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="PretsEquipement" Type="Self.PretsEquipement" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PretsEquipement">
+        <PropertyRef Name="ValideParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Repar_Panne">
+    <End Role="Pannes" Type="Self.Pannes" Multiplicity="1" />
+    <End Role="Reparations" Type="Self.Reparations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Pannes">
+        <PropertyRef Name="PanneID" />
+      </Principal>
+      <Dependent Role="Reparations">
+        <PropertyRef Name="PanneID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Repar_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Reparations" Type="Self.Reparations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Reparations">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_RN_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="ReglesNotification" Type="Self.ReglesNotification" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ReglesNotification">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seuils_Type">
+    <End Role="TypesEquipement" Type="Self.TypesEquipement" Multiplicity="1" />
+    <End Role="SeuilsInventaire" Type="Self.SeuilsInventaire" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="TypesEquipement">
+        <PropertyRef Name="TypeEquipementID" />
+      </Principal>
+      <Dependent Role="SeuilsInventaire">
+        <PropertyRef Name="TypeEquipementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Seuils_User">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="SeuilsInventaire" Type="Self.SeuilsInventaire" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SeuilsInventaire">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerAdresses_CreePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="UsagerAdresses" Type="Self.UsagerAdresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsagerAdresses">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerAdresses_ModifiePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="UsagerAdresses" Type="Self.UsagerAdresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsagerAdresses">
+        <PropertyRef Name="ModifieParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerAdresses_Usagers">
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="1" />
+    <End Role="UsagerAdresses" Type="Self.UsagerAdresses" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="UsagerAdresses">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerInf_CreePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="UsagerInfestations" Type="Self.UsagerInfestations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsagerInfestations">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerInf_Type">
+    <End Role="TypesInfestation" Type="Self.TypesInfestation" Multiplicity="1" />
+    <End Role="UsagerInfestations" Type="Self.UsagerInfestations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesInfestation">
+        <PropertyRef Name="TypeInfestationID" />
+      </Principal>
+      <Dependent Role="UsagerInfestations">
+        <PropertyRef Name="TypeInfestationID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerInf_Usager">
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="1" />
+    <End Role="UsagerInfestations" Type="Self.UsagerInfestations" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="UsagerInfestations">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerInfec_CreePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="UsagerInfections" Type="Self.UsagerInfections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsagerInfections">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerInfec_Type">
+    <End Role="TypesInfection" Type="Self.TypesInfection" Multiplicity="1" />
+    <End Role="UsagerInfections" Type="Self.UsagerInfections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesInfection">
+        <PropertyRef Name="TypeInfectionID" />
+      </Principal>
+      <Dependent Role="UsagerInfections">
+        <PropertyRef Name="TypeInfectionID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerInfec_Usager">
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="1" />
+    <End Role="UsagerInfections" Type="Self.UsagerInfections" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="UsagerInfections">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerParticularites_CreePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="UsagerParticularites" Type="Self.UsagerParticularites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="UsagerParticularites">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerParticularites_Ref">
+    <End Role="ParticularitesUsagerRef" Type="Self.ParticularitesUsagerRef" Multiplicity="1" />
+    <End Role="UsagerParticularites" Type="Self.UsagerParticularites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ParticularitesUsagerRef">
+        <PropertyRef Name="ParticulariteID" />
+      </Principal>
+      <Dependent Role="UsagerParticularites">
+        <PropertyRef Name="ParticulariteID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsagerParticularites_Usagers">
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="1" />
+    <End Role="UsagerParticularites" Type="Self.UsagerParticularites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="UsagerParticularites">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usagers_AgentPayeur">
+    <End Role="AgentsPayeurs" Type="Self.AgentsPayeurs" Multiplicity="0..1" />
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AgentsPayeurs">
+        <PropertyRef Name="AgentPayeurID" />
+      </Principal>
+      <Dependent Role="Usagers">
+        <PropertyRef Name="AgentPayeurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usagers_CLSC">
+    <End Role="CLSC" Type="Self.CLSC" Multiplicity="0..1" />
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="CLSC">
+        <PropertyRef Name="CLSCID" />
+      </Principal>
+      <Dependent Role="Usagers">
+        <PropertyRef Name="CLSCID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usagers_CreePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Usagers">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usagers_ModifiePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Usagers">
+        <PropertyRef Name="ModifieParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usagers_Secteur">
+    <End Role="SecteursSRSAD" Type="Self.SecteursSRSAD" Multiplicity="0..1" />
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SecteursSRSAD">
+        <PropertyRef Name="SecteurID" />
+      </Principal>
+      <Dependent Role="Usagers">
+        <PropertyRef Name="SecteurID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Usagers_StatutDossier">
+    <End Role="StatutsDossierUsager" Type="Self.StatutsDossierUsager" Multiplicity="0..1" />
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="StatutsDossierUsager">
+        <PropertyRef Name="StatutDossierID" />
+      </Principal>
+      <Dependent Role="Usagers">
+        <PropertyRef Name="StatutDossierID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Visites_CreePar">
+    <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
+    <End Role="Visites" Type="Self.Visites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="AspNetUsers">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Visites">
+        <PropertyRef Name="CreeParUserId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Visites_Interv">
+    <End Role="Intervenants" Type="Self.Intervenants" Multiplicity="1" />
+    <End Role="Visites" Type="Self.Visites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Intervenants">
+        <PropertyRef Name="IntervenantID" />
+      </Principal>
+      <Dependent Role="Visites">
+        <PropertyRef Name="IntervenantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Visites_TypeInterv">
+    <End Role="TypesIntervenant" Type="Self.TypesIntervenant" Multiplicity="1" />
+    <End Role="Visites" Type="Self.Visites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesIntervenant">
+        <PropertyRef Name="TypeIntervenantID" />
+      </Principal>
+      <Dependent Role="Visites">
+        <PropertyRef Name="TypeIntervenantID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Visites_Usager">
+    <End Role="Usagers" Type="Self.Usagers" Multiplicity="1" />
+    <End Role="Visites" Type="Self.Visites" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Usagers">
+        <PropertyRef Name="UsagerID" />
+      </Principal>
+      <Dependent Role="Visites">
+        <PropertyRef Name="UsagerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="WebPlatFormModelStoreContainer">
+    <EntitySet Name="AgentsPayeurs" EntityType="Self.AgentsPayeurs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetRoles" EntityType="Self.AspNetRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserClaims" EntityType="Self.AspNetUserClaims" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserLogins" EntityType="Self.AspNetUserLogins" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUserRoles" EntityType="Self.AspNetUserRoles" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AspNetUsers" EntityType="Self.AspNetUsers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Assignations" EntityType="Self.Assignations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="AssignationsRemplacants" EntityType="Self.AssignationsRemplacants" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CLSC" EntityType="Self.CLSC" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CodesPostauxSecteur" EntityType="Self.CodesPostauxSecteur" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CommandeCylindreLignes" EntityType="Self.CommandeCylindreLignes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="CommandesCylindres" EntityType="Self.CommandesCylindres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ControlesQualite" EntityType="Self.ControlesQualite" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Entretiens" EntityType="Self.Entretiens" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Equipements" EntityType="Self.Equipements" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Fournisseurs" EntityType="Self.Fournisseurs" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="GabaritsEntretien" EntityType="Self.GabaritsEntretien" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="HistoriqueStatutsEquipement" EntityType="Self.HistoriqueStatutsEquipement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ImportFacturationCylindres" EntityType="Self.ImportFacturationCylindres" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Intervenants" EntityType="Self.Intervenants" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="JournalAudit" EntityType="Self.JournalAudit" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="LecturesCompteur" EntityType="Self.LecturesCompteur" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Manufacturiers" EntityType="Self.Manufacturiers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MotifsCommandeCylindreRef" EntityType="Self.MotifsCommandeCylindreRef" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Notifications" EntityType="Self.Notifications" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Pannes" EntityType="Self.Pannes" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ParticularitesUsagerRef" EntityType="Self.ParticularitesUsagerRef" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PeriodesFinancieresRef" EntityType="Self.PeriodesFinancieresRef" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PretsEquipement" EntityType="Self.PretsEquipement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ReglesNotification" EntityType="Self.ReglesNotification" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Reparations" EntityType="Self.Reparations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SecteursSRSAD" EntityType="Self.SecteursSRSAD" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SeuilsInventaire" EntityType="Self.SeuilsInventaire" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StatutsDossierUsager" EntityType="Self.StatutsDossierUsager" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StatutsEquipementRef" EntityType="Self.StatutsEquipementRef" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="StatutsSuivi" EntityType="Self.StatutsSuivi" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypesAcquisitionRef" EntityType="Self.TypesAcquisitionRef" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypesCylindreRef" EntityType="Self.TypesCylindreRef" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypesEquipement" EntityType="Self.TypesEquipement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypesInfection" EntityType="Self.TypesInfection" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypesInfestation" EntityType="Self.TypesInfestation" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypesIntervenant" EntityType="Self.TypesIntervenant" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypesLivraisonRef" EntityType="Self.TypesLivraisonRef" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypesPanneRef" EntityType="Self.TypesPanneRef" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UsagerAdresses" EntityType="Self.UsagerAdresses" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UsagerInfections" EntityType="Self.UsagerInfections" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UsagerInfestations" EntityType="Self.UsagerInfestations" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="UsagerParticularites" EntityType="Self.UsagerParticularites" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Usagers" EntityType="Self.Usagers" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="Visites" EntityType="Self.Visites" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_Assignations_CreePar" Association="Self.FK_Assignations_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Assignations" EntitySet="Assignations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignations_Interv" Association="Self.FK_Assignations_Interv">
+      <End Role="Intervenants" EntitySet="Intervenants" />
+      <End Role="Assignations" EntitySet="Assignations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignations_ModifiePar" Association="Self.FK_Assignations_ModifiePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Assignations" EntitySet="Assignations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignations_StatutSuivi" Association="Self.FK_Assignations_StatutSuivi">
+      <End Role="StatutsSuivi" EntitySet="StatutsSuivi" />
+      <End Role="Assignations" EntitySet="Assignations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignations_TypeInterv" Association="Self.FK_Assignations_TypeInterv">
+      <End Role="TypesIntervenant" EntitySet="TypesIntervenant" />
+      <End Role="Assignations" EntitySet="Assignations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Assignations_Usager" Association="Self.FK_Assignations_Usager">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="Assignations" EntitySet="Assignations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssRemp_Assignation" Association="Self.FK_AssRemp_Assignation">
+      <End Role="Assignations" EntitySet="Assignations" />
+      <End Role="AssignationsRemplacants" EntitySet="AssignationsRemplacants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssRemp_CreePar" Association="Self.FK_AssRemp_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AssignationsRemplacants" EntitySet="AssignationsRemplacants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_AssRemp_Interv" Association="Self.FK_AssRemp_Interv">
+      <End Role="Intervenants" EntitySet="Intervenants" />
+      <End Role="AssignationsRemplacants" EntitySet="AssignationsRemplacants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Audit_User" Association="Self.FK_Audit_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="JournalAudit" EntitySet="JournalAudit" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CC_AgentPayeur" Association="Self.FK_CC_AgentPayeur">
+      <End Role="AgentsPayeurs" EntitySet="AgentsPayeurs" />
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CC_Fourn" Association="Self.FK_CC_Fourn">
+      <End Role="Fournisseurs" EntitySet="Fournisseurs" />
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CC_Livraison" Association="Self.FK_CC_Livraison">
+      <End Role="TypesLivraisonRef" EntitySet="TypesLivraisonRef" />
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CC_Motif" Association="Self.FK_CC_Motif">
+      <End Role="MotifsCommandeCylindreRef" EntitySet="MotifsCommandeCylindreRef" />
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CC_Usager" Association="Self.FK_CC_Usager">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CC_User" Association="Self.FK_CC_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CCL_Commande" Association="Self.FK_CCL_Commande">
+      <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
+      <End Role="CommandeCylindreLignes" EntitySet="CommandeCylindreLignes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CCL_Type" Association="Self.FK_CCL_Type">
+      <End Role="TypesCylindreRef" EntitySet="TypesCylindreRef" />
+      <End Role="CommandeCylindreLignes" EntitySet="CommandeCylindreLignes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CodesPostauxSecteur_SecteursSRSAD" Association="Self.FK_CodesPostauxSecteur_SecteursSRSAD">
+      <End Role="SecteursSRSAD" EntitySet="SecteursSRSAD" />
+      <End Role="CodesPostauxSecteur" EntitySet="CodesPostauxSecteur" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CQ_Equip" Association="Self.FK_CQ_Equip">
+      <End Role="Equipements" EntitySet="Equipements" />
+      <End Role="ControlesQualite" EntitySet="ControlesQualite" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CQ_Lecture" Association="Self.FK_CQ_Lecture">
+      <End Role="LecturesCompteur" EntitySet="LecturesCompteur" />
+      <End Role="ControlesQualite" EntitySet="ControlesQualite" />
+    </AssociationSet>
+    <AssociationSet Name="FK_CQ_User" Association="Self.FK_CQ_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ControlesQualite" EntitySet="ControlesQualite" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserClaims" EntitySet="AspNetUserClaims" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserLogins" EntitySet="AspNetUserLogins" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetRoles_RoleId">
+      <End Role="AspNetRoles" EntitySet="AspNetRoles" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId" Association="Self.FK_dbo_AspNetUserRoles_dbo_AspNetUsers_UserId">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="AspNetUserRoles" EntitySet="AspNetUserRoles" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ent_Equip" Association="Self.FK_Ent_Equip">
+      <End Role="Equipements" EntitySet="Equipements" />
+      <End Role="Entretiens" EntitySet="Entretiens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ent_Lecture" Association="Self.FK_Ent_Lecture">
+      <End Role="LecturesCompteur" EntitySet="LecturesCompteur" />
+      <End Role="Entretiens" EntitySet="Entretiens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Ent_User" Association="Self.FK_Ent_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Entretiens" EntitySet="Entretiens" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_CreePar" Association="Self.FK_Equip_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_Fourn" Association="Self.FK_Equip_Fourn">
+      <End Role="Fournisseurs" EntitySet="Fournisseurs" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_Manuf" Association="Self.FK_Equip_Manuf">
+      <End Role="Manufacturiers" EntitySet="Manufacturiers" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_ModifiePar" Association="Self.FK_Equip_ModifiePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_Type" Association="Self.FK_Equip_Type">
+      <End Role="TypesEquipement" EntitySet="TypesEquipement" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_TypeAcq" Association="Self.FK_Equip_TypeAcq">
+      <End Role="TypesAcquisitionRef" EntitySet="TypesAcquisitionRef" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Equip_UsagerAchat" Association="Self.FK_Equip_UsagerAchat">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="Equipements" EntitySet="Equipements" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GE_Type" Association="Self.FK_GE_Type">
+      <End Role="TypesEquipement" EntitySet="TypesEquipement" />
+      <End Role="GabaritsEntretien" EntitySet="GabaritsEntretien" />
+    </AssociationSet>
+    <AssociationSet Name="FK_GE_User" Association="Self.FK_GE_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="GabaritsEntretien" EntitySet="GabaritsEntretien" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HSE_Equip" Association="Self.FK_HSE_Equip">
+      <End Role="Equipements" EntitySet="Equipements" />
+      <End Role="HistoriqueStatutsEquipement" EntitySet="HistoriqueStatutsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HSE_Statut" Association="Self.FK_HSE_Statut">
+      <End Role="StatutsEquipementRef" EntitySet="StatutsEquipementRef" />
+      <End Role="HistoriqueStatutsEquipement" EntitySet="HistoriqueStatutsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_HSE_User" Association="Self.FK_HSE_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="HistoriqueStatutsEquipement" EntitySet="HistoriqueStatutsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IFC_Fourn" Association="Self.FK_IFC_Fourn">
+      <End Role="Fournisseurs" EntitySet="Fournisseurs" />
+      <End Role="ImportFacturationCylindres" EntitySet="ImportFacturationCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IFC_Periode" Association="Self.FK_IFC_Periode">
+      <End Role="PeriodesFinancieresRef" EntitySet="PeriodesFinancieresRef" />
+      <End Role="ImportFacturationCylindres" EntitySet="ImportFacturationCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IFC_User" Association="Self.FK_IFC_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ImportFacturationCylindres" EntitySet="ImportFacturationCylindres" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervenants_AspNetUsers" Association="Self.FK_Intervenants_AspNetUsers">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Intervenants" EntitySet="Intervenants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervenants_CLSC" Association="Self.FK_Intervenants_CLSC">
+      <End Role="CLSC" EntitySet="CLSC" />
+      <End Role="Intervenants" EntitySet="Intervenants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervenants_CreePar" Association="Self.FK_Intervenants_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Intervenants" EntitySet="Intervenants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervenants_ModifiePar" Association="Self.FK_Intervenants_ModifiePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Intervenants" EntitySet="Intervenants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervenants_Secteur" Association="Self.FK_Intervenants_Secteur">
+      <End Role="SecteursSRSAD" EntitySet="SecteursSRSAD" />
+      <End Role="Intervenants" EntitySet="Intervenants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Intervenants_TypesIntervenant" Association="Self.FK_Intervenants_TypesIntervenant">
+      <End Role="TypesIntervenant" EntitySet="TypesIntervenant" />
+      <End Role="Intervenants" EntitySet="Intervenants" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LC_Equip" Association="Self.FK_LC_Equip">
+      <End Role="Equipements" EntitySet="Equipements" />
+      <End Role="LecturesCompteur" EntitySet="LecturesCompteur" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LC_User" Association="Self.FK_LC_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="LecturesCompteur" EntitySet="LecturesCompteur" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Notif_User" Association="Self.FK_Notif_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Notifications" EntitySet="Notifications" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pannes_Equip" Association="Self.FK_Pannes_Equip">
+      <End Role="Equipements" EntitySet="Equipements" />
+      <End Role="Pannes" EntitySet="Pannes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pannes_Type" Association="Self.FK_Pannes_Type">
+      <End Role="TypesPanneRef" EntitySet="TypesPanneRef" />
+      <End Role="Pannes" EntitySet="Pannes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pannes_User" Association="Self.FK_Pannes_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Pannes" EntitySet="Pannes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pret_CreePar" Association="Self.FK_Pret_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="PretsEquipement" EntitySet="PretsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pret_Equip" Association="Self.FK_Pret_Equip">
+      <End Role="Equipements" EntitySet="Equipements" />
+      <End Role="PretsEquipement" EntitySet="PretsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pret_Usager" Association="Self.FK_Pret_Usager">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="PretsEquipement" EntitySet="PretsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Pret_ValidePar" Association="Self.FK_Pret_ValidePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="PretsEquipement" EntitySet="PretsEquipement" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Repar_Panne" Association="Self.FK_Repar_Panne">
+      <End Role="Pannes" EntitySet="Pannes" />
+      <End Role="Reparations" EntitySet="Reparations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Repar_User" Association="Self.FK_Repar_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Reparations" EntitySet="Reparations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_RN_User" Association="Self.FK_RN_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="ReglesNotification" EntitySet="ReglesNotification" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seuils_Type" Association="Self.FK_Seuils_Type">
+      <End Role="TypesEquipement" EntitySet="TypesEquipement" />
+      <End Role="SeuilsInventaire" EntitySet="SeuilsInventaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Seuils_User" Association="Self.FK_Seuils_User">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="SeuilsInventaire" EntitySet="SeuilsInventaire" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerAdresses_CreePar" Association="Self.FK_UsagerAdresses_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UsagerAdresses" EntitySet="UsagerAdresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerAdresses_ModifiePar" Association="Self.FK_UsagerAdresses_ModifiePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UsagerAdresses" EntitySet="UsagerAdresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerAdresses_Usagers" Association="Self.FK_UsagerAdresses_Usagers">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="UsagerAdresses" EntitySet="UsagerAdresses" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerInf_CreePar" Association="Self.FK_UsagerInf_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UsagerInfestations" EntitySet="UsagerInfestations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerInf_Type" Association="Self.FK_UsagerInf_Type">
+      <End Role="TypesInfestation" EntitySet="TypesInfestation" />
+      <End Role="UsagerInfestations" EntitySet="UsagerInfestations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerInf_Usager" Association="Self.FK_UsagerInf_Usager">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="UsagerInfestations" EntitySet="UsagerInfestations" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerInfec_CreePar" Association="Self.FK_UsagerInfec_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UsagerInfections" EntitySet="UsagerInfections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerInfec_Type" Association="Self.FK_UsagerInfec_Type">
+      <End Role="TypesInfection" EntitySet="TypesInfection" />
+      <End Role="UsagerInfections" EntitySet="UsagerInfections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerInfec_Usager" Association="Self.FK_UsagerInfec_Usager">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="UsagerInfections" EntitySet="UsagerInfections" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerParticularites_CreePar" Association="Self.FK_UsagerParticularites_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="UsagerParticularites" EntitySet="UsagerParticularites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerParticularites_Ref" Association="Self.FK_UsagerParticularites_Ref">
+      <End Role="ParticularitesUsagerRef" EntitySet="ParticularitesUsagerRef" />
+      <End Role="UsagerParticularites" EntitySet="UsagerParticularites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsagerParticularites_Usagers" Association="Self.FK_UsagerParticularites_Usagers">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="UsagerParticularites" EntitySet="UsagerParticularites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usagers_AgentPayeur" Association="Self.FK_Usagers_AgentPayeur">
+      <End Role="AgentsPayeurs" EntitySet="AgentsPayeurs" />
+      <End Role="Usagers" EntitySet="Usagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usagers_CLSC" Association="Self.FK_Usagers_CLSC">
+      <End Role="CLSC" EntitySet="CLSC" />
+      <End Role="Usagers" EntitySet="Usagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usagers_CreePar" Association="Self.FK_Usagers_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Usagers" EntitySet="Usagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usagers_ModifiePar" Association="Self.FK_Usagers_ModifiePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Usagers" EntitySet="Usagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usagers_Secteur" Association="Self.FK_Usagers_Secteur">
+      <End Role="SecteursSRSAD" EntitySet="SecteursSRSAD" />
+      <End Role="Usagers" EntitySet="Usagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Usagers_StatutDossier" Association="Self.FK_Usagers_StatutDossier">
+      <End Role="StatutsDossierUsager" EntitySet="StatutsDossierUsager" />
+      <End Role="Usagers" EntitySet="Usagers" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Visites_CreePar" Association="Self.FK_Visites_CreePar">
+      <End Role="AspNetUsers" EntitySet="AspNetUsers" />
+      <End Role="Visites" EntitySet="Visites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Visites_Interv" Association="Self.FK_Visites_Interv">
+      <End Role="Intervenants" EntitySet="Intervenants" />
+      <End Role="Visites" EntitySet="Visites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Visites_TypeInterv" Association="Self.FK_Visites_TypeInterv">
+      <End Role="TypesIntervenant" EntitySet="TypesIntervenant" />
+      <End Role="Visites" EntitySet="Visites" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Visites_Usager" Association="Self.FK_Visites_Usager">
+      <End Role="Usagers" EntitySet="Usagers" />
+      <End Role="Visites" EntitySet="Visites" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

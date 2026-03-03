@@ -1,0 +1,201 @@
+﻿@model IEnumerable<Gl.Demandes>
+
+@{
+    ViewBag.Title = "ListUsagers";
+}
+
+<h2>ListUsagers</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Nom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Prenom)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sexe)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateNaissance)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Courriel)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Poste)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Adresse)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Ramq)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Commentaire)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Autre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Statut)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastModifiedOn)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdUser)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.IdCemtl)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Langue)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.SurNombre)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DateRdv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.HeureRdv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CodePostal)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Presence)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeUsager)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Matricule)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Priorites.NomPriorite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Sites.NomSite)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TypeUsagers.NomTypeUsager)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Nom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Prenom)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sexe)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateNaissance)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Telephone)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Courriel)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Poste)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Adresse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Ramq)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Commentaire)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Autre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Statut)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastModifiedOn)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdUser)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IdCemtl)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Langue)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.SurNombre)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DateRdv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.HeureRdv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CodePostal)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Presence)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeUsager)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Matricule)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Priorites.NomPriorite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Sites.NomSite)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TypeUsagers.NomTypeUsager)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

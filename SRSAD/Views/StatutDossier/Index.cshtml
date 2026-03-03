@@ -1,0 +1,221 @@
+﻿@model IEnumerable<SRSAD.Models.StatutsDossierUsager>
+
+@{
+    ViewBag.Title = "Statuts de dossier";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>
+                Gestion des statuts de dossier
+                <small class="pull-right">
+                    @Html.ActionLink("Ajouter un statut", "Create", null, new { @class = "btn btn-success" })
+                    <button type="button" class="btn btn-info" onclick="exportToExcel()">
+                        <span class="glyphicon glyphicon-export"></span> Exporter
+                    </button>
+                </small>
+            </h2>
+            <hr />
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            @TempData["Success"]
+        </div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            @TempData["Error"]
+        </div>
+    }
+    @if (TempData["Warning"] != null)
+    {
+        <div class="alert alert-warning alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            @TempData["Warning"]
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Recherche</h3>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("Index", "StatutDossier", FormMethod.Get, new { @class = "form-inline" }))
+                    {
+                        <div class="form-group">
+                            @Html.TextBox("searchCode", Request.QueryString["searchCode"], new { @class = "form-control", placeholder = "Code" })
+                        </div>
+                        <div class="form-group">
+                            @Html.TextBox("searchLibelle", Request.QueryString["searchLibelle"], new { @class = "form-control", placeholder = "Libellé" })
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBox("actifUniquement", Request.QueryString["actifUniquement"] != "False")
+                                Actifs uniquement
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">
+                            <span class="glyphicon glyphicon-search"></span> Rechercher
+                        </button>
+                        @Html.ActionLink("Réinitialiser", "Index", null, new { @class = "btn btn-default" })
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        Liste des statuts de dossier
+                        <span class="badge">@Model.Count()</span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-striped table-hover" id="statutsTable">
+                        <thead>
+                            <tr>
+                                <th>Code</th>
+                                <th>Libellé</th>
+                                <th>Statut</th>
+                                <th>Patients</th>
+                                <th>Couleur</th>
+                                <th class="text-center">Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                                <tr class="@(item.EstActif ? "" : "text-muted")">
+                                    <td><strong>@item.Code</strong></td>
+                                    <td>@item.Libelle</td>
+                                    <td>
+                                        @if (item.EstActif)
+                                        {
+                                            <span class="label label-success">Actif</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="label label-default">Inactif</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @{
+                                            var count = ViewBag.Statistiques != null ?
+                                                ((Dictionary<int, int>)ViewBag.Statistiques).ContainsKey(item.StatutDossierID) ?
+                                                ((Dictionary<int, int>)ViewBag.Statistiques)[item.StatutDossierID] : 0 : 0;
+                                        }
+                                        <span class="badge">@count</span>
+                                    </td>
+                                    <td>
+                                        @switch (item.Code)
+                                        {
+                                            case "INSCRIT":
+                                                <span class="label label-success">●</span>
+                                                break;
+                                            case "HOSP":
+                                                <span class="label label-warning">●</span>
+                                                break;
+                                            case "RADIE":
+                                                <span class="label label-default">●</span>
+                                                break;
+                                            case "NOUVELLE":
+                                                <span class="label label-info">●</span>
+                                                break;
+                                            default:
+                                                <span class="label label-primary">●</span>
+                                                break;
+                                        }
+                                    </td>
+                                    <td class="text-center" style="white-space: nowrap;">
+                                        @Html.ActionLink("Détails", "Details", new { id = item.StatutDossierID }, new { @class = "btn btn-xs btn-info" })
+                                        @Html.ActionLink("Modifier", "Edit", new { id = item.StatutDossierID }, new { @class = "btn btn-xs btn-warning" })
+                                        @if (item.EstActif)
+                                        {
+                                            using (Html.BeginForm("Desactiver", "StatutDossier", new { id = item.StatutDossierID }, FormMethod.Post, new { style = "display:inline", onsubmit = "return confirm('Désactiver ce statut de dossier ? Les dossiers existants ne seront pas affectés.');" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-xs btn-default">
+                                                    <span class="glyphicon glyphicon-ban-circle"></span> Désactiver
+                                                </button>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            using (Html.BeginForm("Activer", "StatutDossier", new { id = item.StatutDossierID }, FormMethod.Post, new { style = "display:inline", onsubmit = "return confirm('Activer ce statut de dossier ?');" }))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                <button type="submit" class="btn btn-xs btn-success">
+                                                    <span class="glyphicon glyphicon-ok-circle"></span> Activer
+                                                </button>
+                                            }
+                                        }
+                                        @using (Html.BeginForm("Delete", "StatutDossier", new { id = item.StatutDossierID }, FormMethod.Post, new { style = "display:inline", onsubmit = "return confirm('Êtes-vous sûr de vouloir supprimer définitivement ce statut de dossier ?');" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-xs btn-danger">
+                                                <span class="glyphicon glyphicon-trash"></span>
+                                            </button>
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(document).ready(function() {
+            // Initialiser DataTable
+            $('#statutsTable').DataTable({
+                "paging": true,
+                "ordering": true,
+                "info": true,
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.10.20/i18n/French.json"
+                },
+                "columnDefs": [
+                    { "orderable": false, "targets": 5 }
+                ]
+            });
+        });
+
+        function exportToExcel() {
+            var table = document.getElementById('statutsTable');
+            var html = table.outerHTML;
+            var url = 'data:application/vnd.ms-excel,' + escape(html);
+            var link = document.createElement("a");
+            link.download = "statuts_dossier_" + new Date().toISOString().slice(0,10) + ".xls";
+            link.href = url;
+            link.click();
+        }
+
+        // Rafraîchir les statistiques toutes les minutes
+        setInterval(function() {
+            $.get('@Url.Action("GetStatsUtilisation", "StatutDossier")', function(data) {
+                if (data) {
+                    data.forEach(function(item) {
+                        $('tr[data-id="' + item.StatutDossierID + '"] .badge').text(item.NombrePatients);
+                    });
+                }
+            });
+        }, 60000);
+    </script>
+}

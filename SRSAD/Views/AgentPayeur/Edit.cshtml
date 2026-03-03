@@ -1,0 +1,64 @@
+﻿@model SRSAD.Models.AgentsPayeurs
+
+@{
+    ViewBag.Title = "Modifier un agent payeur";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>
+                Modifier - @Model.Nom
+                <small class="pull-right">
+                    @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-default" })
+                </small>
+            </h2>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Modification de l'agent payeur</h3>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm())
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.HiddenFor(model => model.AgentPayeurID)
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Code, "Code *")
+                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Nom, "Nom *")
+                            @Html.EditorFor(model => model.Nom, new { htmlAttributes = new { @class = "form-control", required = "required" } })
+                            @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                        </div>
+
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBoxFor(model => model.EstActif)
+                                Actif
+                            </label>
+                        </div>
+
+                        <hr />
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-warning">
+                                <span class="glyphicon glyphicon-save"></span> Enregistrer les modifications
+                            </button>
+                            @Html.ActionLink("Annuler", "Index", null, new { @class = "btn btn-default" })
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+﻿@model SRSAD.Models.PeriodesFinancieresRef
+
+@{
+    ViewBag.Title = "Détails de la période financière";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>
+                Détails de la période financière
+                <small class="pull-right">
+                    @Html.ActionLink("Modifier", "Edit", new { id = Model.PeriodeFinID }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-default" })
+                </small>
+            </h2>
+            <hr />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Informations</h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered">
+                        <tr>
+                            <th style="width: 30%">@Html.DisplayNameFor(model => model.Code)</th>
+                            <td><strong>@Html.DisplayFor(model => model.Code)</strong></td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.DateDebut)</th>
+                            <td>@Model.DateDebut.ToShortDateString()</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.DateFin)</th>
+                            <td>@Model.DateFin.ToShortDateString()</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.EstActive)</th>
+                            <td>
+                                @if (Model.EstActive)
+                                {
+                                    <span class="label label-success">Active</span>
+                                }
+                                else
+                                {
+                                    <span class="label label-default">Inactive</span>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="panel-footer">
+                    @if (!Model.EstActive)
+                    {
+                        using (Html.BeginForm("Activer", "PeriodeFinanciere", new { id = Model.PeriodeFinID }, FormMethod.Post, new { style = "display:inline" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button type="submit" class="btn btn-success" onclick="return confirm('Activer cette période financière ?');">
+                                <span class="glyphicon glyphicon-ok"></span> Activer
+                            </button>
+                        }
+                    }
+                    @using (Html.BeginForm("Delete", "PeriodeFinanciere", new { id = Model.PeriodeFinID }, FormMethod.Post, new { style = "display:inline", onsubmit = "return confirm('Êtes-vous sûr de vouloir supprimer cette période financière ?');" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-danger">
+                            <span class="glyphicon glyphicon-trash"></span> Supprimer
+                        </button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

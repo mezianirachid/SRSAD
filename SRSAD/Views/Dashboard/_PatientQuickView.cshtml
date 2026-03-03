@@ -1,0 +1,110 @@
+﻿@model SRSAD.ViewModels.PatientQuickViewModel
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h4>@Model.NomComplet</h4>
+            <p>
+                <span class="label label-info">@Model.NoDossierSRSAD</span>
+                <span class="label label-default">@Model.NoDossierIPM</span>
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <table class="table table-condensed">
+                <tr>
+                    <th>Date naissance :</th>
+                    <td>@(Model.DateNaissance?.ToShortDateString() ?? "-")</td>
+                </tr>
+                <tr>
+                    <th>Secteur :</th>
+                    <td>@Model.Secteur</td>
+                </tr>
+                <tr>
+                    <th>Statut :</th>
+                    <td>
+                        @if (Model.StatutDossier == "Hospitalisé")
+                        {
+                            <span class="label label-warning">@Model.StatutDossier</span>
+                        }
+                        else
+                        {
+                            <span class="label label-success">@Model.StatutDossier</span>
+                        }
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="col-md-6">
+            <table class="table table-condensed">
+                <tr>
+                    <th>Adresse :</th>
+                    <td>@Model.AdresseCourante</td>
+                </tr>
+                <tr>
+                    <th>Téléphone :</th>
+                    <td>@Model.Telephone</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <h5>Assignations actives</h5>
+            @if (Model.AssignationsActives.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var assignation in Model.AssignationsActives)
+                    {
+                        <li class="list-group-item">@assignation</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">Aucune assignation active</p>
+            }
+        </div>
+
+        <div class="col-md-6">
+            <h5>Équipements en prêt</h5>
+            @if (Model.EquipementsEnPret.Any())
+            {
+                <ul class="list-group">
+                    @foreach (var equipement in Model.EquipementsEnPret)
+                    {
+                        <li class="list-group-item">@equipement</li>
+                    }
+                </ul>
+            }
+            else
+            {
+                <p class="text-muted">Aucun équipement en prêt</p>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6">
+            <p>
+                <strong>Dernière visite :</strong>
+                @(Model.DerniereVisite?.ToShortDateString() ?? "Aucune")
+            </p>
+        </div>
+        <div class="col-md-6">
+            <p>
+                <strong>Prochaine visite :</strong>
+                @(Model.ProchaineVisite?.ToShortDateString() ?? "Non planifiée")
+            </p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12 text-center">
+            @Html.ActionLink("Voir dossier complet", "Details", "Usager", new { id = Model.UsagerID }, new { @class = "btn btn-primary" })
+        </div>
+    </div>
+</div>

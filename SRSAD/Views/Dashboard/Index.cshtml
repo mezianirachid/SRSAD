@@ -1,0 +1,523 @@
+﻿@model SRSAD.ViewModels.DashboardViewModel
+
+@{
+    ViewBag.Title = "Tableau de bord SRSAD";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<link href="~/Content/toastr.min.css" rel="stylesheet" />
+<div class="container-fluid">
+    <!-- En-tête -->
+    <div class="row">
+        <div class="col-md-12">
+            <h2>
+                Tableau de bord
+                <small class="pull-right">
+                    @if (Model.IntervenantConnecte != null)
+                    {
+                        <span class="text-muted">
+                            <span class="glyphicon glyphicon-user"></span>
+                            @Model.IntervenantConnecte.NomComplet - @Model.IntervenantConnecte.TypeIntervenant
+                        </span>
+                    }
+                    <button class="btn btn-sm btn-info" onclick="rafraichirDashboard()">
+                        <span class="glyphicon glyphicon-refresh"></span> Actualiser
+                    </button>
+                </small>
+            </h2>
+            <hr />
+        </div>
+    </div>
+
+    <!-- Alertes et notifications -->
+    @if (Model.VisitesEnRetard > 0 || Model.PatientsAvecAlertes > 0)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-warning alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Points d'attention :</strong>
+                    <ul>
+                        @if (Model.VisitesEnRetard > 0)
+                        {
+                            <li>@Model.VisitesEnRetard visite(s) en retard</li>
+                        }
+                        @if (Model.PatientsAvecAlertes > 0)
+                        {
+                            <li>@Model.PatientsAvecAlertes patient(s) avec alertes actives</li>
+                        }
+                        @if (Model.InfectionsActives > 0)
+                        {
+                            <li>@Model.InfectionsActives infection(s) active(s)</li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Cartes statistiques -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="stat-value">@Model.PatientsActifs</div>
+                        <div class="stat-label">Patients actifs</div>
+                        <small>Total: @Model.TotalPatients</small>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <span class="glyphicon glyphicon-user stat-icon"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="stat-value">@Model.PatientsHospitalises</div>
+                        <div class="stat-label">Hospitalisés</div>
+                        <small>@Model.PatientsRadies radiés</small>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <span class="glyphicon glyphicon-ambulance stat-icon"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, #5e72e4 0%, #825ee4 100%);">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="stat-value">@Model.VisitesAujourdhui</div>
+                        <div class="stat-label">Visites aujourd'hui</div>
+                        <small>@Model.VisitesCetteSemaine cette semaine</small>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <span class="glyphicon glyphicon-calendar stat-icon"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="stat-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                <div class="row">
+                    <div class="col-xs-8">
+                        <div class="stat-value">@Model.EquipementsTotal</div>
+                        <div class="stat-label">Équipements</div>
+                        <small>@Model.EquipementsDisponibles disponibles</small>
+                    </div>
+                    <div class="col-xs-4 text-right">
+                        <span class="glyphicon glyphicon-briefcase stat-icon"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Statistiques détaillées -->
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <span class="glyphicon glyphicon-stats"></span> Équipements
+                </div>
+                <div class="card-body">
+                    <canvas id="chartEquipements" width="200" height="200"></canvas>
+                    <div class="text-center mt-3">
+                        <span class="label label-success">@Model.EquipementsDisponibles dispo</span>
+                        <span class="label label-primary">@Model.EquipementsEnPret prêtés</span>
+                        <span class="label label-danger">@Model.EquipementsBrises brisés</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <span class="glyphicon glyphicon-stats"></span> Cylindres
+                </div>
+                <div class="card-body text-center">
+                    <h3>@Model.CommandesCylindresEnCours</h3>
+                    <p>Commandes en cours</p>
+                    <h3>@Model.FacturesEnAttente</h3>
+                    <p>Factures en attente</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <span class="glyphicon glyphicon-stats"></span> Alertes actives
+                </div>
+                <div class="card-body text-center">
+                    <h3 class="text-danger">@Model.PatientsAvecAlertes</h3>
+                    <p>Patients avec alertes</p>
+                    <h3 class="text-warning">@Model.InfectionsActives</h3>
+                    <p>Infections actives</p>
+                    <h3 class="text-info">@Model.InfestationsActives</h3>
+                    <p>Infestations actives</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-header">
+                    <span class="glyphicon glyphicon-stats"></span> Patients par statut
+                </div>
+                <div class="card-body">
+                    @foreach (var stat in Model.StatsPatients)
+                    {
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-success" style="width: @(stat.Valeur * 100 / Model.TotalPatients)%">
+                                @stat.Libelle: @stat.Valeur
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section intervenant connecté -->
+    @if (Model.IntervenantConnecte != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header" style="background-color: #e8f4f8;">
+                        <span class="glyphicon glyphicon-dashboard"></span>
+                        Mon tableau de bord - @Model.IntervenantConnecte.NomComplet
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="well text-center">
+                                    <h3>@Model.IntervenantConnecte.MesPatients</h3>
+                                    <p>Mes patients</p>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="well text-center">
+                                    <h3>@Model.IntervenantConnecte.MesVisitesAujourdhui</h3>
+                                    <p>Visites aujourd'hui</p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <h4>Mes prochaines visites</h4>
+                                @if (Model.IntervenantConnecte.MesProchainesVisites.Any())
+                                {
+                                    <ul class="list-group">
+                                        @foreach (var visite in Model.IntervenantConnecte.MesProchainesVisites)
+                                        {
+                                            <li class="list-group-item @(visite.EstUrgent ? "list-group-item-danger" : "")">
+                                                <span class="badge">@visite.ProchaineVisite.ToShortDateString()</span>
+                                                @Html.ActionLink(visite.PatientNom, "Details", "Usager", new { id = visite.PatientID }, null)
+                                                <small>@visite.HeureRelative</small>
+                                            </li>
+                                        }
+                                    </ul>
+                                }
+                                else
+                                {
+                                    <p class="text-muted">Aucune visite planifiée</p>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+    <!-- Prochaines visites et dernières visites -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <span class="glyphicon glyphicon-time"></span> Prochaines visites (7 jours)
+                </div>
+                <div class="card-body">
+                    @if (Model.ProchainesVisites.Any())
+                    {
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Patient</th>
+                                    <th>Intervenant</th>
+                                    <th>Type</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var visite in Model.ProchainesVisites)
+                                {
+                                    <tr class="@(visite.EstUrgent ? "danger" : "")">
+                                        <td>
+                                            <strong>@visite.ProchaineVisite.ToShortDateString()</strong>
+                                            <br /><small>@visite.HeureRelative</small>
+                                        </td>
+                                        <td>@Html.ActionLink(visite.PatientNom, "Details", "Usager", new { id = visite.PatientID }, null)</td>
+                                        <td>@visite.IntervenantNom</td>
+                                        <td>@visite.TypeIntervenant</td>
+                                        <td>
+                                            @Html.ActionLink("Détails", "Details", "Assignation", new { id = visite.AssignationID }, new { @class = "btn btn-xs btn-info" })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Aucune visite planifiée dans les 7 prochains jours</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <span class="glyphicon glyphicon-list-alt"></span> Dernières visites
+                </div>
+                <div class="card-body">
+                    @if (Model.DernieresVisites.Any())
+                    {
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Patient</th>
+                                    <th>Intervenant</th>
+                                    <th>Durée</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var visite in Model.DernieresVisites)
+                                {
+                                    <tr>
+                                        <td>
+                                            @visite.DateVisite.ToShortDateString()
+                                            <br /><small>@visite.HeureRelative</small>
+                                        </td>
+                                        <td>@Html.ActionLink(visite.PatientNom, "Details", "Usager", new { id = visite.PatientID }, null)</td>
+                                        <td>@visite.IntervenantNom</td>
+                                        <td>@visite.DureeMinutes min</td>
+                                        <td>
+                                            @Html.ActionLink("Détails", "Details", "Visite", new { id = visite.VisiteID }, new { @class = "btn btn-xs btn-info" })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Aucune visite récente</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Nouveaux patients et équipements récents -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <span class="glyphicon glyphicon-user"></span> Nouveaux patients
+                </div>
+                <div class="card-body">
+                    @if (Model.NouveauxPatients.Any())
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>N° dossier</th>
+                                    <th>Patient</th>
+                                    <th>Date création</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var patient in Model.NouveauxPatients)
+                                {
+                                    <tr>
+                                        <td>@patient.NoDossierSRSAD</td>
+                                        <td>@patient.NomComplet</td>
+                                        <td>@patient.DateCreation.ToShortDateString()</td>
+                                        <td>
+                                            @Html.ActionLink("Voir", "Details", "Usager", new { id = patient.UsagerID }, new { @class = "btn btn-xs btn-success" })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Aucun nouveau patient</p>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header">
+                    <span class="glyphicon glyphicon-briefcase"></span> Équipements récents
+                </div>
+                <div class="card-body">
+                    @if (Model.EquipementsRecents.Any())
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>N° inventaire</th>
+                                    <th>Type</th>
+                                    <th>Modèle</th>
+                                    <th>Date création</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var equipement in Model.EquipementsRecents)
+                                {
+                                    <tr>
+                                        <td>@equipement.NoInventaire</td>
+                                        <td>@equipement.TypeEquipement</td>
+                                        <td>@equipement.Modele</td>
+                                        <td>@equipement.DateCreation.ToShortDateString()</td>
+                                        <td>
+                                            @Html.ActionLink("Voir", "Details", "Equipement", new { id = equipement.EquipementID }, new { @class = "btn btn-xs btn-info" })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Aucun équipement récent</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal pour vue rapide patient -->
+<div class="modal fade" id="patientQuickViewModal" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Informations rapides patient</h4>
+            </div>
+            <div class="modal-body" id="patientQuickViewContent">
+                <div class="text-center">
+                    <div class="spinner"></div>
+                    <p>Chargement...</p>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Initialiser les graphiques
+            initChartEquipements();
+
+            // Actualiser toutes les 5 minutes
+            setInterval(rafraichirDashboard, 300000);
+        });
+
+        function initChartEquipements() {
+            var ctx = document.getElementById('chartEquipements').getContext('2d');
+            var chart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Disponibles', 'En prêt', 'Brisés', 'Maintenance'],
+                    datasets: [{
+                        data: [
+                            @Model.EquipementsDisponibles,
+                            @Model.EquipementsEnPret,
+                            @Model.EquipementsBrises,
+                            @Model.EquipementsMaintenance
+                        ],
+                        backgroundColor: [
+                            '#28a745',
+                            '#007bff',
+                            '#dc3545',
+                            '#ffc107'
+                        ]
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    legend: {
+                        display: false
+                    }
+                }
+            });
+        }
+
+        function rafraichirDashboard() {
+            $.ajax({
+                url: '@Url.Action("RafraichirStats", "Dashboard")',
+                type: 'GET',
+                success: function(data) {
+                    // Mettre à jour les statistiques
+                    $('.stat-value').first().text(data.PatientsActifs);
+                    // etc.
+
+                    // Afficher notification
+                    //toastr.success('Données actualisées');
+                    if (window.toastr) toastr.success('Données actualisées');
+                },
+                error: function() {
+                    toastr.error('Erreur lors de l\'actualisation');
+                }
+            });
+        }
+
+        function showPatientQuickView(patientId) {
+            $('#patientQuickViewModal').modal('show');
+
+            $.ajax({
+                url: '@Url.Action("PatientDetails", "Dashboard")/' + patientId,
+                type: 'GET',
+                success: function(data) {
+                    $('#patientQuickViewContent').html(data);
+                },
+                error: function() {
+                    $('#patientQuickViewContent').html('<p class="text-danger">Erreur lors du chargement</p>');
+                }
+            });
+        }
+
+        // Toastr notifications
+        toastr.options = {
+            closeButton: true,
+            progressBar: true,
+            positionClass: "toast-top-right",
+            timeOut: 3000
+        };
+    </script>
+}

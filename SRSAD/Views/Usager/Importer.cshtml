@@ -1,0 +1,353 @@
+﻿@model SRSAD.ViewModels.ImportEClinibaseViewModel
+
+@{
+    ViewBag.Title = "Importer un patient d'E-Clinibase";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>
+                Importer un patient d'E-Clinibase
+                <small class="pull-right">
+                    @Html.ActionLink("Retour à la recherche", "Create", null, new { @class = "btn btn-default" })
+                </small>
+            </h2>
+            <hr />
+        </div>
+    </div>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-success">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <span class="glyphicon glyphicon-import"></span> Étape 2 : Données importées d'E-Clinibase
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="alert alert-info">
+                            <strong>Données socio-démographiques importées avec succès.</strong>
+                            Veuillez compléter les informations administratives SRSAD.
+                        </div>
+
+                        @Html.HiddenFor(m => m.NoDossierIPM)
+                        @Html.HiddenFor(m => m.RAMQ)
+                        @Html.HiddenFor(m => m.Nom)
+                        @Html.HiddenFor(m => m.Prenom)
+                        @Html.HiddenFor(m => m.DateNaissance)
+                        @Html.HiddenFor(m => m.Sexe)
+                        @Html.HiddenFor(m => m.Telephone)
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>N° IPM</label>
+                                    <p class="form-control-static"><strong>@Model.NoDossierIPM</strong></p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>RAMQ</label>
+                                    <p class="form-control-static">@Model.RAMQ</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Date naissance</label>
+                                    <p class="form-control-static">@(Model.DateNaissance?.ToShortDateString())</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Nom</label>
+                                    <p class="form-control-static"><strong>@Model.Nom</strong></p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Prénom</label>
+                                    <p class="form-control-static"><strong>@Model.Prenom</strong></p>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Sexe</label>
+                                    <p class="form-control-static">@Model.Sexe</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label>Téléphone</label>
+                                    <p class="form-control-static">@Model.Telephone</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-info">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <span class="glyphicon glyphicon-home"></span> Adresses importées (permanente, temporaire, antérieures)
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="alert alert-warning">
+                            <strong>Toutes les adresses d'E-Clinibase sont automatiquement importées.</strong>
+                            L'adresse permanente sera définie comme adresse courante.
+                        </div>
+
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Adresse</th>
+                                    <th>Téléphone</th>
+                                    <th>Période de validité</th>
+                                    <th>Source</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @for (int i = 0; i < Model.Adresses.Count; i++)
+                                {
+                                    <tr class="@(Model.Adresses[i].TypeAdresse == "PERMANENTE" ? "success" : "")">
+                                        @Html.HiddenFor(m => m.Adresses[i].TypeAdresse)
+                                        @Html.HiddenFor(m => m.Adresses[i].SourceAdresse)
+                                        @Html.HiddenFor(m => m.Adresses[i].Adresse1)
+                                        @Html.HiddenFor(m => m.Adresses[i].Adresse2)
+                                        @Html.HiddenFor(m => m.Adresses[i].Ville)
+                                        @Html.HiddenFor(m => m.Adresses[i].Province)
+                                        @Html.HiddenFor(m => m.Adresses[i].CodePostal)
+                                        @Html.HiddenFor(m => m.Adresses[i].Pays)
+                                        @Html.HiddenFor(m => m.Adresses[i].Telephone)
+                                        @Html.HiddenFor(m => m.Adresses[i].DateDebutValidite)
+                                        @Html.HiddenFor(m => m.Adresses[i].DateFinValidite)
+                                        @Html.HiddenFor(m => m.Adresses[i].EClinibaseAdresseId)
+                                        @Html.HiddenFor(m => m.Adresses[i].EstCourante)
+
+                                        <td>
+                                            <strong>@Model.Adresses[i].TypeAdresse</strong>
+                                            @if (Model.Adresses[i].TypeAdresse == "PERMANENTE")
+                                            {
+                                                <br /><span class="label label-success">Courante</span>
+                                            }
+                                        </td>
+                                        <td>@Model.Adresses[i].AdresseComplete</td>
+                                        <td>@Model.Adresses[i].Telephone</td>
+                                        <td>
+                                            @if (Model.Adresses[i].DateDebutValidite.HasValue)
+                                            {
+                                                @Model.Adresses[i].DateDebutValidite.Value.ToShortDateString()
+                                            }
+                                            @if (Model.Adresses[i].DateFinValidite.HasValue)
+                                            {
+                                                <text> - </text> @Model.Adresses[i].DateFinValidite.Value.ToShortDateString()
+                                            }
+                                            else if (Model.Adresses[i].TypeAdresse == "PERMANENTE")
+                                            {
+                                                <text> - Présent</text>
+                                            }
+                                        </td>
+                                        <td>@Model.Adresses[i].SourceAdresse</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-warning">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <span class="glyphicon glyphicon-cog"></span> Étape 3 : Informations administratives SRSAD
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.SecteurID, "Secteur *")
+                                    @Html.DropDownList("SecteurID", null, "Sélectionnez", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.SecteurID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CLSCID, "CLSC *")
+                                    @Html.DropDownList("CLSCID", null, "Sélectionnez", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.CLSCID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.StatutDossierID, "Statut dossier *")
+                                    @Html.DropDownList("StatutDossierID", null, "Sélectionnez", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.StatutDossierID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.AgentPayeurID, "Agent payeur")
+                                    @Html.DropDownList("AgentPayeurID", null, "Sélectionnez", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.AgentPayeurID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.StatutTabagique)
+                                    @Html.DropDownListFor(model => model.StatutTabagique,
+                                        new SelectList(new[] { "", "Non fumeur", "Ancien fumeur", "Fumeur", "Inconnu" }),
+                                        "Sélectionnez",
+                                        new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.StatutTabagique, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkbox" style="margin-top: 30px;">
+                                    <label>
+                                        @Html.CheckBoxFor(model => model.CodeHydroQuebec)
+                                        Code Hydro-Québec
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.CentreDeCout)
+                                    @Html.EditorFor(model => model.CentreDeCout, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.CentreDeCout, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.BonCommande)
+                                    @Html.EditorFor(model => model.BonCommande, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.BonCommande, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*<div class="panel-footer" style="padding: 15px; background-color: #f5f5f5;">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <button type="submit" class="btn btn-success btn-lg">
+                                        <span class="glyphicon glyphicon-ok"></span> Créer le dossier SRSAD
+                                    </button>
+                                    <span style="margin-left: 15px; color: #666;">
+                                        <span class="glyphicon glyphicon-info-sign"></span>
+                                        Le patient @Model.Prenom @Model.Nom sera créé avec toutes ses adresses
+                                    </span>
+                                </div>
+                                <div class="col-md-4 text-right">
+                                    @Html.ActionLink("Annuler", "Creer", null, new { @class = "btn btn-default btn-lg" })
+                                </div>
+                            </div>
+                        </div>*@
+                <div class="panel-footer" style="padding: 20px; background: linear-gradient(to bottom, #f8f9fa 0%, #e9ecef 100%); border-top: 2px solid #ffc107;">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4 style="margin-top: 0; color: #856404;">
+                                <span class="glyphicon glyphicon-import"></span>
+                                Finalisation de l'importation depuis E-Clinibase
+                            </h4>
+                            <p>Les données socio-démographiques ont été importées. Complétez les informations SRSAD ci-dessus puis cliquez sur "Créer le dossier".</p>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-8">
+                            <button type="submit" class="btn btn-success btn-lg" style="min-width: 300px;">
+                                <span class="glyphicon glyphicon-save"></span>
+                                <strong>Créer le dossier SRSAD</strong>
+                            </button>
+                            <span class="text-muted" style="margin-left: 20px;">
+                                <span class="glyphicon glyphicon-time"></span>
+                                Génération automatique du n° dossier
+                            </span>
+                        </div>
+                        <div class="col-md-4 text-right">
+                            @Html.ActionLink("Annuler", "Creer", null, new
+                            {
+                                @class = "btn btn-default btn-lg",
+                                onclick = "return confirm('Annuler l\'importation ? Toutes les données seront perdues.');"
+                            })
+                        </div>
+                    </div>
+
+                    <div class="row" style="margin-top: 15px;">
+                        <div class="col-md-12">
+                            <div class="alert alert-warning" style="margin-bottom: 0; padding: 10px;">
+                                <span class="glyphicon glyphicon-info-sign"></span>
+                                <strong>Note :</strong> Le numéro de dossier SRSAD sera généré automatiquement selon le format
+                                <code>S-@DateTime.Now.Year-@((DateTime.Now.Month-1)/3+1)-XXXX</code>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+            $('.datepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true
+            });
+        });
+    </script>
+
+    <script>
+        $(function () {
+            $('.datepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true
+            });
+
+            // Confirmation avant création
+            $('form').submit(function (e) {
+                var action = $(document.activeElement).val();
+                if (action === 'create') {
+                    return confirm('Confirmez-vous la création du dossier SRSAD pour ce patient ?');
+                }
+                return true;
+            });
+        });
+    </script>
+}
+
+
+
+

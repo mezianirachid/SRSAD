@@ -1,0 +1,645 @@
+﻿<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - SRSAD</title>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Bootstrap 3 -->
+
+    <link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
+    <style>
+        body {
+            padding-top: 70px;
+            padding-bottom: 20px;
+            background-color: #f5f5f5;
+        }
+
+        /* Wrapping element */
+        .body-content {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        /* Navbar personnalisée */
+        .navbar-srsad {
+            background-color: #003366;
+            border-color: #002244;
+        }
+
+            .navbar-srsad .navbar-brand {
+                color: #ffffff;
+                font-weight: bold;
+            }
+
+            .navbar-srsad .navbar-nav > li > a {
+                color: #ffffff;
+            }
+
+                .navbar-srsad .navbar-nav > li > a:hover,
+                .navbar-srsad .navbar-nav > li > a:focus {
+                    background-color: #002244;
+                    color: #ffffff;
+                }
+
+            .navbar-srsad .navbar-nav > .active > a,
+            .navbar-srsad .navbar-nav > .active > a:hover,
+            .navbar-srsad .navbar-nav > .active > a:focus {
+                background-color: #004488;
+                color: #ffffff;
+            }
+
+            .navbar-srsad .navbar-toggle {
+                border-color: #ffffff;
+            }
+
+                .navbar-srsad .navbar-toggle:hover,
+                .navbar-srsad .navbar-toggle:focus {
+                    background-color: #002244;
+                }
+
+                .navbar-srsad .navbar-toggle .icon-bar {
+                    background-color: #ffffff;
+                }
+
+            /* Dropdown menu */
+            .navbar-srsad .dropdown-menu {
+                background-color: #003366;
+                border: 1px solid #002244;
+            }
+
+                .navbar-srsad .dropdown-menu > li > a {
+                    color: #ffffff;
+                }
+
+                    .navbar-srsad .dropdown-menu > li > a:hover,
+                    .navbar-srsad .dropdown-menu > li > a:focus {
+                        background-color: #004488;
+                        color: #ffffff;
+                    }
+
+        /* Badge de notifications */
+        .badge-notification {
+            background-color: #ff4444;
+            color: white;
+            font-size: 10px;
+            position: relative;
+            top: -8px;
+            right: -5px;
+        }
+
+        /* Footer */
+        .footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 30px;
+            background-color: #f5f5f5;
+            text-align: center;
+            line-height: 30px;
+            border-top: 1px solid #ddd;
+            z-index: 1000;
+        }
+
+        /* Main content avec marge pour footer */
+        .main-content {
+            margin-bottom: 40px;
+            min-height: calc(100vh - 140px);
+        }
+
+        /* Cartes statistiques */
+        .stat-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+            .stat-card .stat-icon {
+                font-size: 48px;
+                opacity: 0.8;
+            }
+
+            .stat-card .stat-value {
+                font-size: 32px;
+                font-weight: bold;
+            }
+
+            .stat-card .stat-label {
+                font-size: 16px;
+                opacity: 0.9;
+            }
+
+        /* Alertes */
+        .alert-badge-danger {
+            background-color: #ff4444;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        .alert-badge-warning {
+            background-color: #ffbb33;
+            color: white;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 12px;
+            margin-left: 5px;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #003366;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+
+        @@keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Tables */
+        .table-hover tbody tr:hover {
+            background-color: #e8f4f8;
+            cursor: pointer;
+        }
+
+        /* Badges statuts */
+        .badge-actif {
+            background-color: #28a745;
+            color: white;
+        }
+
+        .badge-inactif {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .badge-hospitalise {
+            background-color: #ffc107;
+            color: black;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            background: #f8f9fa;
+            padding: 15px;
+            border-bottom: 1px solid #dee2e6;
+            font-weight: bold;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        /* Timeline */
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding-left: 50px;
+        }
+
+        .timeline-badge {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            background: #003366;
+            color: white;
+            text-align: center;
+            line-height: 35px;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Print styles */
+        @@media print {
+            .navbar, .footer, .btn, .no-print {
+                display: none !important;
+            }
+
+            body {
+                padding-top: 0;
+            }
+
+            .main-content {
+                margin: 0;
+            }
+        }
+        /* ===== Dropdown utilisateur moderne ===== */
+        .dropdown-menu {
+            border-radius: 10px;
+            border: none;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+            padding: 8px 0;
+            min-width: 220px;
+            font-size: 15px;
+        }
+
+            /* liens */
+            .dropdown-menu > li > a {
+                padding: 10px 18px;
+                color: #333;
+                transition: all .25s ease;
+            }
+
+                /* hover */
+                .dropdown-menu > li > a:hover {
+                    background: #f5f7fb;
+                    color: #0d6efd;
+                    padding-left: 22px;
+                }
+
+            /* separator */
+            .dropdown-menu .divider {
+                margin: 6px 0;
+                border-top: 1px solid #eee;
+            }
+
+            /* bouton logout spécial */
+            .dropdown-menu a[href*="logout"],
+            .dropdown-menu a[onclick],
+            .dropdown-menu a[href^="javascript"] {
+                color: #dc3545;
+                font-weight: 500;
+            }
+
+                .dropdown-menu a[href*="logout"]:hover {
+                    background: #fff1f1;
+                    color: #b02a37;
+                }
+    </style>
+</head>
+<body>
+    <!-- Barre de navigation principale -->
+    <!-- Barre de navigation principale -->
+    <nav class="navbar navbar-srsad navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("SRSAD", "Index", "Dashboard", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+
+            @{
+                // Vérifier si nous sommes sur la page de login
+                var controller = ViewContext.RouteData.Values["controller"]?.ToString();
+                var action = ViewContext.RouteData.Values["action"]?.ToString();
+                bool isLoginPage = (controller == "Account" && action == "Login") ||
+                                   (controller == "Account" && action == "Register");
+            }
+
+            @if (!isLoginPage)
+            {
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <!-- Tout votre menu existant reste ici -->
+                    <ul class="nav navbar-nav">
+                        <!-- Dashboard -->
+                        <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Dashboard" ? "active" : "")">
+                            @Html.ActionLink("Tableau de bord", "Index", "Dashboard")
+                        </li>
+
+                        <!-- Menu Patients -->
+                        <li class="dropdown @(ViewContext.RouteData.Values["controller"].ToString() == "Usager" ? "active" : "")">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                                Patients <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Liste des patients", "Index", "Usager")</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Import E-Clinibase</li>
+                                <li>@Html.ActionLink("Créer depuis E-Clinibase", "Creer", "Usager")</li>
+                                <li>@Html.ActionLink("Synchroniser", "Synchroniser", "EClinibase")</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Gestion</li>
+                                <li>@Html.ActionLink("Patients actifs", "Index", "Usager", new { actifUniquement = true }, null)</li>
+                                <li>@Html.ActionLink("Patients hospitalisés", "Index", "Usager", new { statutDossierId = 2 }, null)</li>
+                            </ul>
+                        </li>
+
+                        <!-- Menu Interventions -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                                Interventions <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Visites", "Index", "Visite")</li>
+                                <li>@Html.ActionLink("Planifier une visite", "Create", "Visite")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Assignations", "Index", "Assignation")</li>
+                                <li>@Html.ActionLink("Nouvelle assignation", "Create", "Assignation")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Calendrier", "Calendrier", "Visite")</li>
+                            </ul>
+                        </li>
+
+                        <!-- Menu Équipements -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                                Équipements <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Parc d'équipements", "Index", "Equipement")</li>
+                                <li>@Html.ActionLink("Nouvel équipement", "Create", "Equipement")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Prêts en cours", "Index", "Pret")</li>
+                                <li>@Html.ActionLink("Nouveau prêt", "Create", "Pret")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Maintenance", "Index", "Maintenance")</li>
+                                <li>@Html.ActionLink("Pannes", "Index", "Panne")</li>
+                                <li>@Html.ActionLink("Contrôle qualité", "Index", "ControleQualite")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Types d'équipements", "Index", "TypeEquipement")</li>
+                            </ul>
+                        </li>
+
+                        <!-- Menu Cylindres -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                                Cylindres O2 <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>@Html.ActionLink("Commandes", "Index", "CommandeCylindre")</li>
+                                <li>@Html.ActionLink("Nouvelle commande", "Create", "CommandeCylindre")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Facturation", "Index", "FacturationCylindre")</li>
+                                <li>@Html.ActionLink("Import facture", "Import", "FacturationCylindre")</li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Types de cylindres", "Index", "TypeCylindre")</li>
+                                <li>@Html.ActionLink("Fournisseurs", "Index", "Fournisseur")</li>
+                            </ul>
+                        </li>
+
+                        <!-- Menu Référentiels -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                                Référentiels <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">Paramètres</li>
+                                <li>@Html.ActionLink("CLSC", "Index", "CLSC")</li>
+                                <li>@Html.ActionLink("Secteurs", "Index", "Secteur")</li>
+                                <li>@Html.ActionLink("Types intervenants", "Index", "TypeIntervenant")</li>
+                                <li>@Html.ActionLink("Statuts suivi", "Index", "StatutSuivi")</li>
+                                <li>@Html.ActionLink("Statuts dossier", "Index", "StatutDossier")</li>
+                                <li>@Html.ActionLink("Agents payeurs", "Index", "AgentPayeur")</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Médical</li>
+                                <li>@Html.ActionLink("Particularités", "Index", "Particularite")</li>
+                                <li>@Html.ActionLink("Infections", "Index", "Infection")</li>
+                                <li>@Html.ActionLink("Infestations", "Index", "Infestation")</li>
+                            </ul>
+                        </li>
+
+                        <!-- Menu Administration -->
+                        @if (User.IsInRole("Admin") || ViewBag.EstSuperUtilisateur == true)
+                        {
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button">
+                                    Admin <span class="caret"></span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li>@Html.ActionLink("Utilisateurs", "Index", "Utilisateur")</li>
+                                    <li>@Html.ActionLink("Rôles", "Index", "Role")</li>
+                                    <li>@Html.ActionLink("Journal d'audit", "Index", "Audit")</li>
+                                    <li role="separator" class="divider"></li>
+                                    <li>@Html.ActionLink("Configuration", "Index", "Configuration")</li>
+                                    <li>@Html.ActionLink("Règles notification", "Index", "RegleNotification")</li>
+                                </ul>
+                            </li>
+                        }
+                    </ul>
+
+                    <!-- Menu utilisateur à droite -->
+                    <ul class="nav navbar-nav navbar-right">
+                        <!-- Notifications -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                @if ((ViewBag.NotificationsNonLues ?? 0) > 0)
+                                {
+                                    <span class="glyphicon glyphicon-bell"></span>
+                                    <span class="badge badge-notification">@ViewBag.NotificationsNonLues</span>
+                                }
+                                else
+                                {
+                                    <span class="glyphicon glyphicon-bell"></span>
+                                }
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="dropdown-header">Notifications</li>
+                                <li><a href="#">Nouvelle assignation</a></li>
+                                <li><a href="#">Équipement à entretenir</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li>@Html.ActionLink("Voir toutes", "Index", "Notification")</li>
+                            </ul>
+                        </li>
+
+                        <!-- Profil utilisateur -->
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span class="glyphicon glyphicon-user"></span>
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <span>@User.Identity.Name</span>
+                                }
+                                else
+                                {
+                                    <span>Invité</span>
+                                }
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <li>@Html.ActionLink("Mon profil", "Profil", "Utilisateur")</li>
+                                    <li>@Html.ActionLink("Mes patients", "MesPatients", "Usager")</li>
+                                    <li>@Html.ActionLink("Mes visites", "MesVisites", "Visite")</li>
+
+                                    <li role="separator" class="divider"></li>
+
+                                    <li class="text-center" style="padding:8px 12px;">
+                                        @using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", style = "margin:0;" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <button type="submit" class="btn btn-link" style="color:#dc3545; font-weight:600; text-decoration:none;">
+                                                Déconnexion
+                                            </button>
+                                        }
+                                    </li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Connexion", "Login", "Account")</li>
+                                }
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            }
+            else
+            {
+                <!-- Sur la page de login, on affiche seulement le nom de l'application à droite -->
+                <div class="collapse navbar-collapse" id="navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="/account/register"><i class="glyphicon glyphicon-user"></i> S'inscrire</a></li>
+                        <li><a href="/home/contact"><i class="glyphicon glyphicon-earphone"></i> Aide</a></li>
+                    </ul>
+                </div>
+            }
+        </div>
+    </nav>
+
+    <!-- Contenu principal -->
+    <div class="container-fluid main-content">
+        @RenderBody()
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container-fluid">
+            <span class="text-muted">
+                SRSAD - Service régional de soins à domicile pour maladies pulmonaires chroniques
+                | Version 1.0
+                | &copy; @DateTime.Now.Year CEMTL
+            </span>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+
+
+    <script src="~/Scripts/jquery.min.js"></script>
+    <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    <script src="~/Scripts/locales/bootstrap-datepicker.fr.min.js"></script>
+    <script src="~/Content/bootstrap/js/jquery.dataTables.min.js"></script>
+    <script src="~/Content/bootstrap/js/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("Scripts", required: false)
+
+    <script>
+        $(document).ready(function() {
+            // Activer les tooltips Bootstrap
+            $('[data-toggle="tooltip"]').tooltip();
+
+            // Activer les popovers
+            $('[data-toggle="popover"]').popover();
+
+            // Initialiser les datepickers en français
+            $('.datepicker').datepicker({
+                language: 'fr',
+                format: 'yyyy-mm-dd',
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            // Gestion des messages temporaires
+            setTimeout(function() {
+                $('.alert-auto-hide').fadeOut('slow');
+            }, 5000);
+
+            // Confirmation avant suppression
+            $('.btn-delete').click(function(e) {
+                if (!confirm('Êtes-vous sûr de vouloir supprimer cet élément ?')) {
+                    e.preventDefault();
+                }
+            });
+
+            // Loading spinner pour les formulaires
+            $('form').submit(function() {
+                var btn = $(this).find('button[type="submit"]');
+                if (btn.length) {
+                    btn.prop('disabled', true);
+                    btn.html('<span class="spinner-border spinner-border-sm"></span> Chargement...');
+                }
+            });
+
+            // Recherche dynamique
+            $('#search-input').on('keyup', function() {
+                var value = $(this).val().toLowerCase();
+                $('.searchable-table tbody tr').filter(function() {
+                    $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                });
+            });
+        });
+
+        // Fonction pour rafraîchir les notifications
+        function refreshNotifications() {
+            $.get('@Url.Action("GetNotifications", "Notification")', function(data) {
+                $('.badge-notification').text(data.count);
+            });
+        }
+
+        // Rafraîchir toutes les 5 minutes
+        setInterval(refreshNotifications, 300000);
+
+        // Fonction pour exporter en Excel
+        function exportToExcel(tableId, filename) {
+            var table = document.getElementById(tableId);
+            var html = table.outerHTML;
+            var url = 'data:application/vnd.ms-excel,' + escape(html);
+            var link = document.createElement("a");
+            link.download = filename + ".xls";
+            link.href = url;
+            link.click();
+        }
+
+        // Fonction pour imprimer
+        function printContent(elementId) {
+            var printContent = document.getElementById(elementId);
+            var originalContent = document.body.innerHTML;
+            document.body.innerHTML = printContent.innerHTML;
+            window.print();
+            document.body.innerHTML = originalContent;
+            location.reload();
+        }
+    </script>
+</body>
+</html>

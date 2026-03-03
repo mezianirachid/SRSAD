@@ -1,0 +1,217 @@
+﻿@{
+    ViewBag.Title = "Acceuil";
+}
+
+<link href="~/Content/font-awesome.min.css" rel="stylesheet" />
+<style>
+    .modal-backdrop {
+        display: none !important;
+    }
+
+    .modal-open .myModal {
+        width: 250px;
+        margin: 0 auto;
+    }
+
+    /*.modal-dialog {
+       margin-right: 500px;
+       margin-top: 100px ;
+    }*/
+    .myModal {
+        width: 300px;
+        height: 300px;
+        position: absolute;
+        left: 33%;
+        top: 25%;
+        margin-left: -200px;
+        margin-top: -50px;
+    }
+
+
+    /* Create two equal columns that floats next to each other */
+    .column {
+        float: left;
+        width: 25%;
+        padding: 50px;
+        margin: 37px;
+    }
+
+    /* Clear floats after the columns */
+    .row:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    /* Style the buttons */
+    .btn {
+        border: none;
+        outline: none;
+        padding: 12px 16px;
+        cursor: pointer;
+    }
+
+        .btn:hover {
+            background-color: #ffd800;
+        }
+
+        .btn.active {
+            background-color: #666;
+            color: white;
+        }
+
+    /* style glyph */
+    .inner-addon .glyphicon {
+        position: absolute;
+        padding: 10px;
+        pointer-events: none;
+    }
+    /* add padding  */
+    .left-addon input {
+        padding-left: 30px;
+    }
+</style>
+
+<script>
+    $(document).ready(function () {
+        //$('#myModal').modal('show');
+        //$('#ScanBarCode').focus();
+        $('#myModal').modal('show');
+        $('#myModal').on('shown.bs.modal', function() {
+            $('input[id="ScanBarCode"]').focus();
+        });
+    });
+</script>
+
+<div class="modal fade" id="divErreur" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header modal-header-danger" style="color:white; background:red">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Information</h4>
+            </div>
+            <div class="modal-body">
+                <span id="msgErreur" style="font-size:20px"></span>
+            </div>
+            <div class="modal-footer modal-footer-info">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+
+    </div>
+</div> <!-- Modal erreur-->
+
+<div id="myModal" class="modal fade in" style="margin:5%" data-keyboard="false" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header" style="background:#ffd800">
+                <h3 class="modal-header-info" style="text-align:center">Veuillez scanner le code à barres de la table</h3>
+            </div>
+            <div class="modal-body">
+                <form id="FormModalUserTable">
+
+                    @*<div class="form-group modal-label glyphicon glyphicon-barcode">
+                            <label>Scanner le code à barres</label>
+                            <input class="form-control" style="max-width:100%" id="ScanBarCode" name="ScanBarCode" type="text" autocomplete="off">
+                        </div>*@
+
+                    @*<div class="form-group modal-label glyphicon glyphicon-barcode">
+                            <label>Scanner le code à barres</label>
+                            <input class="form-control" id="ScanBarCode" name="ScanBarCode" type="text" autocomplete="off" placeholder="Scanner le code à barres">
+                        </div>*@
+
+                    <div class="form-group">
+                        <div class="col-md-10 inner-addon left-addon">
+                            <i class="glyphicon glyphicon-barcode"></i>
+                            @Html.Editor("BarCodeScan", new { htmlAttributes = new { @class = "form-control", id = "ScanBarCode", name = "ScanBarCode", type = "text", autocomplete = "off", placeholder = "Scanner le code à barres" } })
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <button type="submit" id="idValide" name="idValide" class="btn btn-primary hidden" onclick="Valider();">Valider</button>
+                <a href="#" class="btn btn-danger" data-dismiss="modal" onclick="Quitter();">Quitter</a>
+            </div>
+
+        </div>
+    </div>
+</div>   <!-- Modal -->
+
+
+<script type="text/javascript">
+    function Valider() {
+        var scanSiteTable = $('#ScanBarCode').val();
+        $.ajax({
+            type: "GET",
+            async: true,
+            url: '@Url.Action("InitTablePiqueurWithCurrentUser", "Home")',
+            dataType: "json",
+            cache: false,
+            data: { scanSiteTable: scanSiteTable },
+            success: function (result) {
+                //alert("Bon ScanBarCode result!");
+                if (result.Statut == true)
+                {
+                    window.location.replace('@Url.Action("Index", "Commandes")');
+                }
+                else
+                {
+                    event.preventDefault();
+                    $('#ScanBarCode').val('');
+                    $('#ScanBarCode').focus();
+                    return;
+                    //AfficherMessageError(result.Message);
+                }
+                //url = "/Commandes/Index";
+                //window.location.href = url;
+            },
+            error: function (request) {
+                //alert(request.responseText);
+                event.preventDefault();
+                $('#ScanBarCode').val('');
+                $('#ScanBarCode').focus();
+                return;
+            }
+        });
+    }
+    function Quitter() {
+        javascript: document.getElementById('logoutForm').submit();
+    }
+</script>
+
+
+
+<script>
+    $("#ScanBarCode").on( "keypress", function(event) {
+    if (event.which == 13 && !event.shiftKey) {
+            var str = $('#ScanBarCode').val();
+        //if (str.includes("site") & str.includes(" table"))
+            if (str.indexOf("site") == 0 & str.includes(" table"))
+            {
+             event.preventDefault();
+             Valider();
+             //$('#idValide').trigger('click');
+            }
+            else
+            {
+            $('#ScanBarCode').val('');
+            $('#ScanBarCode').focus();
+            return;
+            }
+    }
+    });
+</script>
+
+
+<script>
+ function AfficherMessageError(message) {
+        $('#divErreur').modal('show');
+        $("#divErreur").css("z-index", "2000");
+        $('#msgErreur').text(message);
+
+        return;
+
+    };
+</script>

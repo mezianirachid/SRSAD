@@ -1,0 +1,70 @@
+﻿ul {
+  list-style: none;
+  padding: 0;
+  margin: 0; 
+}
+
+ul li {
+  display: block;
+  position: relative;
+  float: left;
+  height:40px;
+}
+
+/* This hides the dropdowns */
+
+
+li ul { display: none; }
+
+ul li a {
+  display: block;
+  padding-top: 0.7em;
+  padding-bottom: 0.7em;
+  padding-left: 1em;
+  padding-right: 1em;
+  white-space: nowrap;
+  color: #fff;
+  font-size: 15px;
+  
+}
+
+ul li a:hover { background: #2c3e50; }
+
+/* Display the dropdown */
+
+
+li:hover > ul {
+  display: block;
+  position: absolute;
+}
+
+li:hover li { float: none; }
+
+li:hover a { background: #1bc2a2; }
+
+li:hover li a:hover { background: #d9a148; }
+
+.main-navigation li ul li { border-top: 0;font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; font-size:16px}
+
+
+
+
+
+/* Displays second level dropdowns to the right of the first level dropdown */
+
+ul ul ul {
+  left: 100%;
+  top: 0;
+}
+
+/* Simple clearfix */
+
+
+
+ul:before,
+ul:after {
+  content: " "; /* 1 */
+  display: table; /* 2 */
+}
+
+ul:after { clear: both; }

@@ -1,0 +1,109 @@
+﻿@model IEnumerable<SRSAD.Models.UserEdit>
+@{
+    ViewBag.Title = "Gestion des utilisateurs avec rôles";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var rowColor = "#FFFFFF";
+    var etat = "";
+    var classe = "";
+}
+<h2 style="text-align: center">Liste des utilisateurs</h2>
+<p>
+    @Html.ActionLink("Ajouter un utilisateur", "Register", "Account", null, new { @class = "btn btn-primary btn-large" })
+</p>
+<table id="SRSAD-data-table" class="table table-striped table-bordered">
+    <thead>
+        <tr>
+            <th>      </th>
+            <th><b>Nom utilisateur</b></th>
+            <th><b>Nom</b></th>
+            <th><b>Prénom</b></th>
+            <th><b>Téléphone</b></th>
+            <th><b>Courriel</b></th>
+            <th><b>Rôles</b></th>
+            <th><b>Statut</b></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Where(m => m.Username.ToUpper() != "ADMIN").OrderBy(m => m.Username))
+        {
+
+            if (user.LockoutEnabled)
+            {
+                rowColor = "#FFFFFF";
+                etat = "LockUser";
+                classe = "fa fa-lock";
+            }
+            else
+            {
+                rowColor = "#F08080";
+                etat = "UnlockUser";
+                classe = "fa fa-unlock";
+            };
+            <tr style="background-color:@rowColor" id="@(String.Format("pr{0}", @user.UserId))">
+                <td style="max-width:20px; text-align:center">
+                    <div class="row">
+                        <div class="col-2 col-md-2" title="Éditer">
+                            @Html.ActionLink(" ", "EditUser", new { id = user.UserId }, new { @class = "glyphicon glyphicon-edit" })
+                        </div>
+                        <div class="col-2 col-md-2" title="@etat">
+                            @Html.ActionLink(" ", @etat, new { id = user.UserId }, new { @class = @classe })
+                        </div>
+                    </div>
+                </td>
+                <td>@user.Username</td>
+                <td>@user.LastName</td>
+                <td>@user.FirstName</td>
+                <td>@user.Telephone </td>
+                <td>@user.Email</td>
+                <td>@user.Role</td>
+                <td>
+                    @if (user.LockoutEnabled == true)
+                    {
+                        <p style='color:green'>
+                            @Html.Label("Actif")
+                        </p>                     ;
+                    }
+                    else
+                    {
+                        <p style='color:red'> @Html.Label("Inactif")</p> ;
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+</tbody>
+</table>
+<script src="~/Scripts/jquery-1.10.2.min.js"></script>
+<script src="~/Content/bootstrap/js/jquery.dataTables.min.js"></script>
+
+<script>
+    $('#SRSAD-data-table').DataTable({
+        "dom": '<"top"if>rt<"bottom"lp>',
+        "language": {
+            "sProcessing": "Traitement en cours ...",
+            "sLengthMenu": "Afficher _MENU_ lignes",
+            "sZeroRecords": "Aucun résultat trouvé",
+            "sEmptyTable": "Aucune donnée disponible",
+            "sInfo": "Lignes _START_ à _END_ sur _TOTAL_",
+            "sInfoEmpty": "Aucune ligne affichée",
+            "sInfoFiltered": "(Filtrer un maximum de_MAX_)",
+            "sInfoPostFix": "",
+            "sSearch": "Rechercher:",
+            "sUrl": "",
+            "sInfoThousands": ",",
+            "sLoadingRecords": "Chargement...",
+            "oPaginate": {
+                "sFirst": "Premier", "sLast": "Dernier", "sNext": "Suivant", "sPrevious": "Précédent"
+            },
+            "oAria": {
+                "sSortAscending": ": Trier par ordre croissant", "sSortDescending": ": Trier par ordre décroissant"
+            }
+        }
+    });
+</script>
+
+
+
+
+

@@ -1,0 +1,269 @@
+﻿body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f8f9fa;
+}
+
+.card {
+    box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+    border: 1px solid #dee2e6;
+    margin-bottom: 1rem;
+}
+
+.card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #dee2e6;
+}
+
+.table th {
+    background-color: #f8f9fa;
+    border-top: none;
+}
+
+.btn-group .btn {
+    margin-right: 2px;
+    margin-bottom: 2px;
+}
+
+/* Badge personnalisé */
+.badge {
+    font-size: 85%;
+    padding: 0.4em 0.6em;
+}
+
+/* Alertes */
+.alert {
+    border-radius: 0.25rem;
+    border: none;
+}
+
+/* Formulaires */
+.form-control:focus {
+    border-color: #80bdff;
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+/* DataTables */
+.dataTables_wrapper .dataTables_length,
+.dataTables_wrapper .dataTables_filter {
+    margin-bottom: 1rem;
+}
+
+.dataTables_wrapper .dataTables_paginate .paginate_button {
+    padding: 0.375rem 0.75rem;
+    margin-left: 2px;
+}
+
+/* Navigation */
+.navbar {
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+}
+
+.dropdown-menu {
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .btn-group {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+        .btn-group .btn {
+            flex: 1;
+            min-width: 80px;
+        }
+}
+
+/* Jumbotron */
+.jumbotron {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-radius: 0.3rem;
+    padding: 2rem;
+}
+
+/* Cards d'accueil */
+.card .fa-2x {
+    float: right;
+}
+
+/* Highlight des dates proches */
+.text-danger {
+    color: #dc3545 !important;
+}
+
+.text-warning {
+    color: #ffc107 !important;
+}
+
+.text-success {
+    color: #28a745 !important;
+}
+
+
+/* Styles spécifiques pour les types d'équipement */
+
+/* Cartes de catégories */
+.card-category-mobilite {
+    border-left: 4px solid #0d6efd;
+}
+
+.card-category-respiration {
+    border-left: 4px solid #198754;
+}
+
+.card-category-soins {
+    border-left: 4px solid #0dcaf0;
+}
+
+.card-category-monitoring {
+    border-left: 4px solid #ffc107;
+}
+
+.card-category-autre {
+    border-left: 4px solid #6c757d;
+}
+
+/* Effets de survol */
+.card-hover-effect {
+    transition: all 0.3s ease;
+}
+
+    .card-hover-effect:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    }
+
+/* Badges améliorés */
+.badge-category {
+    padding: 0.5em 1em;
+    font-size: 0.85em;
+    font-weight: 500;
+}
+
+/* Layout en grille */
+.grid-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .grid-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .card-body {
+        padding: 1rem;
+    }
+}
+
+/* Formulaires */
+.form-label {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+/* Alerts */
+.alert-type-warning {
+    border-left: 4px solid #ffc107;
+}
+
+.alert-type-danger {
+    border-left: 4px solid #dc3545;
+}
+ 
+.label {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 3px;
+}
+
+.label-success {
+    background-color: #5cb85c;
+}
+
+.label-danger {
+    background-color: #d9534f;
+}
+
+.label-default {
+    background-color: #777;
+}
+
+.btn-xs {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    margin: 1px;
+}
+
+.panel-title {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 16px;
+    color: inherit;
+}
+
+.panel-default {
+    border-color: #ddd;
+}
+
+    .panel-default > .panel-heading {
+        color: #333;
+        background-color: #f5f5f5;
+        border-color: #ddd;
+    }
+
+.table-condensed th,
+.table-condensed td {
+    padding: 4px 5px;
+}
+
+.alert-warning {
+    color: #8a6d3b;
+    background-color: #fcf8e3;
+    border-color: #faebcc;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+
+ 
+.label {
+    display: inline-block;
+    padding: 3px 8px;
+    font-size: 12px;
+    font-weight: bold;
+    line-height: 1;
+    color: white;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: baseline;
+    border-radius: 3px;
+}
+
+.btn-xs {
+    padding: 1px 5px;
+    font-size: 12px;
+    line-height: 1.5;
+    border-radius: 3px;
+    margin: 1px;
+}
+
+.table th {
+    background-color: #f5f5f5;
+}
+
+ 

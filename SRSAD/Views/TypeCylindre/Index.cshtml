@@ -1,0 +1,99 @@
+﻿@model IEnumerable<SRSAD.Models.TypesCylindreRef>
+
+@{
+    ViewBag.Title = "Types de cylindre";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>
+                Types de cylindre
+                <small class="pull-right">
+                    @Html.ActionLink("Ajouter un type", "Create", null, new { @class = "btn btn-success" })
+                </small>
+            </h2>
+            <hr />
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Recherche</h3>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("Index", "TypeCylindre", FormMethod.Get))
+                    {
+                        <div class="form-group">
+                            @Html.TextBox("searchLibelle", Request.QueryString["searchLibelle"], new { @class = "form-control", placeholder = "Libellé" })
+                        </div>
+                        <div class="checkbox">
+                            <label>
+                                @Html.CheckBox("actifUniquement", Request.QueryString["actifUniquement"] != "False")
+                                Actifs uniquement
+                            </label>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Rechercher</button>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Libellé</th>
+                        <th>Prix de base</th>
+                        <th>Statut</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td><strong>@item.Code</strong></td>
+                            <td>@item.Libelle</td>
+                            <td>@item.PrixBase.ToString("C2")</td>
+                            <td>
+                                @if (item.EstActif)
+                                {
+                                    <span class="label label-success">Actif</span>
+                                }
+                                else
+                                {
+                                    <span class="label label-default">Inactif</span>
+                                }
+                            </td>
+                            <td>
+                                @Html.ActionLink("Détails", "Details", new { id = item.TypeCylindreID }, new { @class = "btn btn-xs btn-info" })
+                                @Html.ActionLink("Modifier", "Edit", new { id = item.TypeCylindreID }, new { @class = "btn btn-xs btn-warning" })
+                                @using (Html.BeginForm("Delete", "TypeCylindre", new { id = item.TypeCylindreID }, FormMethod.Post, new { style = "display:inline", onsubmit = "return confirm('Supprimer ce type ?');" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    <button type="submit" class="btn btn-xs btn-danger">Supprimer</button>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

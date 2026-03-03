@@ -1,0 +1,96 @@
+﻿@model IEnumerable<SRSAD.ViewModels.UsagerViewModels.UsagerListViewModel>
+
+@if (!Model.Any())
+{
+    <p class="text-muted">Aucun historique disponible</p>
+}
+else
+{
+    <div class="timeline">
+        @foreach (var item in Model)
+        {
+            <div class="timeline-item">
+                <div class="timeline-badge">
+                    @switch (item.Type)
+                    {
+                        case "Visite":
+                            <span class="glyphicon glyphicon-eye-open"></span>
+                            break;
+                        case "Assignation":
+                            <span class="glyphicon glyphicon-user"></span>
+                            break;
+                        case "Prêt":
+                            <span class="glyphicon glyphicon-gift"></span>
+                            break;
+                        case "Audit":
+                            <span class="glyphicon glyphicon-list-alt"></span>
+                            break;
+                        default:
+                            <span class="glyphicon glyphicon-info-sign"></span>
+                            break;
+                    }
+                </div>
+                <div class="timeline-panel">
+                    <div class="timeline-heading">
+                        <h4 class="timeline-title">@item.Type</h4>
+                        <p>
+                            <small class="text-muted">
+                                <span class="glyphicon glyphicon-time"></span>
+                                @item.Date.ToString("yyyy-MM-dd HH:mm") par @item.Utilisateur
+                            </small>
+                        </p>
+                    </div>
+                    <div class="timeline-body">
+                        <p>@item.Description</p>
+                        @if (!string.IsNullOrEmpty(item.Details))
+                        {
+                            <p><strong>Détails :</strong> @item.Details</p>
+                        }
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+
+    <style>
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+            list-style: none;
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .timeline-badge {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: #f5f5f5;
+            text-align: center;
+            line-height: 50px;
+            font-size: 20px;
+        }
+
+        .timeline-panel {
+            margin-left: 70px;
+            padding: 15px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .timeline-heading {
+            margin-bottom: 10px;
+        }
+
+        .timeline-title {
+            margin: 0;
+        }
+    </style>
+}

@@ -1,0 +1,691 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="WebPlatFormModelStoreContainer" CdmEntityContainer="EntitiesDbConnection">
+    <EntitySetMapping Name="AgentsPayeurs">
+      <EntityTypeMapping TypeName="WebPlatFormModel.AgentsPayeurs">
+        <MappingFragment StoreEntitySet="AgentsPayeurs">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="AgentPayeurID" ColumnName="AgentPayeurID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetRoles">
+      <EntityTypeMapping TypeName="WebPlatFormModel.AspNetRoles">
+        <MappingFragment StoreEntitySet="AspNetRoles">
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserClaims">
+      <EntityTypeMapping TypeName="WebPlatFormModel.AspNetUserClaims">
+        <MappingFragment StoreEntitySet="AspNetUserClaims">
+          <ScalarProperty Name="ClaimValue" ColumnName="ClaimValue" />
+          <ScalarProperty Name="ClaimType" ColumnName="ClaimType" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUserLogins">
+      <EntityTypeMapping TypeName="WebPlatFormModel.AspNetUserLogins">
+        <MappingFragment StoreEntitySet="AspNetUserLogins">
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProviderKey" ColumnName="ProviderKey" />
+          <ScalarProperty Name="LoginProvider" ColumnName="LoginProvider" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AspNetUsers">
+      <EntityTypeMapping TypeName="WebPlatFormModel.AspNetUsers">
+        <MappingFragment StoreEntitySet="AspNetUsers">
+          <ScalarProperty Name="EstSuperUtilisateur" ColumnName="EstSuperUtilisateur" />
+          <ScalarProperty Name="DateDerniereConnexion" ColumnName="DateDerniereConnexion" />
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="AccessFailedCount" ColumnName="AccessFailedCount" />
+          <ScalarProperty Name="LockoutEnabled" ColumnName="LockoutEnabled" />
+          <ScalarProperty Name="LockoutEndDateUtc" ColumnName="LockoutEndDateUtc" />
+          <ScalarProperty Name="TwoFactorEnabled" ColumnName="TwoFactorEnabled" />
+          <ScalarProperty Name="PhoneNumberConfirmed" ColumnName="PhoneNumberConfirmed" />
+          <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+          <ScalarProperty Name="SecurityStamp" ColumnName="SecurityStamp" />
+          <ScalarProperty Name="PasswordHash" ColumnName="PasswordHash" />
+          <ScalarProperty Name="EmailConfirmed" ColumnName="EmailConfirmed" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Assignations">
+      <EntityTypeMapping TypeName="WebPlatFormModel.Assignations">
+        <MappingFragment StoreEntitySet="Assignations">
+          <ScalarProperty Name="DateModification" ColumnName="DateModification" />
+          <ScalarProperty Name="ModifieParUserId" ColumnName="ModifieParUserId" />
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+          <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+          <ScalarProperty Name="ProchaineVisiteDate" ColumnName="ProchaineVisiteDate" />
+          <ScalarProperty Name="DerniereVisiteDureeMinutes" ColumnName="DerniereVisiteDureeMinutes" />
+          <ScalarProperty Name="DerniereVisiteDate" ColumnName="DerniereVisiteDate" />
+          <ScalarProperty Name="FrequenceUnite" ColumnName="FrequenceUnite" />
+          <ScalarProperty Name="FrequenceValeur" ColumnName="FrequenceValeur" />
+          <ScalarProperty Name="StatutSuiviID" ColumnName="StatutSuiviID" />
+          <ScalarProperty Name="IntervenantID" ColumnName="IntervenantID" />
+          <ScalarProperty Name="TypeIntervenantID" ColumnName="TypeIntervenantID" />
+          <ScalarProperty Name="UsagerID" ColumnName="UsagerID" />
+          <ScalarProperty Name="AssignationID" ColumnName="AssignationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="AssignationsRemplacants">
+      <EntityTypeMapping TypeName="WebPlatFormModel.AssignationsRemplacants">
+        <MappingFragment StoreEntitySet="AssignationsRemplacants">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+          <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+          <ScalarProperty Name="IntervenantRemplacantID" ColumnName="IntervenantRemplacantID" />
+          <ScalarProperty Name="AssignationID" ColumnName="AssignationID" />
+          <ScalarProperty Name="AssignationRemplacantID" ColumnName="AssignationRemplacantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CLSC">
+      <EntityTypeMapping TypeName="WebPlatFormModel.CLSC">
+        <MappingFragment StoreEntitySet="CLSC">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="NomCLSC" ColumnName="NomCLSC" />
+          <ScalarProperty Name="CodeCLSC" ColumnName="CodeCLSC" />
+          <ScalarProperty Name="CLSCID" ColumnName="CLSCID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CodesPostauxSecteur">
+      <EntityTypeMapping TypeName="WebPlatFormModel.CodesPostauxSecteur">
+        <MappingFragment StoreEntitySet="CodesPostauxSecteur">
+          <ScalarProperty Name="SecteurID" ColumnName="SecteurID" />
+          <ScalarProperty Name="CodePostalPrefix" ColumnName="CodePostalPrefix" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommandeCylindreLignes">
+      <EntityTypeMapping TypeName="WebPlatFormModel.CommandeCylindreLignes">
+        <MappingFragment StoreEntitySet="CommandeCylindreLignes">
+          <ScalarProperty Name="PrixTotal" ColumnName="PrixTotal" />
+          <ScalarProperty Name="PrixUnitaire" ColumnName="PrixUnitaire" />
+          <ScalarProperty Name="Quantite" ColumnName="Quantite" />
+          <ScalarProperty Name="TypeCylindreID" ColumnName="TypeCylindreID" />
+          <ScalarProperty Name="CommandeID" ColumnName="CommandeID" />
+          <ScalarProperty Name="LigneID" ColumnName="LigneID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="CommandesCylindres">
+      <EntityTypeMapping TypeName="WebPlatFormModel.CommandesCylindres">
+        <MappingFragment StoreEntitySet="CommandesCylindres">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="Statut" ColumnName="Statut" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="DateLivraisonDemandee" ColumnName="DateLivraisonDemandee" />
+          <ScalarProperty Name="MotifCommandeID" ColumnName="MotifCommandeID" />
+          <ScalarProperty Name="TypeLivraisonID" ColumnName="TypeLivraisonID" />
+          <ScalarProperty Name="BonCommande" ColumnName="BonCommande" />
+          <ScalarProperty Name="CentreDeCout" ColumnName="CentreDeCout" />
+          <ScalarProperty Name="AgentPayeurID" ColumnName="AgentPayeurID" />
+          <ScalarProperty Name="FournisseurID" ColumnName="FournisseurID" />
+          <ScalarProperty Name="UsagerID" ColumnName="UsagerID" />
+          <ScalarProperty Name="CommandeID" ColumnName="CommandeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ControlesQualite">
+      <EntityTypeMapping TypeName="WebPlatFormModel.ControlesQualite">
+        <MappingFragment StoreEntitySet="ControlesQualite">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="DetailsJSON" ColumnName="DetailsJSON" />
+          <ScalarProperty Name="Conforme" ColumnName="Conforme" />
+          <ScalarProperty Name="LectureID" ColumnName="LectureID" />
+          <ScalarProperty Name="DateControle" ColumnName="DateControle" />
+          <ScalarProperty Name="EquipementID" ColumnName="EquipementID" />
+          <ScalarProperty Name="ControleID" ColumnName="ControleID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Entretiens">
+      <EntityTypeMapping TypeName="WebPlatFormModel.Entretiens">
+        <MappingFragment StoreEntitySet="Entretiens">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="DetailsJSON" ColumnName="DetailsJSON" />
+          <ScalarProperty Name="LectureID" ColumnName="LectureID" />
+          <ScalarProperty Name="DateEntretien" ColumnName="DateEntretien" />
+          <ScalarProperty Name="EquipementID" ColumnName="EquipementID" />
+          <ScalarProperty Name="EntretienID" ColumnName="EntretienID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Equipements">
+      <EntityTypeMapping TypeName="WebPlatFormModel.Equipements">
+        <MappingFragment StoreEntitySet="Equipements">
+          <ScalarProperty Name="DateModification" ColumnName="DateModification" />
+          <ScalarProperty Name="ModifieParUserId" ColumnName="ModifieParUserId" />
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Commentaires" ColumnName="Commentaires" />
+          <ScalarProperty Name="EstInfection" ColumnName="EstInfection" />
+          <ScalarProperty Name="EstInfestation" ColumnName="EstInfestation" />
+          <ScalarProperty Name="EstFumeurIrreversible" ColumnName="EstFumeurIrreversible" />
+          <ScalarProperty Name="StatutTabagique" ColumnName="StatutTabagique" />
+          <ScalarProperty Name="BonCommandeAcquisition" ColumnName="BonCommandeAcquisition" />
+          <ScalarProperty Name="AgentPayeurAcquisition" ColumnName="AgentPayeurAcquisition" />
+          <ScalarProperty Name="TypeAcquisitionID" ColumnName="TypeAcquisitionID" />
+          <ScalarProperty Name="DureeVieMois" ColumnName="DureeVieMois" />
+          <ScalarProperty Name="GarantieFin" ColumnName="GarantieFin" />
+          <ScalarProperty Name="GarantieNbAnnees" ColumnName="GarantieNbAnnees" />
+          <ScalarProperty Name="DateMiseEnService" ColumnName="DateMiseEnService" />
+          <ScalarProperty Name="DateLivraisonCEMTL" ColumnName="DateLivraisonCEMTL" />
+          <ScalarProperty Name="PrixAchat" ColumnName="PrixAchat" />
+          <ScalarProperty Name="DateFacturation" ColumnName="DateFacturation" />
+          <ScalarProperty Name="DateAchat" ColumnName="DateAchat" />
+          <ScalarProperty Name="UsagerAchatID" ColumnName="UsagerAchatID" />
+          <ScalarProperty Name="ManufacturierID" ColumnName="ManufacturierID" />
+          <ScalarProperty Name="FournisseurID" ColumnName="FournisseurID" />
+          <ScalarProperty Name="NumeroSerie" ColumnName="NumeroSerie" />
+          <ScalarProperty Name="Modele" ColumnName="Modele" />
+          <ScalarProperty Name="NoInventaireSRSAD" ColumnName="NoInventaireSRSAD" />
+          <ScalarProperty Name="TypeEquipementID" ColumnName="TypeEquipementID" />
+          <ScalarProperty Name="EquipementID" ColumnName="EquipementID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Fournisseurs">
+      <EntityTypeMapping TypeName="WebPlatFormModel.Fournisseurs">
+        <MappingFragment StoreEntitySet="Fournisseurs">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="FournisseurID" ColumnName="FournisseurID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="GabaritsEntretien">
+      <EntityTypeMapping TypeName="WebPlatFormModel.GabaritsEntretien">
+        <MappingFragment StoreEntitySet="GabaritsEntretien">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="MargeErreurHeures" ColumnName="MargeErreurHeures" />
+          <ScalarProperty Name="HeuresEntreEntretiens" ColumnName="HeuresEntreEntretiens" />
+          <ScalarProperty Name="HeuresEntreControles" ColumnName="HeuresEntreControles" />
+          <ScalarProperty Name="Modele" ColumnName="Modele" />
+          <ScalarProperty Name="TypeEquipementID" ColumnName="TypeEquipementID" />
+          <ScalarProperty Name="GabaritID" ColumnName="GabaritID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="HistoriqueStatutsEquipement">
+      <EntityTypeMapping TypeName="WebPlatFormModel.HistoriqueStatutsEquipement">
+        <MappingFragment StoreEntitySet="HistoriqueStatutsEquipement">
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="ParUserId" ColumnName="ParUserId" />
+          <ScalarProperty Name="DateChangement" ColumnName="DateChangement" />
+          <ScalarProperty Name="StatutEquipementID" ColumnName="StatutEquipementID" />
+          <ScalarProperty Name="EquipementID" ColumnName="EquipementID" />
+          <ScalarProperty Name="HistoriqueStatutID" ColumnName="HistoriqueStatutID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ImportFacturationCylindres">
+      <EntityTypeMapping TypeName="WebPlatFormModel.ImportFacturationCylindres">
+        <MappingFragment StoreEntitySet="ImportFacturationCylindres">
+          <ScalarProperty Name="Statut" ColumnName="Statut" />
+          <ScalarProperty Name="ImporteParUserId" ColumnName="ImporteParUserId" />
+          <ScalarProperty Name="DateImport" ColumnName="DateImport" />
+          <ScalarProperty Name="NomFichier" ColumnName="NomFichier" />
+          <ScalarProperty Name="PeriodeFinID" ColumnName="PeriodeFinID" />
+          <ScalarProperty Name="FournisseurID" ColumnName="FournisseurID" />
+          <ScalarProperty Name="ImportID" ColumnName="ImportID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Intervenants">
+      <EntityTypeMapping TypeName="WebPlatFormModel.Intervenants">
+        <MappingFragment StoreEntitySet="Intervenants">
+          <ScalarProperty Name="DateModification" ColumnName="DateModification" />
+          <ScalarProperty Name="ModifieParUserId" ColumnName="ModifieParUserId" />
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="UserIdAspNet" ColumnName="UserIdAspNet" />
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="SecteurID" ColumnName="SecteurID" />
+          <ScalarProperty Name="CLSCID" ColumnName="CLSCID" />
+          <ScalarProperty Name="TypeIntervenantID" ColumnName="TypeIntervenantID" />
+          <ScalarProperty Name="IntervenantID" ColumnName="IntervenantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="JournalAudit">
+      <EntityTypeMapping TypeName="WebPlatFormModel.JournalAudit">
+        <MappingFragment StoreEntitySet="JournalAudit">
+          <ScalarProperty Name="UtilisateurId" ColumnName="UtilisateurId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="NouvellesValeurs" ColumnName="NouvellesValeurs" />
+          <ScalarProperty Name="AnciennesValeurs" ColumnName="AnciennesValeurs" />
+          <ScalarProperty Name="ClePrimaire" ColumnName="ClePrimaire" />
+          <ScalarProperty Name="TableConcernee" ColumnName="TableConcernee" />
+          <ScalarProperty Name="Action" ColumnName="Action" />
+          <ScalarProperty Name="DateHeure" ColumnName="DateHeure" />
+          <ScalarProperty Name="AuditID" ColumnName="AuditID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="LecturesCompteur">
+      <EntityTypeMapping TypeName="WebPlatFormModel.LecturesCompteur">
+        <MappingFragment StoreEntitySet="LecturesCompteur">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="Heures" ColumnName="Heures" />
+          <ScalarProperty Name="DateLecture" ColumnName="DateLecture" />
+          <ScalarProperty Name="EquipementID" ColumnName="EquipementID" />
+          <ScalarProperty Name="LectureID" ColumnName="LectureID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Manufacturiers">
+      <EntityTypeMapping TypeName="WebPlatFormModel.Manufacturiers">
+        <MappingFragment StoreEntitySet="Manufacturiers">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="ManufacturierID" ColumnName="ManufacturierID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MotifsCommandeCylindreRef">
+      <EntityTypeMapping TypeName="WebPlatFormModel.MotifsCommandeCylindreRef">
+        <MappingFragment StoreEntitySet="MotifsCommandeCylindreRef">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="ForfaitCode" ColumnName="ForfaitCode" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="MotifCommandeID" ColumnName="MotifCommandeID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Notifications">
+      <EntityTypeMapping TypeName="WebPlatFormModel.Notifications">
+        <MappingFragment StoreEntitySet="Notifications">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="EstLue" ColumnName="EstLue" />
+          <ScalarProperty Name="Message" ColumnName="Message" />
+          <ScalarProperty Name="ObjetId" ColumnName="ObjetId" />
+          <ScalarProperty Name="ObjetType" ColumnName="ObjetType" />
+          <ScalarProperty Name="CodeEvenement" ColumnName="CodeEvenement" />
+          <ScalarProperty Name="DestUserId" ColumnName="DestUserId" />
+          <ScalarProperty Name="NotificationID" ColumnName="NotificationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Pannes">
+      <EntityTypeMapping TypeName="WebPlatFormModel.Pannes">
+        <MappingFragment StoreEntitySet="Pannes">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="StatutPanne" ColumnName="StatutPanne" />
+          <ScalarProperty Name="Gravite" ColumnName="Gravite" />
+          <ScalarProperty Name="TypePanneID" ColumnName="TypePanneID" />
+          <ScalarProperty Name="DatePanne" ColumnName="DatePanne" />
+          <ScalarProperty Name="EquipementID" ColumnName="EquipementID" />
+          <ScalarProperty Name="PanneID" ColumnName="PanneID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ParticularitesUsagerRef">
+      <EntityTypeMapping TypeName="WebPlatFormModel.ParticularitesUsagerRef">
+        <MappingFragment StoreEntitySet="ParticularitesUsagerRef">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="NiveauAlerte" ColumnName="NiveauAlerte" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="ParticulariteID" ColumnName="ParticulariteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PeriodesFinancieresRef">
+      <EntityTypeMapping TypeName="WebPlatFormModel.PeriodesFinancieresRef">
+        <MappingFragment StoreEntitySet="PeriodesFinancieresRef">
+          <ScalarProperty Name="EstActive" ColumnName="EstActive" />
+          <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+          <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="PeriodeFinID" ColumnName="PeriodeFinID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PretsEquipement">
+      <EntityTypeMapping TypeName="WebPlatFormModel.PretsEquipement">
+        <MappingFragment StoreEntitySet="PretsEquipement">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="DateValidation" ColumnName="DateValidation" />
+          <ScalarProperty Name="ValideParUserId" ColumnName="ValideParUserId" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+          <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+          <ScalarProperty Name="UsagerID" ColumnName="UsagerID" />
+          <ScalarProperty Name="EquipementID" ColumnName="EquipementID" />
+          <ScalarProperty Name="PretID" ColumnName="PretID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ReglesNotification">
+      <EntityTypeMapping TypeName="WebPlatFormModel.ReglesNotification">
+        <MappingFragment StoreEntitySet="ReglesNotification">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="EstActive" ColumnName="EstActive" />
+          <ScalarProperty Name="Canal" ColumnName="Canal" />
+          <ScalarProperty Name="DestinatairesJSON" ColumnName="DestinatairesJSON" />
+          <ScalarProperty Name="CritereJSON" ColumnName="CritereJSON" />
+          <ScalarProperty Name="CodeEvenement" ColumnName="CodeEvenement" />
+          <ScalarProperty Name="RegleNotifID" ColumnName="RegleNotifID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Reparations">
+      <EntityTypeMapping TypeName="WebPlatFormModel.Reparations">
+        <MappingFragment StoreEntitySet="Reparations">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="Cout" ColumnName="Cout" />
+          <ScalarProperty Name="Resultat" ColumnName="Resultat" />
+          <ScalarProperty Name="DateIntervention" ColumnName="DateIntervention" />
+          <ScalarProperty Name="PanneID" ColumnName="PanneID" />
+          <ScalarProperty Name="ReparationID" ColumnName="ReparationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SecteursSRSAD">
+      <EntityTypeMapping TypeName="WebPlatFormModel.SecteursSRSAD">
+        <MappingFragment StoreEntitySet="SecteursSRSAD">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="SecteurID" ColumnName="SecteurID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SeuilsInventaire">
+      <EntityTypeMapping TypeName="WebPlatFormModel.SeuilsInventaire">
+        <MappingFragment StoreEntitySet="SeuilsInventaire">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="SeuilMin" ColumnName="SeuilMin" />
+          <ScalarProperty Name="TypeEquipementID" ColumnName="TypeEquipementID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatutsDossierUsager">
+      <EntityTypeMapping TypeName="WebPlatFormModel.StatutsDossierUsager">
+        <MappingFragment StoreEntitySet="StatutsDossierUsager">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="StatutDossierID" ColumnName="StatutDossierID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatutsEquipementRef">
+      <EntityTypeMapping TypeName="WebPlatFormModel.StatutsEquipementRef">
+        <MappingFragment StoreEntitySet="StatutsEquipementRef">
+          <ScalarProperty Name="DeclencheNotif" ColumnName="DeclencheNotif" />
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="StatutEquipementID" ColumnName="StatutEquipementID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="StatutsSuivi">
+      <EntityTypeMapping TypeName="WebPlatFormModel.StatutsSuivi">
+        <MappingFragment StoreEntitySet="StatutsSuivi">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="StatutSuiviID" ColumnName="StatutSuiviID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypesAcquisitionRef">
+      <EntityTypeMapping TypeName="WebPlatFormModel.TypesAcquisitionRef">
+        <MappingFragment StoreEntitySet="TypesAcquisitionRef">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="TypeAcquisitionID" ColumnName="TypeAcquisitionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypesCylindreRef">
+      <EntityTypeMapping TypeName="WebPlatFormModel.TypesCylindreRef">
+        <MappingFragment StoreEntitySet="TypesCylindreRef">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="PrixBase" ColumnName="PrixBase" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="TypeCylindreID" ColumnName="TypeCylindreID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypesEquipement">
+      <EntityTypeMapping TypeName="WebPlatFormModel.TypesEquipement">
+        <MappingFragment StoreEntitySet="TypesEquipement">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="TypeEquipementID" ColumnName="TypeEquipementID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypesInfection">
+      <EntityTypeMapping TypeName="WebPlatFormModel.TypesInfection">
+        <MappingFragment StoreEntitySet="TypesInfection">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Categorie" ColumnName="Categorie" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="TypeInfectionID" ColumnName="TypeInfectionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypesInfestation">
+      <EntityTypeMapping TypeName="WebPlatFormModel.TypesInfestation">
+        <MappingFragment StoreEntitySet="TypesInfestation">
+          <ScalarProperty Name="Categorie" ColumnName="Categorie" />
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="TypeInfestationID" ColumnName="TypeInfestationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypesIntervenant">
+      <EntityTypeMapping TypeName="WebPlatFormModel.TypesIntervenant">
+        <MappingFragment StoreEntitySet="TypesIntervenant">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="TypeIntervenantID" ColumnName="TypeIntervenantID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypesLivraisonRef">
+      <EntityTypeMapping TypeName="WebPlatFormModel.TypesLivraisonRef">
+        <MappingFragment StoreEntitySet="TypesLivraisonRef">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Surcout" ColumnName="Surcout" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="TypeLivraisonID" ColumnName="TypeLivraisonID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TypesPanneRef">
+      <EntityTypeMapping TypeName="WebPlatFormModel.TypesPanneRef">
+        <MappingFragment StoreEntitySet="TypesPanneRef">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="Libelle" ColumnName="Libelle" />
+          <ScalarProperty Name="Code" ColumnName="Code" />
+          <ScalarProperty Name="TypePanneID" ColumnName="TypePanneID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsagerAdresses">
+      <EntityTypeMapping TypeName="WebPlatFormModel.UsagerAdresses">
+        <MappingFragment StoreEntitySet="UsagerAdresses">
+          <ScalarProperty Name="DateModification" ColumnName="DateModification" />
+          <ScalarProperty Name="ModifieParUserId" ColumnName="ModifieParUserId" />
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="EClinibaseAdresseId" ColumnName="EClinibaseAdresseId" />
+          <ScalarProperty Name="DateFinValidite" ColumnName="DateFinValidite" />
+          <ScalarProperty Name="DateDebutValidite" ColumnName="DateDebutValidite" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Pays" ColumnName="Pays" />
+          <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+          <ScalarProperty Name="Province" ColumnName="Province" />
+          <ScalarProperty Name="Ville" ColumnName="Ville" />
+          <ScalarProperty Name="Adresse2" ColumnName="Adresse2" />
+          <ScalarProperty Name="Adresse1" ColumnName="Adresse1" />
+          <ScalarProperty Name="EstCourante" ColumnName="EstCourante" />
+          <ScalarProperty Name="SourceAdresse" ColumnName="SourceAdresse" />
+          <ScalarProperty Name="TypeAdresse" ColumnName="TypeAdresse" />
+          <ScalarProperty Name="UsagerID" ColumnName="UsagerID" />
+          <ScalarProperty Name="UsagerAdresseID" ColumnName="UsagerAdresseID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsagerInfections">
+      <EntityTypeMapping TypeName="WebPlatFormModel.UsagerInfections">
+        <MappingFragment StoreEntitySet="UsagerInfections">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+          <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+          <ScalarProperty Name="TypeInfectionID" ColumnName="TypeInfectionID" />
+          <ScalarProperty Name="UsagerID" ColumnName="UsagerID" />
+          <ScalarProperty Name="UsagerInfectionID" ColumnName="UsagerInfectionID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsagerInfestations">
+      <EntityTypeMapping TypeName="WebPlatFormModel.UsagerInfestations">
+        <MappingFragment StoreEntitySet="UsagerInfestations">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+          <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+          <ScalarProperty Name="TypeInfestationID" ColumnName="TypeInfestationID" />
+          <ScalarProperty Name="UsagerID" ColumnName="UsagerID" />
+          <ScalarProperty Name="UsagerInfestationID" ColumnName="UsagerInfestationID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="UsagerParticularites">
+      <EntityTypeMapping TypeName="WebPlatFormModel.UsagerParticularites">
+        <MappingFragment StoreEntitySet="UsagerParticularites">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="Commentaire" ColumnName="Commentaire" />
+          <ScalarProperty Name="DateFin" ColumnName="DateFin" />
+          <ScalarProperty Name="DateDebut" ColumnName="DateDebut" />
+          <ScalarProperty Name="ParticulariteID" ColumnName="ParticulariteID" />
+          <ScalarProperty Name="UsagerID" ColumnName="UsagerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Usagers">
+      <EntityTypeMapping TypeName="WebPlatFormModel.Usagers">
+        <MappingFragment StoreEntitySet="Usagers">
+          <ScalarProperty Name="DateModification" ColumnName="DateModification" />
+          <ScalarProperty Name="ModifieParUserId" ColumnName="ModifieParUserId" />
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="StatutTabagique" ColumnName="StatutTabagique" />
+          <ScalarProperty Name="BonCommande" ColumnName="BonCommande" />
+          <ScalarProperty Name="CentreDeCout" ColumnName="CentreDeCout" />
+          <ScalarProperty Name="AgentPayeurID" ColumnName="AgentPayeurID" />
+          <ScalarProperty Name="CodeHydroQuebec" ColumnName="CodeHydroQuebec" />
+          <ScalarProperty Name="StatutDossierID" ColumnName="StatutDossierID" />
+          <ScalarProperty Name="SecteurID" ColumnName="SecteurID" />
+          <ScalarProperty Name="CLSCID" ColumnName="CLSCID" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Pays" ColumnName="Pays" />
+          <ScalarProperty Name="CodePostal" ColumnName="CodePostal" />
+          <ScalarProperty Name="Province" ColumnName="Province" />
+          <ScalarProperty Name="Ville" ColumnName="Ville" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="Sexe" ColumnName="Sexe" />
+          <ScalarProperty Name="DateNaissance" ColumnName="DateNaissance" />
+          <ScalarProperty Name="Prenom" ColumnName="Prenom" />
+          <ScalarProperty Name="Nom" ColumnName="Nom" />
+          <ScalarProperty Name="RAMQ" ColumnName="RAMQ" />
+          <ScalarProperty Name="DateDerniereSyncEClinibase" ColumnName="DateDerniereSyncEClinibase" />
+          <ScalarProperty Name="NoDossierSRSAD" ColumnName="NoDossierSRSAD" />
+          <ScalarProperty Name="NoDossierIPM" ColumnName="NoDossierIPM" />
+          <ScalarProperty Name="NoDossierInterne" ColumnName="NoDossierInterne" />
+          <ScalarProperty Name="UsagerID" ColumnName="UsagerID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Visites">
+      <EntityTypeMapping TypeName="WebPlatFormModel.Visites">
+        <MappingFragment StoreEntitySet="Visites">
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="CreeParUserId" ColumnName="CreeParUserId" />
+          <ScalarProperty Name="Notes" ColumnName="Notes" />
+          <ScalarProperty Name="DureeMinutes" ColumnName="DureeMinutes" />
+          <ScalarProperty Name="DateVisite" ColumnName="DateVisite" />
+          <ScalarProperty Name="TypeIntervenantID" ColumnName="TypeIntervenantID" />
+          <ScalarProperty Name="IntervenantID" ColumnName="IntervenantID" />
+          <ScalarProperty Name="UsagerID" ColumnName="UsagerID" />
+          <ScalarProperty Name="VisiteID" ColumnName="VisiteID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <AssociationSetMapping Name="AspNetUserRoles" TypeName="WebPlatFormModel.AspNetUserRoles" StoreEntitySet="AspNetUserRoles">
+      <EndProperty Name="AspNetUsers">
+        <ScalarProperty Name="Id" ColumnName="UserId" />
+      </EndProperty>
+      <EndProperty Name="AspNetRoles">
+        <ScalarProperty Name="Id" ColumnName="RoleId" />
+      </EndProperty>
+    </AssociationSetMapping>
+  </EntityContainerMapping>
+</Mapping>

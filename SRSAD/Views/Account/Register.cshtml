@@ -1,0 +1,577 @@
+﻿@model SRSAD.Models.RegisterViewModel
+@{
+    ViewBag.Title = "Inscription";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    /* Styles généraux */
+    .page-header {
+        background: linear-gradient(135deg, #003366 0%, #004488 100%);
+        color: white;
+        padding: 30px 0;
+        margin-bottom: 30px;
+        border-bottom: 4px solid #ffaa00;
+        border-radius: 0 0 20px 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+
+        .page-header h2 {
+            margin: 0;
+            font-weight: 600;
+            font-size: 28px;
+        }
+
+        .page-header i {
+            margin-right: 10px;
+            color: #ffaa00;
+        }
+
+        .page-header p {
+            margin: 10px 0 0 0;
+            opacity: 0.9;
+            font-size: 16px;
+        }
+
+    /* Carte du formulaire */
+    .register-card {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 10px 40px rgba(0, 51, 102, 0.15);
+        padding: 30px;
+        margin-bottom: 40px;
+        animation: fadeInUp 0.5s ease;
+    }
+
+    @@keyframes fadeInUp {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    /* Alertes */
+    .alert-custom {
+        border-radius: 10px;
+        border: none;
+        padding: 15px 20px;
+        margin-bottom: 25px;
+        display: flex;
+        align-items: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    }
+
+        .alert-custom i {
+            font-size: 24px;
+            margin-right: 15px;
+        }
+
+        .alert-custom.success {
+            background: #d4edda;
+            color: #155724;
+            border-left: 4px solid #28a745;
+        }
+
+        .alert-custom.info {
+            background: #e1f0fa;
+            color: #003366;
+            border-left: 4px solid #003366;
+        }
+
+    /* Champs du formulaire */
+    .form-group {
+        margin-bottom: 25px;
+    }
+
+    .control-label {
+        font-weight: 600;
+        color: #003366;
+        font-size: 14px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-bottom: 8px;
+        display: block;
+    }
+
+        .control-label.required:after {
+            content: " *";
+            color: #dc3545;
+            font-weight: bold;
+        }
+
+    .input-wrapper {
+        position: relative;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        transition: all 0.3s ease;
+    }
+
+        .input-wrapper:focus-within {
+            box-shadow: 0 5px 20px rgba(0, 51, 102, 0.2);
+            transform: translateY(-2px);
+        }
+
+    .form-control {
+        border: 2px solid #e9ecef;
+        height: 45px;
+        font-size: 15px;
+        padding: 10px 15px;
+        border-radius: 10px;
+        box-shadow: none;
+        transition: all 0.3s ease;
+        background: #f8fafc;
+    }
+
+        .form-control:focus {
+            border-color: #003366;
+            box-shadow: none;
+            outline: none;
+            background: white;
+        }
+
+        .form-control[type="password"] {
+            letter-spacing: 2px;
+        }
+
+    /* Icône dans le champ */
+    .input-icon {
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #003366;
+        opacity: 0.5;
+        pointer-events: none;
+    }
+
+    /* Validation messages */
+    .text-danger {
+        color: #dc3545;
+        font-size: 13px;
+        margin-top: 5px;
+        display: block;
+        padding-left: 5px;
+    }
+
+        .text-danger i {
+            margin-right: 5px;
+            font-size: 12px;
+        }
+
+    .validation-summary-errors {
+        background: #f8d7da;
+        color: #721c24;
+        padding: 15px;
+        border-radius: 10px;
+        margin-bottom: 25px;
+        border-left: 4px solid #dc3545;
+    }
+
+        .validation-summary-errors ul {
+            margin: 0;
+            padding-left: 20px;
+        }
+
+    /* Boutons */
+    .btn-custom {
+        height: 50px;
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+        border: none;
+        padding: 0 30px;
+        margin-right: 10px;
+    }
+
+        .btn-custom.primary {
+            background: linear-gradient(135deg, #6c757d 0%, #5a6268 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(108, 117, 125, 0.3);
+        }
+
+            .btn-custom.primary:hover {
+                background: linear-gradient(135deg, #5a6268 0%, #4e555b 100%);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(108, 117, 125, 0.4);
+                color: white;
+                text-decoration: none;
+            }
+
+        .btn-custom.success {
+            background: linear-gradient(135deg, #28a745 0%, #218838 100%);
+            color: white;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.3);
+        }
+
+            .btn-custom.success:hover {
+                background: linear-gradient(135deg, #218838 0%, #1e7e34 100%);
+                transform: translateY(-2px);
+                box-shadow: 0 8px 25px rgba(40, 167, 69, 0.4);
+            }
+
+        .btn-custom i {
+            margin-right: 8px;
+        }
+
+    .button-group {
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 10px;
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 2px solid #e9ecef;
+    }
+
+    /* Dropdown */
+    .dropdown-custom {
+        background: #f8fafc;
+        border: 2px solid #e9ecef;
+        border-radius: 10px;
+        height: 45px;
+        padding: 0 15px;
+        font-size: 15px;
+        color: #495057;
+        cursor: pointer;
+        transition: all 0.3s ease;
+    }
+
+        .dropdown-custom:focus {
+            border-color: #003366;
+            outline: none;
+            background: white;
+        }
+
+    /* Info supplémentaires */
+    .info-box {
+        background: #f8f9fa;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 25px;
+        border: 1px solid #e9ecef;
+    }
+
+        .info-box h5 {
+            color: #003366;
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 16px;
+        }
+
+        .info-box p {
+            color: #6c757d;
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .info-box i {
+            color: #28a745;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+
+    /* Responsive */
+    @@media (max-width: 768px) {
+        .page-header {
+            padding: 20px 15px;
+        }
+
+            .page-header h2 {
+                font-size: 24px;
+            }
+
+        .register-card {
+            padding: 20px;
+        }
+
+        .button-group {
+            flex-direction: column;
+        }
+
+        .btn-custom {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+    }
+
+    /* Loading state */
+    .btn-custom.loading {
+        position: relative;
+        pointer-events: none;
+        opacity: 0.8;
+    }
+
+        .btn-custom.loading:after {
+            content: "";
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            top: 50%;
+            left: 50%;
+            margin-left: -10px;
+            margin-top: -10px;
+            border: 3px solid rgba(255,255,255,0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 0.8s linear infinite;
+        }
+
+    @@keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<!-- En-tête de page -->
+<div class="page-header">
+    <div class="container">
+        <h2>
+            <i class="glyphicon glyphicon-user"></i>
+            @ViewBag.Title
+        </h2>
+        <p>Créez un nouveau compte utilisateur dans le système SRSAD</p>
+    </div>
+</div>
+
+<div class="container">
+    <!-- Messages d'alerte -->
+    @if (@ViewBag.succes != null)
+    {
+        <div class="alert-custom success">
+            <i class="glyphicon glyphicon-ok-sign"></i>
+            <span>@ViewBag.succes</span>
+        </div>
+    }
+
+    @if (@TempData["Message"] != null)
+    {
+        <div class="alert-custom info">
+            <i class="glyphicon glyphicon-info-sign"></i>
+            <span>@TempData["Message"]</span>
+        </div>
+    }
+
+    <!-- Carte du formulaire -->
+    <div class="register-card">
+        @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form", id = "registerForm" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            <!-- Informations personnelles -->
+            <div class="info-box">
+                <h5><i class="glyphicon glyphicon-info-sign"></i> Informations personnelles</h5>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Nom, "Nom", new { @class = "control-label required" })
+                            <div class="input-wrapper">
+                                @Html.EditorFor(model => model.Nom, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", placeholder = "Entrez votre nom" } })
+                                <i class="glyphicon glyphicon-user input-icon"></i>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Prenom, "Prénom", new { @class = "control-label required" })
+                            <div class="input-wrapper">
+                                @Html.EditorFor(model => model.Prenom, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", placeholder = "Entrez votre prénom" } })
+                                <i class="glyphicon glyphicon-user input-icon"></i>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Prenom, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Coordonnées -->
+            <div class="info-box">
+                <h5><i class="glyphicon glyphicon-envelope"></i> Coordonnées</h5>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Email, "Courriel", new { @class = "control-label required" })
+                            <div class="input-wrapper">
+                                @Html.EditorFor(model => model.Email, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", placeholder = "exemple@courriel.com" } })
+                                <i class="glyphicon glyphicon-envelope input-icon"></i>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.Telephone, "Téléphone", htmlAttributes: new { @class = "control-label" })
+                            <div class="input-wrapper">
+                                @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control", autocomplete = "off", placeholder = "(450)-123-4567" } })
+                                <i class="glyphicon glyphicon-earphone input-icon"></i>
+                            </div>
+                            @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sécurité -->
+            <div class="info-box">
+                <h5><i class="glyphicon glyphicon-lock"></i> Sécurité</h5>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.Password, "Mot de passe", new { @class = "control-label required" })
+                            <div class="input-wrapper">
+                                @Html.PasswordFor(m => m.Password, new { @class = "form-control", autocomplete = "off", placeholder = "••••••••" })
+                                <i class="glyphicon glyphicon-asterisk input-icon"></i>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            @Html.LabelFor(m => m.ConfirmPassword, "Confirmation", new { @class = "control-label required" })
+                            <div class="input-wrapper">
+                                @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control", autocomplete = "off", placeholder = "••••••••" })
+                                <i class="glyphicon glyphicon-ok input-icon"></i>
+                            </div>
+                            @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rôle utilisateur -->
+            <div class="info-box">
+                <h5><i class="glyphicon glyphicon-tags"></i> Attribution des rôles</h5>
+
+                @if (@ViewBag.Name != null)
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserRoles, "Rôle utilisateur", htmlAttributes: new { @class = "control-label required" })
+                        <div class="input-wrapper">
+                            @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, "--Veuillez choisir--", new { @class = "form-control dropdown-custom", id = "UserRoles" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.UserRoles, "", new { @class = "text-danger" })
+                    </div>
+                }
+                else
+                {
+                    SRSAD.Models.ApplicationDbContext context = new SRSAD.Models.ApplicationDbContext();
+
+                    string userNameConnected = System.Web.HttpContext.Current.User.Identity.Name;
+
+                    if (System.Web.HttpContext.Current.User.IsInRole("Admin") || (System.Web.HttpContext.Current.User.IsInRole("Super-utilisateur")))
+                    {
+                        ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin")).ToList(), "Name", "Name");
+                    }
+                    else
+                    {
+                        ViewBag.Name = new SelectList(context.Roles.Where(u => !u.Name.Contains("Admin") && !u.Name.Contains("Super-utilisateur")).ToList(), "Name", "Name");
+                    }
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserRoles, "Rôle utilisateur", htmlAttributes: new { @class = "control-label required" })
+                        <div class="input-wrapper">
+                            @Html.DropDownList("UserRoles", (SelectList)ViewBag.Name, "--Veuillez choisir--", new { @class = "form-control dropdown-custom", id = "UserRoles" })
+                        </div>
+                        @Html.ValidationMessageFor(m => m.UserRoles, "", new { @class = "text-danger" })
+                    </div>
+                }
+
+                <p class="help-text" style="margin-top: 10px;">
+                    <i class="glyphicon glyphicon-info-sign" style="color: #003366;"></i>
+                    Le rôle déterminera les permissions d'accès dans l'application
+                </p>
+            </div>
+
+            <!-- Boutons d'action -->
+            <div class="button-group">
+                @Html.ActionLink("Retour", "../Users/UsersWithRoles", null, new { @class = "btn-custom primary" })
+                <button type="submit" class="btn-custom success" id="submitBtn">
+                    <i class="glyphicon glyphicon-save"></i> Enregistrer
+                </button>
+            </div>
+        }
+    </div>
+</div>
+
+@section Scripts{
+    <script src="~/Scripts/jquery-3.4.1.min.js"></script>
+    <script src="~/Scripts/jquery.maskedinput-master/dist/jquery.maskedinput.min.js"></script>
+    <script src="~/Scripts/jquery-ui.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <script src="~/Scripts/maskedinput.js"></script>
+    <script src="~/Scripts/maskedinput-binder.js"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // Masque pour le téléphone
+            $('#Telephone').focusin(function () {
+                $('#Telephone').mask("(999)-999-9999");
+            });
+
+            // Animation au focus
+            $('.form-control').focus(function () {
+                $(this).closest('.input-wrapper').addClass('focused');
+            }).blur(function () {
+                $(this).closest('.input-wrapper').removeClass('focused');
+            });
+
+            // Validation côté client améliorée
+            $('#registerForm').submit(function (e) {
+                var isValid = true;
+
+                // Vérifier les champs requis
+                $('.control-label.required').each(function () {
+                    var fieldName = $(this).text().replace(' *', '');
+                    var field = $('[name="' + fieldName + '"]');
+
+                    if (field.length && field.val().trim() === '') {
+                        isValid = false;
+                        field.closest('.form-group').find('.text-danger').text('Le champ ' + fieldName + ' est requis');
+                    }
+                });
+
+                if (!isValid) {
+                    e.preventDefault();
+                    return false;
+                }
+
+                // Effet de chargement
+                $('#submitBtn').addClass('loading');
+            });
+
+            // Effacer les messages d'erreur quand l'utilisateur commence à taper
+            $('.form-control').on('input', function () {
+                $(this).closest('.form-group').find('.text-danger').empty();
+            });
+
+            // Confirmation avant soumission
+            $('#submitBtn').click(function (e) {
+                if ($('#registerForm').valid && !$('#registerForm').valid()) {
+                    return true;
+                }
+
+                // Optionnel : demander confirmation
+                // return confirm('Êtes-vous sûr de vouloir créer cet utilisateur ?');
+            });
+        });
+    </script>
+}

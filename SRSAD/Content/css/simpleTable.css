@@ -1,0 +1,271 @@
+/* The Modal (background) */
+.modal {
+    font-family: Tahoma,Calibri,Arial,sans-serif;
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    cursor:pointer;
+    cursor:hand;
+    position:relative;
+    z-index: 9;
+    background-color: #fefefe;
+   /* background-image: linear-gradient(#fff,#777);*/
+    font-size: 12px;
+    margin: auto;
+    padding-left: 10px;
+    padding-bottom: 12px;
+    padding-right: 10px;
+    border: 3px solid #D9A441;
+    width: 500px;
+    border-radius:6px;
+}
+
+.sg_title{
+	font-size: 14px;
+	text-align:center;
+	font-weight:bold;
+	width:95%;
+}
+
+
+.modal-content:before {
+    content: "";
+    position: absolute;/*set 'child' to be absolute*/
+    z-index: -1; /*Make this lower so text appears in front*/    
+    /*You can choose to align it left, right, top or bottom here*/
+    top: 40px; 
+    right:0;
+    bottom: 0;
+    left: 0;
+    background: #fefefe;
+}
+
+.modal-content label{
+     position:relative;
+     width: 100px;
+     margin-left:20px;
+     padding-bottom: 15px;   
+    }
+    
+.modal-content input[type='text'],.modal-content input[type='date']{
+     position:absolute;
+     width: 60%;
+     left: 125px;
+	 height:18px;
+	 font-size: 14px;
+     margin-bottom: 15px;   
+    }
+	
+.err_sg_modal{
+	 position:absolute;
+     left: 10px;
+	 color:red;
+	 font-weight:bold;
+}
+
+.modal-content input[type='checkbox']{
+     position:absolute;
+     left: 125px;
+     margin-bottom: 15px;   
+	-ms-transform: scale(1.5); /* IE */
+	-moz-transform: scale(1.5); /* FF */
+	-webkit-transform: scale(1.5); /* Safari and Chrome */
+	-o-transform: scale(1.5); /* Opera */
+	padding: 8px;
+    }	
+	
+.modal-content input:read-only {
+	color:#aaa;
+	 user-select: none;
+}
+    
+.modal-content select{
+     position:absolute;
+     width: 60%;
+     left: 125px;
+	 	 height:22px;
+	font-size:14px;
+     margin-bottom: 15px;   
+    }
+    
+.modal-content button{
+ position:relative;
+ text-align:center;
+ float:right;
+ padding-left:10px;
+ padding-right:10px;
+ font-size: 14px;
+ font-weight: bold;
+ margin-left:10px;
+    }
+
+/* The Close Button */
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+    
+
+.modal-content button:hover,
+.modal-content button:focus {
+    text-decoration: none;
+    cursor: pointer;
+}
+    
+
+.close:hover,
+.close:focus {
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.sg_warning{
+	color: red;
+	
+}
+
+.sg_caution{
+	color: orange;
+	
+}
+
+.sg_ok{
+	color: darkgreen;
+	
+}
+        
+#zone{
+	background: #eee;
+	padding:1px; 
+}
+
+#zone b{
+	padding:3px;
+	margin-bottom:-8px;
+}
+.grid_parent {
+	text-align:left;
+    width:700px;
+    margin-top:30px;
+    margin-left:100px;
+    font-family: Arial,Tahoma, Calibri, sans-serif;
+}
+            
+.grid_parent p{
+   text-align:center;
+   font-size: 2em;
+   font-weight: bold;
+}
+            
+ 
+.grid-table {
+	margin-bottom: 20px;
+	border-collapse:collapse;
+	font-family: Arial,Tahoma, Calibri, sans-serif;
+	border:1px solid #ccc;
+	box-sizing: border-box;
+}
+
+.grid-table .doscroll tr:hover {
+	 background-image: -moz-linear-gradient(#E3F7FF,#B7E7FB);
+	 background-image: -webkit-gradient(linear,#E3F7FF,#B7E7FB);
+	 background-image: linear-gradient(#E3F7FF,#B7E7FB);
+}
+
+.selectedRow {
+	background-image: -moz-linear-gradient(#E3F7FF,#B7E7FB);
+	background-image: -webkit-gradient(linear,#E3F7FF,#B7E7FB);
+	background-image: linear-gradient(#E3F7FF,#B7E7FB);  
+}
+
+.grid-bad {
+	border: 1px solid red;
+	color: red;
+}
+
+.grid-table th:hover {
+	cursor:pointer;
+	cursor:hand;
+	
+
+}
+.grid-table th {
+	color: #000;
+	padding: 0.7em 1em 0.7em 1.15em;
+	font-size: 1em;
+	text-align: center;
+	border-top:1px solid #E0E1E3;
+	border-left:1px solid #E0E1E3;
+	border-bottom:1px solid #E0E1E3;
+	background-image: linear-gradient(#fff,#ddd);
+	overflow:hidden;
+	box-sizing: border-box;
+}
+		
+.grid-table th:first-child {
+	  border-left:none;
+	   box-sizing: border-box;
+}
+.grid-table td {
+	color: #000;
+	padding: 0.7em 1em 0.7em 1.15em;
+	font-size: 1em;
+	text-align: center;
+	border-right:1px solid #E3E4E6; 
+	border-left: :1px solid #E3E4E6;
+	overflow:hidden;
+	box-sizing: border-box;
+	border-bottom:1px solid #E0E1E3;
+}
+		
+.grid-table th:hover {
+	 background-image: -moz-linear-gradient(#E3F7FF,#B7E7FB);
+	 background-image: -webkit-gradient(linear,#E3F7FF,#B7E7FB);
+	 background-image: linear-gradient(#E3F7FF,#B7E7FB);
+}
+
+.grid-table-1 {
+	background: #fff;
+}
+
+		
+.grid-table-1 tr:hover {
+	background: rgba(0,0,0,0.19);
+}
+	  
+
+/* scroll bars by Kushagra Agarwal*/
+.grid_parent ::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;
+	background-color: #F5F5F5;
+}
+
+.grid_parent ::-webkit-scrollbar
+{
+	width: 17px;
+	background-color: #E3F7FF;
+}
+
+.grid_parent ::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #B7E7FB;
+}
+

@@ -1,0 +1,95 @@
+﻿@model IEnumerable<SRSAD.Models.CodesPostauxSecteur>
+
+@{
+    ViewBag.Title = "Codes postaux du secteur";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>
+                Codes postaux - @ViewBag.SecteurNom
+                <small class="pull-right">
+                    @Html.ActionLink("Retour aux secteurs", "Index", null, new { @class = "btn btn-default" })
+                </small>
+            </h2>
+            <hr />
+        </div>
+    </div>
+
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Ajouter un code postal</h3>
+                </div>
+                <div class="panel-body">
+                    @using (Html.BeginForm("AjouterCodePostal", "Secteur", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("secteurId", (int)ViewBag.SecteurID)
+
+                        <div class="input-group">
+                            @Html.TextBox("codePostal", null, new { @class = "form-control", placeholder = "H1A", maxlength = 10 })
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary">Ajouter</button>
+                            </span>
+                        </div>
+                        <small class="text-muted">Format: 3 caractères (ex: H1A) ou code complet</small>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Codes postaux associés (@Model.Count())</h3>
+                </div>
+                <div class="panel-body">
+                    @if (Model.Any())
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Code postal</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td><strong>@item.CodePostalPrefix</strong></td>
+                                        <td>
+                                            @using (Html.BeginForm("SupprimerCodePostal", "Secteur", FormMethod.Post))
+                                            {
+                                                @Html.AntiForgeryToken()
+                                                @Html.Hidden("codePostal", item.CodePostalPrefix)
+                                                <button type="submit" class="btn btn-xs btn-danger" onclick="return confirm('Supprimer ce code postal ?');">Supprimer</button>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Aucun code postal associé à ce secteur.</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

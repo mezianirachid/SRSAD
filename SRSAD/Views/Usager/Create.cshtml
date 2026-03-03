@@ -1,0 +1,128 @@
+﻿@model SRSAD.ViewModels.RechercheEClinibaseViewModel
+
+@{
+    ViewBag.Title = "Créer un nouvel usager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <h2>
+                Créer un nouvel usager
+                <small class="pull-right">
+                    @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-default" })
+                </small>
+            </h2>
+            <hr />
+        </div>
+    </div>
+
+    @if (TempData["Error"] != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-danger">
+                    <strong>Erreur :</strong> @TempData["Error"]
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-search"></span> Étape 1 : Recherche dans E-Clinibase
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p class="text-info">
+                        La création d'un usager nécessite qu'il existe préalablement dans E-Clinibase.
+                        Veuillez rechercher le patient à l'aide des critères ci-dessous.
+                    </p>
+
+                    @using (Html.BeginForm("Create", "Usager", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Nom, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Nom, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Prenom, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.Prenom, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.Prenom, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.DateNaissance, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.DateNaissance, new { htmlAttributes = new { @class = "form-control datepicker", placeholder = "AAAA-MM-JJ" } })
+                                    @Html.ValidationMessageFor(model => model.DateNaissance, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.RAMQ, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.RAMQ, new { htmlAttributes = new { @class = "form-control", placeholder = "Ex: DUPJ75051501" } })
+                                    @Html.ValidationMessageFor(model => model.RAMQ, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.NoIPM, new { @class = "control-label" })
+                                    @Html.EditorFor(model => model.NoIPM, new { htmlAttributes = new { @class = "form-control" } })
+                                    @Html.ValidationMessageFor(model => model.NoIPM, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <div class="col-md-offset-0 col-md-12" style="margin-top: 25px;">
+                                        <button type="submit" class="btn btn-primary btn-block">
+                                            <span class="glyphicon glyphicon-search"></span> Rechercher dans E-Clinibase
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-warning" style="margin-top: 20px;">
+                                    <strong>Note :</strong> Si le patient n'est pas trouvé dans E-Clinibase, la création sera impossible.
+                                    Vous devez d'abord créer le dossier dans E-Clinibase.
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        $(function () {
+            $('.datepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                autoclose: true
+            });
+        });
+    </script>
+}

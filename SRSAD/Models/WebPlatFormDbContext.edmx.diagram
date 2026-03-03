@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="6031bc3797b54ddfbd660e4708f5f890" Name="Diagram1" ZoomLevel="66">
+        <EntityTypeShape EntityType="WebPlatFormModel.AgentsPayeurs" Width="1.5" PointX="6" PointY="68.875" />
+        <EntityTypeShape EntityType="WebPlatFormModel.AspNetRoles" Width="1.5" PointX="0.75" PointY="52.75" />
+        <EntityTypeShape EntityType="WebPlatFormModel.AspNetUserClaims" Width="1.5" PointX="5.25" PointY="133.75" />
+        <EntityTypeShape EntityType="WebPlatFormModel.AspNetUserLogins" Width="1.5" PointX="5.25" PointY="124" />
+        <EntityTypeShape EntityType="WebPlatFormModel.AspNetUsers" Width="1.5" PointX="3" PointY="48" />
+        <EntityTypeShape EntityType="WebPlatFormModel.Assignations" Width="1.5" PointX="13.5" PointY="57.375" />
+        <EntityTypeShape EntityType="WebPlatFormModel.AssignationsRemplacants" Width="1.5" PointX="18.75" PointY="59.875" />
+        <EntityTypeShape EntityType="WebPlatFormModel.CLSC" Width="1.5" PointX="6" PointY="63.25" />
+        <EntityTypeShape EntityType="WebPlatFormModel.CodesPostauxSecteur" Width="1.5" PointX="8.25" PointY="39.5" />
+        <EntityTypeShape EntityType="WebPlatFormModel.CommandeCylindreLignes" Width="1.5" PointX="18.75" PointY="48.25" />
+        <EntityTypeShape EntityType="WebPlatFormModel.CommandesCylindres" Width="1.5" PointX="13.5" PointY="51.125" />
+        <EntityTypeShape EntityType="WebPlatFormModel.ControlesQualite" Width="1.5" PointX="11.25" PointY="56.875" />
+        <EntityTypeShape EntityType="WebPlatFormModel.Entretiens" Width="1.5" PointX="18.75" PointY="52" />
+        <EntityTypeShape EntityType="WebPlatFormModel.Equipements" Width="1.5" PointX="16.5" PointY="49" />
+        <EntityTypeShape EntityType="WebPlatFormModel.Fournisseurs" Width="1.5" PointX="3" PointY="40.875" />
+        <EntityTypeShape EntityType="WebPlatFormModel.GabaritsEntretien" Width="1.5" PointX="5.25" PointY="44" />
+        <EntityTypeShape EntityType="WebPlatFormModel.HistoriqueStatutsEquipement" Width="1.5" PointX="18.75" PointY="56.125" />
+        <EntityTypeShape EntityType="WebPlatFormModel.ImportFacturationCylindres" Width="1.5" PointX="5.25" PointY="48.125" />
+        <EntityTypeShape EntityType="WebPlatFormModel.Intervenants" Width="1.5" PointX="5.25" PointY="56.875" />
+        <EntityTypeShape EntityType="WebPlatFormModel.JournalAudit" Width="1.5" PointX="5.25" PointY="126.5" />
+        <EntityTypeShape EntityType="WebPlatFormModel.LecturesCompteur" Width="1.5" PointX="21.75" PointY="57.125" />
+        <EntityTypeShape EntityType="WebPlatFormModel.Manufacturiers" Width="1.5" PointX="14.25" PointY="41.25" />
+        <EntityTypeShape EntityType="WebPlatFormModel.MotifsCommandeCylindreRef" Width="1.5" PointX="11.25" PointY="45" />
+        <EntityTypeShape EntityType="WebPlatFormModel.Notifications" Width="1.5" PointX="5.25" PointY="130.25" />
+        <EntityTypeShape EntityType="WebPlatFormModel.Pannes" Width="1.5" PointX="21.75" PointY="46.75" />
+        <EntityTypeShape EntityType="WebPlatFormModel.ParticularitesUsagerRef" Width="1.5" PointX="8.25" PointY="42.5" />
+        <EntityTypeShape EntityType="WebPlatFormModel.PeriodesFinancieresRef" Width="1.5" PointX="3" PointY="60" />
+        <EntityTypeShape EntityType="WebPlatFormModel.PretsEquipement" Width="1.5" PointX="21.75" PointY="51.75" />
+        <EntityTypeShape EntityType="WebPlatFormModel.ReglesNotification" Width="1.5" PointX="5.25" PointY="120.5" />
+        <EntityTypeShape EntityType="WebPlatFormModel.Reparations" Width="1.5" PointX="24" PointY="51.5" />
+        <EntityTypeShape EntityType="WebPlatFormModel.SecteursSRSAD" Width="1.5" PointX="6" PointY="40.125" />
+        <EntityTypeShape EntityType="WebPlatFormModel.SeuilsInventaire" Width="1.5" PointX="8.25" PointY="45.5" />
+        <EntityTypeShape EntityType="WebPlatFormModel.StatutsDossierUsager" Width="1.5" PointX="6" PointY="66.125" />
+        <EntityTypeShape EntityType="WebPlatFormModel.StatutsEquipementRef" Width="1.5" PointX="16.5" PointY="64.5" />
+        <EntityTypeShape EntityType="WebPlatFormModel.StatutsSuivi" Width="1.5" PointX="11.25" PointY="65.125" />
+        <EntityTypeShape EntityType="WebPlatFormModel.TypesAcquisitionRef" Width="1.5" PointX="14.25" PointY="63.875" />
+        <EntityTypeShape EntityType="WebPlatFormModel.TypesCylindreRef" Width="1.5" PointX="16.5" PointY="45.5" />
+        <EntityTypeShape EntityType="WebPlatFormModel.TypesEquipement" Width="1.5" PointX="3" PointY="44.375" />
+        <EntityTypeShape EntityType="WebPlatFormModel.TypesInfection" Width="1.5" PointX="3" PointY="63.5" />
+        <EntityTypeShape EntityType="WebPlatFormModel.TypesInfestation" Width="1.5" PointX="8.25" PointY="59.5" />
+        <EntityTypeShape EntityType="WebPlatFormModel.TypesIntervenant" Width="1.5" PointX="3" PointY="67.375" />
+        <EntityTypeShape EntityType="WebPlatFormModel.TypesLivraisonRef" Width="1.5" PointX="11.25" PointY="61.875" />
+        <EntityTypeShape EntityType="WebPlatFormModel.TypesPanneRef" Width="1.5" PointX="19.5" PointY="44.5" />
+        <EntityTypeShape EntityType="WebPlatFormModel.UsagerAdresses" Width="1.5" PointX="13.5" PointY="44.875" />
+        <EntityTypeShape EntityType="WebPlatFormModel.UsagerInfections" Width="1.5" PointX="5.25" PointY="51.875" />
+        <EntityTypeShape EntityType="WebPlatFormModel.UsagerInfestations" Width="1.5" PointX="10.5" PointY="51.875" />
+        <EntityTypeShape EntityType="WebPlatFormModel.UsagerParticularites" Width="1.5" PointX="10.5" PointY="48.125" />
+        <EntityTypeShape EntityType="WebPlatFormModel.Usagers" Width="1.5" PointX="8.25" PointY="48.75" />
+        <EntityTypeShape EntityType="WebPlatFormModel.Visites" Width="1.5" PointX="16.5" PointY="59.375" />
+        <AssociationConnector Association="WebPlatFormModel.FK_CC_AgentPayeur" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Usagers_AgentPayeur" />
+        <AssociationConnector Association="WebPlatFormModel.FK_dbo_AspNetUserClaims_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="WebPlatFormModel.FK_dbo_AspNetUserLogins_dbo_AspNetUsers_UserId" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Assignations_CreePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Assignations_ModifiePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_AssRemp_CreePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Audit_User" />
+        <AssociationConnector Association="WebPlatFormModel.FK_CC_User" />
+        <AssociationConnector Association="WebPlatFormModel.FK_CQ_User" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Ent_User" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Equip_CreePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Equip_ModifiePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_GE_User" />
+        <AssociationConnector Association="WebPlatFormModel.FK_HSE_User" />
+        <AssociationConnector Association="WebPlatFormModel.FK_IFC_User" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Intervenants_AspNetUsers" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Intervenants_CreePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Intervenants_ModifiePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_LC_User" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Notif_User" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Pannes_User" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Pret_CreePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Pret_ValidePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Repar_User" />
+        <AssociationConnector Association="WebPlatFormModel.FK_RN_User" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Seuils_User" />
+        <AssociationConnector Association="WebPlatFormModel.FK_UsagerAdresses_CreePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_UsagerAdresses_ModifiePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_UsagerInf_CreePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_UsagerInfec_CreePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_UsagerParticularites_CreePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Usagers_CreePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Usagers_ModifiePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Visites_CreePar" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Assignations_Interv" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Assignations_StatutSuivi" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Assignations_TypeInterv" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Assignations_Usager" />
+        <AssociationConnector Association="WebPlatFormModel.FK_AssRemp_Assignation" />
+        <AssociationConnector Association="WebPlatFormModel.FK_AssRemp_Interv" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Intervenants_CLSC" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Usagers_CLSC" />
+        <AssociationConnector Association="WebPlatFormModel.FK_CodesPostauxSecteur_SecteursSRSAD" />
+        <AssociationConnector Association="WebPlatFormModel.FK_CCL_Commande" />
+        <AssociationConnector Association="WebPlatFormModel.FK_CCL_Type" />
+        <AssociationConnector Association="WebPlatFormModel.FK_CC_Fourn" />
+        <AssociationConnector Association="WebPlatFormModel.FK_CC_Livraison" />
+        <AssociationConnector Association="WebPlatFormModel.FK_CC_Motif" />
+        <AssociationConnector Association="WebPlatFormModel.FK_CC_Usager" />
+        <AssociationConnector Association="WebPlatFormModel.FK_CQ_Equip" />
+        <AssociationConnector Association="WebPlatFormModel.FK_CQ_Lecture" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Ent_Equip" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Ent_Lecture" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Equip_Fourn" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Equip_Manuf" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Equip_Type" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Equip_TypeAcq" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Equip_UsagerAchat" />
+        <AssociationConnector Association="WebPlatFormModel.FK_HSE_Equip" />
+        <AssociationConnector Association="WebPlatFormModel.FK_LC_Equip" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Pannes_Equip" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Pret_Equip" />
+        <AssociationConnector Association="WebPlatFormModel.FK_IFC_Fourn" />
+        <AssociationConnector Association="WebPlatFormModel.FK_GE_Type" />
+        <AssociationConnector Association="WebPlatFormModel.FK_HSE_Statut" />
+        <AssociationConnector Association="WebPlatFormModel.FK_IFC_Periode" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Intervenants_Secteur" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Intervenants_TypesIntervenant" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Visites_Interv" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Pannes_Type" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Repar_Panne" />
+        <AssociationConnector Association="WebPlatFormModel.FK_UsagerParticularites_Ref" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Pret_Usager" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Usagers_Secteur" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Seuils_Type" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Usagers_StatutDossier" />
+        <AssociationConnector Association="WebPlatFormModel.FK_UsagerInfec_Type" />
+        <AssociationConnector Association="WebPlatFormModel.FK_UsagerInf_Type" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Visites_TypeInterv" />
+        <AssociationConnector Association="WebPlatFormModel.FK_UsagerAdresses_Usagers" />
+        <AssociationConnector Association="WebPlatFormModel.FK_UsagerInfec_Usager" />
+        <AssociationConnector Association="WebPlatFormModel.FK_UsagerInf_Usager" />
+        <AssociationConnector Association="WebPlatFormModel.FK_UsagerParticularites_Usagers" />
+        <AssociationConnector Association="WebPlatFormModel.FK_Visites_Usager" />
+        <AssociationConnector Association="WebPlatFormModel.AspNetUserRoles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

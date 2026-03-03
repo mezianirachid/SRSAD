@@ -1,0 +1,56 @@
+﻿<style>
+    #grid {
+	display: block;
+	text-align: center;
+	margin: 1px auto ;
+}
+
+.row {
+	display: block;
+}
+
+.col {
+	display: inline-block;
+	background-color: grey;
+	width: @ViewBag.width;
+	height: @ViewBag.height;
+	margin-right: 0px;
+	margin-top: 0px;
+	padding: 0px;
+    border: 1px solid white;
+}
+</style>
+
+<span id="idTaille" class="hidden">@ViewBag.six</span>
+    <div id="grid">
+        <div class="row">
+            <div class="col"></div>
+            <div class="col"></div>
+            <div class="col"></div>
+            <div>
+                <div class="row">
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div class="col"></div>
+                    <div>
+                        <div class="row">
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div class="col"></div>
+                            <div>
+
+
+<script>
+    var setGridDimensions = function (n) {
+        var $grid = $("#grid").empty();
+        for (var i = 0; i < n; i++) {
+            var $row = $('<div class="row"/>').appendTo($grid);
+            for (var j = 0; j < n; j++) {
+                $row.append('<div id='+i+j +' class="col">' + i  + j + '</div>');
+            }
+        }
+    };
+    var taille = document.getElementById("idTaille").innerText;   
+    alert(taille);
+    setGridDimensions(taille);
+</script>
