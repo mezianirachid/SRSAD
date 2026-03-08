@@ -369,6 +369,9 @@
     <Compile Include="Models\TypesEquipement.cs">
       <DependentUpon>WebPlatFormDbContext.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TypesFinancementRef.cs">
+      <DependentUpon>WebPlatFormDbContext.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TypesInfection.cs">
       <DependentUpon>WebPlatFormDbContext.tt</DependentUpon>
     </Compile>

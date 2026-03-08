@@ -57,6 +57,33 @@ namespace SRSAD.Models
         public System.DateTime DateCreation { get; set; }
         public string ModifieParUserId { get; set; }
         public Nullable<System.DateTime> DateModification { get; set; }
+        public Nullable<bool> GrandConsommateur { get; set; }
+        public string NoteGenerale { get; set; }
+        public Nullable<int> AncienDossierTemporaire { get; set; }
+        public Nullable<int> DossierRadie { get; set; }
+        public string DossierPatrimoine { get; set; }
+        public string DossierRecherche { get; set; }
+        public Nullable<System.DateTime> DateCreationDossier { get; set; }
+        public Nullable<System.DateTime> DateMiseAJour { get; set; }
+        public string StatutSecondaire { get; set; }
+        public Nullable<System.DateTime> DateStatutSecondaire { get; set; }
+        public string Langue { get; set; }
+        public string OrigineEthnique { get; set; }
+        public string Adresse_2 { get; set; }
+        public string Adresse_3 { get; set; }
+        public string LienTelephonique_3 { get; set; }
+        public string RueTransversale { get; set; }
+        public string Hopital { get; set; }
+        public string ProjetRecherche { get; set; }
+        public string ProjetRechercheDossier { get; set; }
+        public string AutreDossier_1 { get; set; }
+        public string AutreDossier_2 { get; set; }
+        public Nullable<int> DerniereReference { get; set; }
+        public string Assurance { get; set; }
+        public string NoAssurance { get; set; }
+        public string NoRecouvrement { get; set; }
+        public Nullable<System.DateTime> DateDernierChgmtTabagique { get; set; }
+        public Nullable<bool> CitpyenneteCanadienne { get; set; }
     
         public virtual AgentsPayeurs AgentsPayeurs { get; set; }
         public virtual AspNetUsers AspNetUsers { get; set; }

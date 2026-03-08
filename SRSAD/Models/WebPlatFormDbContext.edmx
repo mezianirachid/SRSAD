@@ -10,9 +10,18 @@
             <PropertyRef Name="AgentPayeurID" />
           </Key>
           <Property Name="AgentPayeurID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
           <Property Name="Nom" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="EstActif" Type="bit" Nullable="false" />
+          <Property Name="Description" Type="varchar" MaxLength="255" />
+          <Property Name="Adresse" Type="varchar" MaxLength="200" />
+          <Property Name="Telephone" Type="varchar" MaxLength="20" />
+          <Property Name="Contact" Type="varchar" MaxLength="100" />
+          <Property Name="DateCreation" Type="datetime" />
+          <Property Name="DateModification" Type="datetime" />
+          <Property Name="UtilisateurCreation" Type="varchar" MaxLength="50" />
+          <Property Name="UtilisateurModification" Type="varchar" MaxLength="50" />
+          <Property Name="TypeFinancementID" Type="int" />
+          <Property Name="AgentPayeurCode" Type="varchar" MaxLength="30" Nullable="false" />
         </EntityType>
         <EntityType Name="AspNetRoles">
           <Key>
@@ -483,6 +492,15 @@
           <Property Name="Libelle" Type="nvarchar" MaxLength="150" Nullable="false" />
           <Property Name="EstActif" Type="bit" Nullable="false" />
         </EntityType>
+        <EntityType Name="TypesFinancementRef">
+          <Key>
+            <PropertyRef Name="TypeFinancementID" />
+          </Key>
+          <Property Name="TypeFinancementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="TypeFinancementCode" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DESCRIPTION" Type="varchar" MaxLength="100" />
+          <Property Name="EstActif" Type="bit" />
+        </EntityType>
         <EntityType Name="TypesInfection">
           <Key>
             <PropertyRef Name="TypeInfectionID" />
@@ -631,6 +649,33 @@
           <Property Name="DateCreation" Type="datetime" Nullable="false" />
           <Property Name="ModifieParUserId" Type="nvarchar" MaxLength="128" />
           <Property Name="DateModification" Type="datetime" />
+          <Property Name="GrandConsommateur" Type="bit" />
+          <Property Name="NoteGenerale" Type="varchar(max)" />
+          <Property Name="AncienDossierTemporaire" Type="int" />
+          <Property Name="DossierRadie" Type="int" />
+          <Property Name="DossierPatrimoine" Type="varchar" MaxLength="30" />
+          <Property Name="DossierRecherche" Type="varchar" MaxLength="30" />
+          <Property Name="DateCreationDossier" Type="datetime" />
+          <Property Name="DateMiseAJour" Type="datetime" />
+          <Property Name="StatutSecondaire" Type="varchar" MaxLength="50" />
+          <Property Name="DateStatutSecondaire" Type="datetime" />
+          <Property Name="Langue" Type="varchar" MaxLength="20" />
+          <Property Name="OrigineEthnique" Type="varchar" MaxLength="25" />
+          <Property Name="Adresse_2" Type="varchar" MaxLength="50" />
+          <Property Name="Adresse_3" Type="varchar" MaxLength="12" />
+          <Property Name="LienTelephonique_3" Type="varchar" MaxLength="35" />
+          <Property Name="RueTransversale" Type="varchar" MaxLength="50" />
+          <Property Name="Hopital" Type="varchar" MaxLength="40" />
+          <Property Name="ProjetRecherche" Type="varchar" MaxLength="30" />
+          <Property Name="ProjetRechercheDossier" Type="varchar" MaxLength="10" />
+          <Property Name="AutreDossier_1" Type="varchar" MaxLength="30" />
+          <Property Name="AutreDossier_2" Type="varchar" MaxLength="30" />
+          <Property Name="DerniereReference" Type="int" />
+          <Property Name="Assurance" Type="varchar" MaxLength="40" />
+          <Property Name="NoAssurance" Type="varchar" MaxLength="30" />
+          <Property Name="NoRecouvrement" Type="varchar" MaxLength="30" />
+          <Property Name="DateDernierChgmtTabagique" Type="datetime" />
+          <Property Name="CitpyenneteCanadienne" Type="bit" />
         </EntityType>
         <EntityType Name="Visites">
           <Key>
@@ -646,6 +691,18 @@
           <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
           <Property Name="DateCreation" Type="datetime" Nullable="false" />
         </EntityType>
+        <Association Name="FK_AgentsPayeurs_TypesFinancementRef">
+          <End Role="TypesFinancementRef" Type="Self.TypesFinancementRef" Multiplicity="0..1" />
+          <End Role="AgentsPayeurs" Type="Self.AgentsPayeurs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesFinancementRef">
+              <PropertyRef Name="TypeFinancementID" />
+            </Principal>
+            <Dependent Role="AgentsPayeurs">
+              <PropertyRef Name="TypeFinancementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Assignations_CreePar">
           <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
           <End Role="Assignations" Type="Self.Assignations" Multiplicity="*" />
@@ -1738,6 +1795,7 @@
           <EntitySet Name="TypesAcquisitionRef" EntityType="Self.TypesAcquisitionRef" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypesCylindreRef" EntityType="Self.TypesCylindreRef" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypesEquipement" EntityType="Self.TypesEquipement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TypesFinancementRef" EntityType="Self.TypesFinancementRef" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypesInfection" EntityType="Self.TypesInfection" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypesInfestation" EntityType="Self.TypesInfestation" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="TypesIntervenant" EntityType="Self.TypesIntervenant" Schema="dbo" store:Type="Tables" />
@@ -1749,6 +1807,10 @@
           <EntitySet Name="UsagerParticularites" EntityType="Self.UsagerParticularites" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usagers" EntityType="Self.Usagers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Visites" EntityType="Self.Visites" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_AgentsPayeurs_TypesFinancementRef" Association="Self.FK_AgentsPayeurs_TypesFinancementRef">
+            <End Role="TypesFinancementRef" EntitySet="TypesFinancementRef" />
+            <End Role="AgentsPayeurs" EntitySet="AgentsPayeurs" />
+          </AssociationSet>
           <AssociationSet Name="FK_Assignations_CreePar" Association="Self.FK_Assignations_CreePar">
             <End Role="AspNetUsers" EntitySet="AspNetUsers" />
             <End Role="Assignations" EntitySet="Assignations" />
@@ -2141,6 +2203,7 @@
           <EntitySet Name="TypesAcquisitionRef" EntityType="WebPlatFormModel.TypesAcquisitionRef" />
           <EntitySet Name="TypesCylindreRef" EntityType="WebPlatFormModel.TypesCylindreRef" />
           <EntitySet Name="TypesEquipement" EntityType="WebPlatFormModel.TypesEquipement" />
+          <EntitySet Name="TypesFinancementRef" EntityType="WebPlatFormModel.TypesFinancementRef" />
           <EntitySet Name="TypesInfection" EntityType="WebPlatFormModel.TypesInfection" />
           <EntitySet Name="TypesInfestation" EntityType="WebPlatFormModel.TypesInfestation" />
           <EntitySet Name="TypesIntervenant" EntityType="WebPlatFormModel.TypesIntervenant" />
@@ -2152,6 +2215,10 @@
           <EntitySet Name="UsagerParticularites" EntityType="WebPlatFormModel.UsagerParticularites" />
           <EntitySet Name="Usagers" EntityType="WebPlatFormModel.Usagers" />
           <EntitySet Name="Visites" EntityType="WebPlatFormModel.Visites" />
+          <AssociationSet Name="FK_AgentsPayeurs_TypesFinancementRef" Association="WebPlatFormModel.FK_AgentsPayeurs_TypesFinancementRef">
+            <End Role="TypesFinancementRef" EntitySet="TypesFinancementRef" />
+            <End Role="AgentsPayeurs" EntitySet="AgentsPayeurs" />
+          </AssociationSet>
           <AssociationSet Name="FK_CC_AgentPayeur" Association="WebPlatFormModel.FK_CC_AgentPayeur">
             <End Role="AgentsPayeurs" EntitySet="AgentsPayeurs" />
             <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
@@ -2502,9 +2569,19 @@
             <PropertyRef Name="AgentPayeurID" />
           </Key>
           <Property Name="AgentPayeurID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Nom" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="EstActif" Type="Boolean" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Adresse" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="Contact" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreation" Type="DateTime" Precision="3" />
+          <Property Name="DateModification" Type="DateTime" Precision="3" />
+          <Property Name="UtilisateurCreation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="UtilisateurModification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="TypeFinancementID" Type="Int32" />
+          <Property Name="AgentPayeurCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="TypesFinancementRef" Relationship="WebPlatFormModel.FK_AgentsPayeurs_TypesFinancementRef" FromRole="AgentsPayeurs" ToRole="TypesFinancementRef" />
           <NavigationProperty Name="CommandesCylindres" Relationship="WebPlatFormModel.FK_CC_AgentPayeur" FromRole="AgentsPayeurs" ToRole="CommandesCylindres" />
           <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_Usagers_AgentPayeur" FromRole="AgentsPayeurs" ToRole="Usagers" />
         </EntityType>
@@ -3101,6 +3178,16 @@
           <NavigationProperty Name="GabaritsEntretien" Relationship="WebPlatFormModel.FK_GE_Type" FromRole="TypesEquipement" ToRole="GabaritsEntretien" />
           <NavigationProperty Name="SeuilsInventaire" Relationship="WebPlatFormModel.FK_Seuils_Type" FromRole="TypesEquipement" ToRole="SeuilsInventaire" />
         </EntityType>
+        <EntityType Name="TypesFinancementRef">
+          <Key>
+            <PropertyRef Name="TypeFinancementID" />
+          </Key>
+          <Property Name="TypeFinancementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="TypeFinancementCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DESCRIPTION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="AgentsPayeurs" Relationship="WebPlatFormModel.FK_AgentsPayeurs_TypesFinancementRef" FromRole="TypesFinancementRef" ToRole="AgentsPayeurs" />
+          <Property Name="EstActif" Type="Boolean" />
+        </EntityType>
         <EntityType Name="TypesInfection">
           <Key>
             <PropertyRef Name="TypeInfectionID" />
@@ -3120,8 +3207,8 @@
           <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
           <Property Name="Libelle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
           <Property Name="EstActif" Type="Boolean" Nullable="false" />
-          <NavigationProperty Name="UsagerInfestations" Relationship="WebPlatFormModel.FK_UsagerInf_Type" FromRole="TypesInfestation" ToRole="UsagerInfestations" />
           <Property Name="Categorie" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="UsagerInfestations" Relationship="WebPlatFormModel.FK_UsagerInf_Type" FromRole="TypesInfestation" ToRole="UsagerInfestations" />
         </EntityType>
         <EntityType Name="TypesIntervenant">
           <Key>
@@ -3268,6 +3355,33 @@
           <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="ModifieParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
           <Property Name="DateModification" Type="DateTime" Precision="3" />
+          <Property Name="GrandConsommateur" Type="Boolean" />
+          <Property Name="NoteGenerale" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="AncienDossierTemporaire" Type="Int32" />
+          <Property Name="DossierRadie" Type="Int32" />
+          <Property Name="DossierPatrimoine" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DossierRecherche" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DateCreationDossier" Type="DateTime" Precision="3" />
+          <Property Name="DateMiseAJour" Type="DateTime" Precision="3" />
+          <Property Name="StatutSecondaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DateStatutSecondaire" Type="DateTime" Precision="3" />
+          <Property Name="Langue" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="OrigineEthnique" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+          <Property Name="Adresse_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Adresse_3" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="LienTelephonique_3" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+          <Property Name="RueTransversale" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Hopital" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="ProjetRecherche" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ProjetRechercheDossier" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="AutreDossier_1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="AutreDossier_2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DerniereReference" Type="Int32" />
+          <Property Name="Assurance" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+          <Property Name="NoAssurance" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="NoRecouvrement" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="DateDernierChgmtTabagique" Type="DateTime" Precision="3" />
+          <Property Name="CitpyenneteCanadienne" Type="Boolean" />
           <NavigationProperty Name="AgentsPayeurs" Relationship="WebPlatFormModel.FK_Usagers_AgentPayeur" FromRole="Usagers" ToRole="AgentsPayeurs" />
           <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Usagers_CreePar" FromRole="Usagers" ToRole="AspNetUsers" />
           <NavigationProperty Name="AspNetUsers1" Relationship="WebPlatFormModel.FK_Usagers_ModifiePar" FromRole="Usagers" ToRole="AspNetUsers" />
@@ -3302,6 +3416,18 @@
           <NavigationProperty Name="TypesIntervenant" Relationship="WebPlatFormModel.FK_Visites_TypeInterv" FromRole="Visites" ToRole="TypesIntervenant" />
           <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_Visites_Usager" FromRole="Visites" ToRole="Usagers" />
         </EntityType>
+        <Association Name="FK_AgentsPayeurs_TypesFinancementRef">
+          <End Type="WebPlatFormModel.TypesFinancementRef" Role="TypesFinancementRef" Multiplicity="0..1" />
+          <End Type="WebPlatFormModel.AgentsPayeurs" Role="AgentsPayeurs" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TypesFinancementRef">
+              <PropertyRef Name="TypeFinancementID" />
+            </Principal>
+            <Dependent Role="AgentsPayeurs">
+              <PropertyRef Name="TypeFinancementID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_CC_AgentPayeur">
           <End Type="WebPlatFormModel.AgentsPayeurs" Role="AgentsPayeurs" Multiplicity="0..1" />
           <End Type="WebPlatFormModel.CommandesCylindres" Role="CommandesCylindres" Multiplicity="*" />
@@ -4339,9 +4465,18 @@
           <EntitySetMapping Name="AgentsPayeurs">
             <EntityTypeMapping TypeName="WebPlatFormModel.AgentsPayeurs">
               <MappingFragment StoreEntitySet="AgentsPayeurs">
+                <ScalarProperty Name="AgentPayeurCode" ColumnName="AgentPayeurCode" />
+                <ScalarProperty Name="TypeFinancementID" ColumnName="TypeFinancementID" />
+                <ScalarProperty Name="UtilisateurModification" ColumnName="UtilisateurModification" />
+                <ScalarProperty Name="UtilisateurCreation" ColumnName="UtilisateurCreation" />
+                <ScalarProperty Name="DateModification" ColumnName="DateModification" />
+                <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+                <ScalarProperty Name="Contact" ColumnName="Contact" />
+                <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+                <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
                 <ScalarProperty Name="EstActif" ColumnName="EstActif" />
                 <ScalarProperty Name="Nom" ColumnName="Nom" />
-                <ScalarProperty Name="Code" ColumnName="Code" />
                 <ScalarProperty Name="AgentPayeurID" ColumnName="AgentPayeurID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -4842,6 +4977,16 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TypesFinancementRef">
+            <EntityTypeMapping TypeName="WebPlatFormModel.TypesFinancementRef">
+              <MappingFragment StoreEntitySet="TypesFinancementRef">
+                <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+                <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+                <ScalarProperty Name="TypeFinancementCode" ColumnName="TypeFinancementCode" />
+                <ScalarProperty Name="TypeFinancementID" ColumnName="TypeFinancementID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="TypesInfection">
             <EntityTypeMapping TypeName="WebPlatFormModel.TypesInfection">
               <MappingFragment StoreEntitySet="TypesInfection">
@@ -4967,6 +5112,33 @@
           <EntitySetMapping Name="Usagers">
             <EntityTypeMapping TypeName="WebPlatFormModel.Usagers">
               <MappingFragment StoreEntitySet="Usagers">
+                <ScalarProperty Name="CitpyenneteCanadienne" ColumnName="CitpyenneteCanadienne" />
+                <ScalarProperty Name="DateDernierChgmtTabagique" ColumnName="DateDernierChgmtTabagique" />
+                <ScalarProperty Name="NoRecouvrement" ColumnName="NoRecouvrement" />
+                <ScalarProperty Name="NoAssurance" ColumnName="NoAssurance" />
+                <ScalarProperty Name="Assurance" ColumnName="Assurance" />
+                <ScalarProperty Name="DerniereReference" ColumnName="DerniereReference" />
+                <ScalarProperty Name="AutreDossier_2" ColumnName="AutreDossier_2" />
+                <ScalarProperty Name="AutreDossier_1" ColumnName="AutreDossier_1" />
+                <ScalarProperty Name="ProjetRechercheDossier" ColumnName="ProjetRechercheDossier" />
+                <ScalarProperty Name="ProjetRecherche" ColumnName="ProjetRecherche" />
+                <ScalarProperty Name="Hopital" ColumnName="Hopital" />
+                <ScalarProperty Name="RueTransversale" ColumnName="RueTransversale" />
+                <ScalarProperty Name="LienTelephonique_3" ColumnName="LienTelephonique_3" />
+                <ScalarProperty Name="Adresse_3" ColumnName="Adresse_3" />
+                <ScalarProperty Name="Adresse_2" ColumnName="Adresse_2" />
+                <ScalarProperty Name="OrigineEthnique" ColumnName="OrigineEthnique" />
+                <ScalarProperty Name="Langue" ColumnName="Langue" />
+                <ScalarProperty Name="DateStatutSecondaire" ColumnName="DateStatutSecondaire" />
+                <ScalarProperty Name="StatutSecondaire" ColumnName="StatutSecondaire" />
+                <ScalarProperty Name="DateMiseAJour" ColumnName="DateMiseAJour" />
+                <ScalarProperty Name="DateCreationDossier" ColumnName="DateCreationDossier" />
+                <ScalarProperty Name="DossierRecherche" ColumnName="DossierRecherche" />
+                <ScalarProperty Name="DossierPatrimoine" ColumnName="DossierPatrimoine" />
+                <ScalarProperty Name="DossierRadie" ColumnName="DossierRadie" />
+                <ScalarProperty Name="AncienDossierTemporaire" ColumnName="AncienDossierTemporaire" />
+                <ScalarProperty Name="NoteGenerale" ColumnName="NoteGenerale" />
+                <ScalarProperty Name="GrandConsommateur" ColumnName="GrandConsommateur" />
                 <ScalarProperty Name="DateModification" ColumnName="DateModification" />
                 <ScalarProperty Name="ModifieParUserId" ColumnName="ModifieParUserId" />
                 <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />

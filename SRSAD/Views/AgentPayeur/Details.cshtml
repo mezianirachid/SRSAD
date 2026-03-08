@@ -20,20 +20,55 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-8 col-md-offset-2">
+            <!-- Informations principales -->
             <div class="panel panel-info">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Informations</h3>
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-info-sign"></span> Informations générales
+                    </h3>
                 </div>
                 <div class="panel-body">
-                    <table class="table table-bordered">
+                    <table class="table table-bordered table-striped">
                         <tr>
-                            <th style="width: 30%">@Html.DisplayNameFor(model => model.Code)</th>
-                            <td><strong>@Html.DisplayFor(model => model.Code)</strong></td>
+                            <th style="width: 30%">@Html.DisplayNameFor(model => model.AgentPayeurCode)</th>
+                            <td><strong>@Html.DisplayFor(model => model.AgentPayeurCode)</strong></td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.AgentPayeurCode)</th>
+                            <td><code>@Html.DisplayFor(model => model.AgentPayeurCode)</code></td>
                         </tr>
                         <tr>
                             <th>@Html.DisplayNameFor(model => model.Nom)</th>
                             <td>@Html.DisplayFor(model => model.Nom)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.TypeFinancementID)</th>
+                            <td>
+                                @if (Model.TypesFinancementRef != null)
+                                {
+                                    <span class="label label-primary">@Model.TypesFinancementRef.TypeFinancementCode</span>
+                                    <br />
+                                    <small>@Model.TypesFinancementRef.DESCRIPTION</small>
+                                }
+                                else
+                                {
+                                    <span class="label label-default">Non défini</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Description)</th>
+                            <td>
+                                @if (!string.IsNullOrEmpty(Model.Description))
+                                {
+                                    <p style="white-space: pre-line;">@Model.Description</p>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Aucune description</span>
+                                }
+                            </td>
                         </tr>
                         <tr>
                             <th>Statut</th>
@@ -50,16 +85,276 @@
                         </tr>
                     </table>
                 </div>
+            </div>
+
+            <!-- Coordonnées et contact -->
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-earphone"></span> Coordonnées et contact
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-striped">
+                        <tr>
+                            <th style="width: 30%">@Html.DisplayNameFor(model => model.Adresse)</th>
+                            <td>
+                                @if (!string.IsNullOrEmpty(Model.Adresse))
+                                {
+                                    <address>
+                                        @Model.Adresse<br />
+                                        @if (!string.IsNullOrEmpty(Model.Telephone))
+                                        {
+                                            @:Tél: @Model.Telephone
+                                        }
+                                    </address>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Aucune adresse</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Telephone)</th>
+                            <td>
+                                @if (!string.IsNullOrEmpty(Model.Telephone))
+                                {
+                                    <a href="tel:@Model.Telephone">@Model.Telephone</a>
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Non spécifié</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Contact)</th>
+                            <td>
+                                @if (!string.IsNullOrEmpty(Model.Contact))
+                                {
+                                    @Model.Contact
+                                }
+                                else
+                                {
+                                    <span class="text-muted">Aucun contact spécifié</span>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Statistiques d'utilisation -->
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-stats"></span> Statistiques d'utilisation
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-md-4 text-center">
+                            <div class="well well-sm">
+                                <h1 class="text-primary">@ViewBag.NombrePatients</h1>
+                                <span class="text-muted">Patients associés</span>
+                                <br />
+                                <small>@ViewBag.PatientsActifs actifs</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="well well-sm">
+                                <h1 class="text-success">@ViewBag.NombreCommandes</h1>
+                                <span class="text-muted">Commandes de cylindres</span>
+                                <br />
+                                <small>@ViewBag.CommandesEnCours en cours</small>
+                            </div>
+                        </div>
+                        <div class="col-md-4 text-center">
+                            <div class="well well-sm">
+                                <h1 class="text-warning">@String.Format("{0:C}", ViewBag.MontantTotal)</h1>
+                                <span class="text-muted">Montant total</span>
+                                <br />
+                                <small>Toutes commandes confondues</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Derniers patients -->
+            @if (ViewBag.DerniersPatients != null && ((List<SRSAD.Models.Usagers>)ViewBag.DerniersPatients).Count > 0)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <span class="glyphicon glyphicon-user"></span> Derniers patients associés
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Patient</th>
+                                    <th>Dossier</th>
+                                    <th>Date création</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var patient in (List<SRSAD.Models.Usagers>)ViewBag.DerniersPatients)
+                                {
+                                    <tr>
+                                        <td>@patient.Nom @patient.Prenom</td>
+                                        <td>@patient.NoDossierIPM</td>
+                                        <td>@patient.DateCreation.ToString("yyyy-MM-dd")</td>
+                                        <td>
+                                            @Html.ActionLink("Voir", "Details", "Usager", new { id = patient.NoDossierIPM }, new { @class = "btn btn-xs btn-default" })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+
+            <!-- Dernières commandes -->
+            @if (ViewBag.DernieresCommandes != null && ((List<SRSAD.Models.CommandesCylindres>)ViewBag.DernieresCommandes).Count > 0)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Dernières commandes
+                        </h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-condensed table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Patient</th>
+                                    <th>Montant</th>
+                                    <th>Statut</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var commande in (List<SRSAD.Models.CommandesCylindres>)ViewBag.DernieresCommandes)
+                                {
+                                    <tr>
+                                        <td>@commande.DateCreation.ToString("yyyy-MM-dd")</td>
+                                        <td>@commande.Usagers?.Nom @commande.Usagers?.Prenom</td>
+                                        <td>@String.Format("{0:C}", commande.CommandeCylindreLignes?.Sum(l => l.PrixTotal) ?? 0)</td>
+                                        <td>
+                                            @if (commande.Statut == "EN_COURS")
+                                            {
+                                                <span class="label label-warning">En cours</span>
+                                            }
+                                            else if (commande.Statut == "LIVREE")
+                                            {
+                                                <span class="label label-success">Livrée</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="label label-default">@commande.Statut</span>
+                                            }
+                                        </td>
+                                        <td>
+                                            @Html.ActionLink("Voir", "Details", "CommandeCylindre", new { id = commande.CommandeID }, new { @class = "btn btn-xs btn-default" })
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+
+            <!-- Métadonnées système -->
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        <span class="glyphicon glyphicon-time"></span> Informations système
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-condensed">
+                        <tr>
+                            <th style="width: 30%">@Html.DisplayNameFor(model => model.DateCreation)</th>
+                            <td>
+                                @(Model.DateCreation.HasValue ? Model.DateCreation.Value.ToString("yyyy-MM-dd HH:mm:ss") : "Non spécifiée")
+                                @if (!string.IsNullOrEmpty(Model.UtilisateurCreation))
+                                {
+                                    <span class="text-muted"> par @Model.UtilisateurCreation</span>
+                                }
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.DateModification)</th>
+                            <td>
+                                @(Model.DateModification.HasValue ? Model.DateModification.Value.ToString("yyyy-MM-dd HH:mm:ss") : "Jamais modifié")
+                                @if (!string.IsNullOrEmpty(Model.UtilisateurModification))
+                                {
+                                    <span class="text-muted"> par @Model.UtilisateurModification</span>
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
                 <div class="panel-footer">
-                    @using (Html.BeginForm("Delete", "AgentPayeur", new { id = Model.AgentPayeurID }, FormMethod.Post, new { style = "display:inline", onsubmit = "return confirm('Êtes-vous sûr de vouloir supprimer cet agent payeur ?');" }))
+                    @using (Html.BeginForm("Delete", "AgentPayeur", new { id = Model.AgentPayeurID }, FormMethod.Post, new { style = "display:inline", onsubmit = "return confirm('Êtes-vous sûr de vouloir supprimer définitivement cet agent payeur ? Cette action est irréversible.');" }))
                     {
                         @Html.AntiForgeryToken()
                         <button type="submit" class="btn btn-danger">
-                            <span class="glyphicon glyphicon-trash"></span> Supprimer
+                            <span class="glyphicon glyphicon-trash"></span> Supprimer définitivement
                         </button>
                     }
+                    <span class="text-muted pull-right">
+                        <small>ID: @Model.AgentPayeurID</small>
+                    </span>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function() {
+            // Rafraîchir les stats périodiquement
+            function refreshStats() {
+                $.getJSON('@Url.Action("GetStats", "AgentPayeur", new { id = Model.AgentPayeurID })', function(data) {
+                    // Mettre à jour les statistiques
+                    $('.stats-patients').text(data.nombrePatients);
+                    $('.stats-patients-actifs').text(data.patientsActifs);
+                    $('.stats-commandes').text(data.nombreCommandes);
+                    $('.stats-commandes-encours').text(data.commandesEnCours);
+                    $('.stats-montant').text(new Intl.NumberFormat('fr-CA', { style: 'currency', currency: 'CAD' }).format(data.montantTotal));
+                });
+            }
+
+            // Optionnel: rafraîchir toutes les 30 secondes
+            // setInterval(refreshStats, 30000);
+        });
+    </script>
+}
+
+<style>
+    .table th {
+        background-color: #f5f5f5;
+    }
+
+    address {
+        margin-bottom: 0;
+    }
+
+    .well-sm h1 {
+        margin-top: 5px;
+        margin-bottom: 5px;
+    }
+
+    .panel-footer .pull-right {
+        margin-top: 5px;
+    }
+</style>

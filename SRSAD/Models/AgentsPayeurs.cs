@@ -22,10 +22,20 @@ namespace SRSAD.Models
         }
     
         public int AgentPayeurID { get; set; }
-        public string Code { get; set; }
         public string Nom { get; set; }
         public bool EstActif { get; set; }
+        public string Description { get; set; }
+        public string Adresse { get; set; }
+        public string Telephone { get; set; }
+        public string Contact { get; set; }
+        public Nullable<System.DateTime> DateCreation { get; set; }
+        public Nullable<System.DateTime> DateModification { get; set; }
+        public string UtilisateurCreation { get; set; }
+        public string UtilisateurModification { get; set; }
+        public Nullable<int> TypeFinancementID { get; set; }
+        public string AgentPayeurCode { get; set; }
     
+        public virtual TypesFinancementRef TypesFinancementRef { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<CommandesCylindres> CommandesCylindres { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

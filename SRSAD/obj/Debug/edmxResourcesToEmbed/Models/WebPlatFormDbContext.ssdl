@@ -5,9 +5,18 @@
       <PropertyRef Name="AgentPayeurID" />
     </Key>
     <Property Name="AgentPayeurID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-    <Property Name="Code" Type="nvarchar" MaxLength="30" Nullable="false" />
     <Property Name="Nom" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="EstActif" Type="bit" Nullable="false" />
+    <Property Name="Description" Type="varchar" MaxLength="255" />
+    <Property Name="Adresse" Type="varchar" MaxLength="200" />
+    <Property Name="Telephone" Type="varchar" MaxLength="20" />
+    <Property Name="Contact" Type="varchar" MaxLength="100" />
+    <Property Name="DateCreation" Type="datetime" />
+    <Property Name="DateModification" Type="datetime" />
+    <Property Name="UtilisateurCreation" Type="varchar" MaxLength="50" />
+    <Property Name="UtilisateurModification" Type="varchar" MaxLength="50" />
+    <Property Name="TypeFinancementID" Type="int" />
+    <Property Name="AgentPayeurCode" Type="varchar" MaxLength="30" Nullable="false" />
   </EntityType>
   <EntityType Name="AspNetRoles">
     <Key>
@@ -478,6 +487,15 @@
     <Property Name="Libelle" Type="nvarchar" MaxLength="150" Nullable="false" />
     <Property Name="EstActif" Type="bit" Nullable="false" />
   </EntityType>
+  <EntityType Name="TypesFinancementRef">
+    <Key>
+      <PropertyRef Name="TypeFinancementID" />
+    </Key>
+    <Property Name="TypeFinancementID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="TypeFinancementCode" Type="varchar" MaxLength="20" Nullable="false" />
+    <Property Name="DESCRIPTION" Type="varchar" MaxLength="100" />
+    <Property Name="EstActif" Type="bit" />
+  </EntityType>
   <EntityType Name="TypesInfection">
     <Key>
       <PropertyRef Name="TypeInfectionID" />
@@ -626,6 +644,33 @@
     <Property Name="DateCreation" Type="datetime" Nullable="false" />
     <Property Name="ModifieParUserId" Type="nvarchar" MaxLength="128" />
     <Property Name="DateModification" Type="datetime" />
+    <Property Name="GrandConsommateur" Type="bit" />
+    <Property Name="NoteGenerale" Type="varchar(max)" />
+    <Property Name="AncienDossierTemporaire" Type="int" />
+    <Property Name="DossierRadie" Type="int" />
+    <Property Name="DossierPatrimoine" Type="varchar" MaxLength="30" />
+    <Property Name="DossierRecherche" Type="varchar" MaxLength="30" />
+    <Property Name="DateCreationDossier" Type="datetime" />
+    <Property Name="DateMiseAJour" Type="datetime" />
+    <Property Name="StatutSecondaire" Type="varchar" MaxLength="50" />
+    <Property Name="DateStatutSecondaire" Type="datetime" />
+    <Property Name="Langue" Type="varchar" MaxLength="20" />
+    <Property Name="OrigineEthnique" Type="varchar" MaxLength="25" />
+    <Property Name="Adresse_2" Type="varchar" MaxLength="50" />
+    <Property Name="Adresse_3" Type="varchar" MaxLength="12" />
+    <Property Name="LienTelephonique_3" Type="varchar" MaxLength="35" />
+    <Property Name="RueTransversale" Type="varchar" MaxLength="50" />
+    <Property Name="Hopital" Type="varchar" MaxLength="40" />
+    <Property Name="ProjetRecherche" Type="varchar" MaxLength="30" />
+    <Property Name="ProjetRechercheDossier" Type="varchar" MaxLength="10" />
+    <Property Name="AutreDossier_1" Type="varchar" MaxLength="30" />
+    <Property Name="AutreDossier_2" Type="varchar" MaxLength="30" />
+    <Property Name="DerniereReference" Type="int" />
+    <Property Name="Assurance" Type="varchar" MaxLength="40" />
+    <Property Name="NoAssurance" Type="varchar" MaxLength="30" />
+    <Property Name="NoRecouvrement" Type="varchar" MaxLength="30" />
+    <Property Name="DateDernierChgmtTabagique" Type="datetime" />
+    <Property Name="CitpyenneteCanadienne" Type="bit" />
   </EntityType>
   <EntityType Name="Visites">
     <Key>
@@ -641,6 +686,18 @@
     <Property Name="CreeParUserId" Type="nvarchar" MaxLength="128" />
     <Property Name="DateCreation" Type="datetime" Nullable="false" />
   </EntityType>
+  <Association Name="FK_AgentsPayeurs_TypesFinancementRef">
+    <End Role="TypesFinancementRef" Type="Self.TypesFinancementRef" Multiplicity="0..1" />
+    <End Role="AgentsPayeurs" Type="Self.AgentsPayeurs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesFinancementRef">
+        <PropertyRef Name="TypeFinancementID" />
+      </Principal>
+      <Dependent Role="AgentsPayeurs">
+        <PropertyRef Name="TypeFinancementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_Assignations_CreePar">
     <End Role="AspNetUsers" Type="Self.AspNetUsers" Multiplicity="0..1" />
     <End Role="Assignations" Type="Self.Assignations" Multiplicity="*" />
@@ -1733,6 +1790,7 @@
     <EntitySet Name="TypesAcquisitionRef" EntityType="Self.TypesAcquisitionRef" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TypesCylindreRef" EntityType="Self.TypesCylindreRef" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TypesEquipement" EntityType="Self.TypesEquipement" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TypesFinancementRef" EntityType="Self.TypesFinancementRef" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TypesInfection" EntityType="Self.TypesInfection" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TypesInfestation" EntityType="Self.TypesInfestation" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="TypesIntervenant" EntityType="Self.TypesIntervenant" Schema="dbo" store:Type="Tables" />
@@ -1744,6 +1802,10 @@
     <EntitySet Name="UsagerParticularites" EntityType="Self.UsagerParticularites" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Usagers" EntityType="Self.Usagers" Schema="dbo" store:Type="Tables" />
     <EntitySet Name="Visites" EntityType="Self.Visites" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_AgentsPayeurs_TypesFinancementRef" Association="Self.FK_AgentsPayeurs_TypesFinancementRef">
+      <End Role="TypesFinancementRef" EntitySet="TypesFinancementRef" />
+      <End Role="AgentsPayeurs" EntitySet="AgentsPayeurs" />
+    </AssociationSet>
     <AssociationSet Name="FK_Assignations_CreePar" Association="Self.FK_Assignations_CreePar">
       <End Role="AspNetUsers" EntitySet="AspNetUsers" />
       <End Role="Assignations" EntitySet="Assignations" />

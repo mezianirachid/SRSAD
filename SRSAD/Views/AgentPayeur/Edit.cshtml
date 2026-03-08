@@ -18,8 +18,16 @@
         </div>
     </div>
 
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger alert-dismissible fade in">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <span class="glyphicon glyphicon-exclamation-sign"></span> @TempData["Error"]
+        </div>
+    }
+
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-warning">
                 <div class="panel-heading">
                     <h3 class="panel-title">Modification de l'agent payeur</h3>
@@ -29,36 +37,183 @@
                     {
                         @Html.AntiForgeryToken()
                         @Html.HiddenFor(model => model.AgentPayeurID)
+                        @Html.HiddenFor(model => model.DateCreation)
+                        @Html.HiddenFor(model => model.UtilisateurCreation)
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Code, "Code *")
-                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.AgentPayeurCode, "Code *")
+                                    @Html.EditorFor(model => model.AgentPayeurCode, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = 30, @readonly = "readonly" } })
+                                    @Html.ValidationMessageFor(model => model.AgentPayeurCode, "", new { @class = "text-danger" })
+                                    <small class="text-muted">Le code ne peut pas être modifié</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.AgentPayeurCode, "Code interne *")
+                                    @Html.EditorFor(model => model.AgentPayeurCode, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = 30 } })
+                                    @Html.ValidationMessageFor(model => model.AgentPayeurCode, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Nom, "Nom *")
-                            @Html.EditorFor(model => model.Nom, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                            @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Nom, "Nom *")
+                                    @Html.EditorFor(model => model.Nom, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = 150 } })
+                                    @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="checkbox">
-                            <label>
-                                @Html.CheckBoxFor(model => model.EstActif)
-                                Actif
-                            </label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TypeFinancementID, "Type de financement *")
+                                    @Html.DropDownListFor(model => model.TypeFinancementID, (SelectList)ViewBag.TypeFinancementList, "Sélectionnez un type", new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.TypeFinancementID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkbox" style="margin-top: 30px;">
+                                    <label>
+                                        @Html.CheckBoxFor(model => model.EstActif)
+                                        <strong>Actif</strong>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Description, "Description")
+                                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 3, maxlength = 255 })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Adresse, "Adresse")
+                                    @Html.TextAreaFor(model => model.Adresse, new { @class = "form-control", rows = 2, maxlength = 200 })
+                                    @Html.ValidationMessageFor(model => model.Adresse, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Telephone, "Téléphone")
+                                    @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control", maxlength = 20, placeholder = "514-123-4567" } })
+                                    @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Contact, "Personne contact")
+                                    @Html.EditorFor(model => model.Contact, new { htmlAttributes = new { @class = "form-control", maxlength = 100, placeholder = "Nom de la personne contact" } })
+                                    @Html.ValidationMessageFor(model => model.Contact, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Date de création</label>
+                                    <p class="form-control-static">
+                                        @(Model.DateCreation.HasValue ? Model.DateCreation.Value.ToString("yyyy-MM-dd HH:mm") : "Non spécifiée")
+                                        @if (!string.IsNullOrEmpty(Model.UtilisateurCreation))
+                                        {
+                                            <br /><small>par @Model.UtilisateurCreation</small>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label>Dernière modification</label>
+                                    <p class="form-control-static">
+                                        @(Model.DateModification.HasValue ? Model.DateModification.Value.ToString("yyyy-MM-dd HH:mm") : "Jamais")
+                                        @if (!string.IsNullOrEmpty(Model.UtilisateurModification))
+                                        {
+                                            <br /><small>par @Model.UtilisateurModification</small>
+                                        }
+                                    </p>
+                                </div>
+                            </div>
                         </div>
 
                         <hr />
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-warning">
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-warning btn-lg">
                                 <span class="glyphicon glyphicon-save"></span> Enregistrer les modifications
                             </button>
-                            @Html.ActionLink("Annuler", "Index", null, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Annuler", "Index", null, new { @class = "btn btn-default btn-lg" })
                         </div>
                     }
+                </div>
+                <div class="panel-footer">
+                    <small class="text-muted">
+                        <span class="glyphicon glyphicon-info-sign"></span>
+                        Les champs marqués d'un * sont obligatoires
+                    </small>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Validation personnalisée pour le téléphone
+            $.validator.addMethod("telephone", function(value, element) {
+                return this.optional(element) || /^[\d\s\-\(\)]+$/.test(value);
+            }, "Format de téléphone invalide");
+
+            $("#Telephone").rules("add", {
+                telephone: true
+            });
+
+            // Confirmation avant de quitter avec des modifications non sauvegardées
+            var formModified = false;
+
+            $('input, select, textarea').change(function() {
+                formModified = true;
+            });
+
+            $('form').submit(function() {
+                formModified = false;
+            });
+
+            window.onbeforeunload = function() {
+                if (formModified) {
+                    return "Vous avez des modifications non sauvegardées. Êtes-vous sûr de vouloir quitter cette page ?";
+                }
+            };
+
+            // Mettre en majuscules les codes
+            $("#AgentPayeurCode").on("change", function() {
+                $(this).val($(this).val().toUpperCase());
+            });
+        });
+    </script>
+}
+
+<style>
+    .form-group label {
+        font-weight: 600;
+    }
+
+    .form-control-static {
+        padding-top: 7px;
+        margin-bottom: 0;
+    }
+
+    .panel-footer {
+        background-color: #f9f9f9;
+    }
+</style>

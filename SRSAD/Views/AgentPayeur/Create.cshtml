@@ -19,7 +19,7 @@
     </div>
 
     <div class="row">
-        <div class="col-md-6 col-md-offset-3">
+        <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-primary">
                 <div class="panel-heading">
                     <h3 class="panel-title">Informations de l'agent payeur</h3>
@@ -30,31 +30,91 @@
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Code, "Code *")
-                            @Html.EditorFor(model => model.Code, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                            @Html.ValidationMessageFor(model => model.Code, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.AgentPayeurCode, "Code *")
+                                    @Html.EditorFor(model => model.AgentPayeurCode, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = 30 } })
+                                    @Html.ValidationMessageFor(model => model.AgentPayeurCode, "", new { @class = "text-danger" })
+                                    <small class="text-muted">Code unique (ex: RAMQ, MTESS, PNOD)</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.AgentPayeurCode, "Code agent *")
+                                    @Html.EditorFor(model => model.AgentPayeurCode, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = 30 } })
+                                    @Html.ValidationMessageFor(model => model.AgentPayeurCode, "", new { @class = "text-danger" })
+                                    <small class="text-muted">Code interne pour l'agent payeur</small>
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            @Html.LabelFor(model => model.Nom, "Nom *")
-                            @Html.EditorFor(model => model.Nom, new { htmlAttributes = new { @class = "form-control", required = "required" } })
-                            @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Nom, "Nom *")
+                                    @Html.EditorFor(model => model.Nom, new { htmlAttributes = new { @class = "form-control", required = "required", maxlength = 150 } })
+                                    @Html.ValidationMessageFor(model => model.Nom, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
 
-                        <div class="checkbox">
-                            <label>
-                                @Html.CheckBoxFor(model => model.EstActif)
-                                Actif
-                            </label>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.TypeFinancementID, "Type de financement *")
+                                    @Html.DropDownListFor(model => model.TypeFinancementID, (SelectList)ViewBag.TypeFinancementList, "Sélectionnez un type", new { @class = "form-control", required = "required" })
+                                    @Html.ValidationMessageFor(model => model.TypeFinancementID, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="checkbox" style="margin-top: 30px;">
+                                    <label>
+                                        @Html.CheckBoxFor(model => model.EstActif, new { @checked = "checked" })
+                                        <strong>Actif</strong>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Description, "Description")
+                                    @Html.TextAreaFor(model => model.Description, new { @class = "form-control", rows = 3, maxlength = 255 })
+                                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Adresse, "Adresse")
+                                    @Html.TextAreaFor(model => model.Adresse, new { @class = "form-control", rows = 2, maxlength = 200 })
+                                    @Html.ValidationMessageFor(model => model.Adresse, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Telephone, "Téléphone")
+                                    @Html.EditorFor(model => model.Telephone, new { htmlAttributes = new { @class = "form-control", maxlength = 20, placeholder = "514-123-4567" } })
+                                    @Html.ValidationMessageFor(model => model.Telephone, "", new { @class = "text-danger" })
+                                </div>
+                                <div class="form-group">
+                                    @Html.LabelFor(model => model.Contact, "Personne contact")
+                                    @Html.EditorFor(model => model.Contact, new { htmlAttributes = new { @class = "form-control", maxlength = 100, placeholder = "Nom de la personne contact" } })
+                                    @Html.ValidationMessageFor(model => model.Contact, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
                         </div>
 
                         <hr />
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-primary">
-                                <span class="glyphicon glyphicon-save"></span> Créer
+                        <div class="form-group text-center">
+                            <button type="submit" class="btn btn-primary btn-lg">
+                                <span class="glyphicon glyphicon-save"></span> Créer l'agent payeur
                             </button>
-                            @Html.ActionLink("Annuler", "Index", null, new { @class = "btn btn-default" })
+                            @Html.ActionLink("Annuler", "Index", null, new { @class = "btn btn-default btn-lg" })
                         </div>
                     }
                 </div>
@@ -62,3 +122,36 @@
         </div>
     </div>
 </div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // Validation personnalisée pour le téléphone
+            $.validator.addMethod("telephone", function(value, element) {
+                return this.optional(element) || /^[\d\s\-\(\)]+$/.test(value);
+            }, "Format de téléphone invalide");
+
+            $("#Telephone").rules("add", {
+                telephone: true
+            });
+
+            // Générer automatiquement AgentPayeurCode à partir de Code
+            $("#Code").on("blur", function() {
+                var code = $(this).val();
+                if (code && $("#AgentPayeurCode").val() === "") {
+                    $("#AgentPayeurCode").val(code.toUpperCase());
+                }
+            });
+
+            // Mettre Code en majuscules
+            $("#Code").on("change", function() {
+                $(this).val($(this).val().toUpperCase());
+            });
+
+            $("#AgentPayeurCode").on("change", function() {
+                $(this).val($(this).val().toUpperCase());
+            });
+        });
+    </script>
+}

@@ -63,6 +63,7 @@ namespace SRSAD.Models
         public virtual DbSet<TypesAcquisitionRef> TypesAcquisitionRef { get; set; }
         public virtual DbSet<TypesCylindreRef> TypesCylindreRef { get; set; }
         public virtual DbSet<TypesEquipement> TypesEquipement { get; set; }
+        public virtual DbSet<TypesFinancementRef> TypesFinancementRef { get; set; }
         public virtual DbSet<TypesInfection> TypesInfection { get; set; }
         public virtual DbSet<TypesInfestation> TypesInfestation { get; set; }
         public virtual DbSet<TypesIntervenant> TypesIntervenant { get; set; }

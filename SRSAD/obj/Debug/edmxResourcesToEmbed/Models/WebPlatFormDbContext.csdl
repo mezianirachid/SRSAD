@@ -39,6 +39,7 @@
     <EntitySet Name="TypesAcquisitionRef" EntityType="WebPlatFormModel.TypesAcquisitionRef" />
     <EntitySet Name="TypesCylindreRef" EntityType="WebPlatFormModel.TypesCylindreRef" />
     <EntitySet Name="TypesEquipement" EntityType="WebPlatFormModel.TypesEquipement" />
+    <EntitySet Name="TypesFinancementRef" EntityType="WebPlatFormModel.TypesFinancementRef" />
     <EntitySet Name="TypesInfection" EntityType="WebPlatFormModel.TypesInfection" />
     <EntitySet Name="TypesInfestation" EntityType="WebPlatFormModel.TypesInfestation" />
     <EntitySet Name="TypesIntervenant" EntityType="WebPlatFormModel.TypesIntervenant" />
@@ -50,6 +51,10 @@
     <EntitySet Name="UsagerParticularites" EntityType="WebPlatFormModel.UsagerParticularites" />
     <EntitySet Name="Usagers" EntityType="WebPlatFormModel.Usagers" />
     <EntitySet Name="Visites" EntityType="WebPlatFormModel.Visites" />
+    <AssociationSet Name="FK_AgentsPayeurs_TypesFinancementRef" Association="WebPlatFormModel.FK_AgentsPayeurs_TypesFinancementRef">
+      <End Role="TypesFinancementRef" EntitySet="TypesFinancementRef" />
+      <End Role="AgentsPayeurs" EntitySet="AgentsPayeurs" />
+    </AssociationSet>
     <AssociationSet Name="FK_CC_AgentPayeur" Association="WebPlatFormModel.FK_CC_AgentPayeur">
       <End Role="AgentsPayeurs" EntitySet="AgentsPayeurs" />
       <End Role="CommandesCylindres" EntitySet="CommandesCylindres" />
@@ -400,9 +405,19 @@
       <PropertyRef Name="AgentPayeurID" />
     </Key>
     <Property Name="AgentPayeurID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-    <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="Nom" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="EstActif" Type="Boolean" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="Adresse" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+    <Property Name="Telephone" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="Contact" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="DateCreation" Type="DateTime" Precision="3" />
+    <Property Name="DateModification" Type="DateTime" Precision="3" />
+    <Property Name="UtilisateurCreation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="UtilisateurModification" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="TypeFinancementID" Type="Int32" />
+    <Property Name="AgentPayeurCode" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="TypesFinancementRef" Relationship="WebPlatFormModel.FK_AgentsPayeurs_TypesFinancementRef" FromRole="AgentsPayeurs" ToRole="TypesFinancementRef" />
     <NavigationProperty Name="CommandesCylindres" Relationship="WebPlatFormModel.FK_CC_AgentPayeur" FromRole="AgentsPayeurs" ToRole="CommandesCylindres" />
     <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_Usagers_AgentPayeur" FromRole="AgentsPayeurs" ToRole="Usagers" />
   </EntityType>
@@ -999,6 +1014,16 @@
     <NavigationProperty Name="GabaritsEntretien" Relationship="WebPlatFormModel.FK_GE_Type" FromRole="TypesEquipement" ToRole="GabaritsEntretien" />
     <NavigationProperty Name="SeuilsInventaire" Relationship="WebPlatFormModel.FK_Seuils_Type" FromRole="TypesEquipement" ToRole="SeuilsInventaire" />
   </EntityType>
+  <EntityType Name="TypesFinancementRef">
+    <Key>
+      <PropertyRef Name="TypeFinancementID" />
+    </Key>
+    <Property Name="TypeFinancementID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="TypeFinancementCode" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="DESCRIPTION" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="AgentsPayeurs" Relationship="WebPlatFormModel.FK_AgentsPayeurs_TypesFinancementRef" FromRole="TypesFinancementRef" ToRole="AgentsPayeurs" />
+    <Property Name="EstActif" Type="Boolean" />
+  </EntityType>
   <EntityType Name="TypesInfection">
     <Key>
       <PropertyRef Name="TypeInfectionID" />
@@ -1018,8 +1043,8 @@
     <Property Name="Code" Type="String" Nullable="false" MaxLength="30" FixedLength="false" Unicode="true" />
     <Property Name="Libelle" Type="String" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
     <Property Name="EstActif" Type="Boolean" Nullable="false" />
-    <NavigationProperty Name="UsagerInfestations" Relationship="WebPlatFormModel.FK_UsagerInf_Type" FromRole="TypesInfestation" ToRole="UsagerInfestations" />
     <Property Name="Categorie" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="UsagerInfestations" Relationship="WebPlatFormModel.FK_UsagerInf_Type" FromRole="TypesInfestation" ToRole="UsagerInfestations" />
   </EntityType>
   <EntityType Name="TypesIntervenant">
     <Key>
@@ -1166,6 +1191,33 @@
     <Property Name="DateCreation" Type="DateTime" Nullable="false" Precision="3" />
     <Property Name="ModifieParUserId" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
     <Property Name="DateModification" Type="DateTime" Precision="3" />
+    <Property Name="GrandConsommateur" Type="Boolean" />
+    <Property Name="NoteGenerale" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+    <Property Name="AncienDossierTemporaire" Type="Int32" />
+    <Property Name="DossierRadie" Type="Int32" />
+    <Property Name="DossierPatrimoine" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="DossierRecherche" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="DateCreationDossier" Type="DateTime" Precision="3" />
+    <Property Name="DateMiseAJour" Type="DateTime" Precision="3" />
+    <Property Name="StatutSecondaire" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DateStatutSecondaire" Type="DateTime" Precision="3" />
+    <Property Name="Langue" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+    <Property Name="OrigineEthnique" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
+    <Property Name="Adresse_2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Adresse_3" Type="String" MaxLength="12" FixedLength="false" Unicode="false" />
+    <Property Name="LienTelephonique_3" Type="String" MaxLength="35" FixedLength="false" Unicode="false" />
+    <Property Name="RueTransversale" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Hopital" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="ProjetRecherche" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="ProjetRechercheDossier" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+    <Property Name="AutreDossier_1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="AutreDossier_2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="DerniereReference" Type="Int32" />
+    <Property Name="Assurance" Type="String" MaxLength="40" FixedLength="false" Unicode="false" />
+    <Property Name="NoAssurance" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="NoRecouvrement" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+    <Property Name="DateDernierChgmtTabagique" Type="DateTime" Precision="3" />
+    <Property Name="CitpyenneteCanadienne" Type="Boolean" />
     <NavigationProperty Name="AgentsPayeurs" Relationship="WebPlatFormModel.FK_Usagers_AgentPayeur" FromRole="Usagers" ToRole="AgentsPayeurs" />
     <NavigationProperty Name="AspNetUsers" Relationship="WebPlatFormModel.FK_Usagers_CreePar" FromRole="Usagers" ToRole="AspNetUsers" />
     <NavigationProperty Name="AspNetUsers1" Relationship="WebPlatFormModel.FK_Usagers_ModifiePar" FromRole="Usagers" ToRole="AspNetUsers" />
@@ -1200,6 +1252,18 @@
     <NavigationProperty Name="TypesIntervenant" Relationship="WebPlatFormModel.FK_Visites_TypeInterv" FromRole="Visites" ToRole="TypesIntervenant" />
     <NavigationProperty Name="Usagers" Relationship="WebPlatFormModel.FK_Visites_Usager" FromRole="Visites" ToRole="Usagers" />
   </EntityType>
+  <Association Name="FK_AgentsPayeurs_TypesFinancementRef">
+    <End Type="WebPlatFormModel.TypesFinancementRef" Role="TypesFinancementRef" Multiplicity="0..1" />
+    <End Type="WebPlatFormModel.AgentsPayeurs" Role="AgentsPayeurs" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TypesFinancementRef">
+        <PropertyRef Name="TypeFinancementID" />
+      </Principal>
+      <Dependent Role="AgentsPayeurs">
+        <PropertyRef Name="TypeFinancementID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
   <Association Name="FK_CC_AgentPayeur">
     <End Type="WebPlatFormModel.AgentsPayeurs" Role="AgentsPayeurs" Multiplicity="0..1" />
     <End Type="WebPlatFormModel.CommandesCylindres" Role="CommandesCylindres" Multiplicity="*" />

@@ -4,9 +4,18 @@
     <EntitySetMapping Name="AgentsPayeurs">
       <EntityTypeMapping TypeName="WebPlatFormModel.AgentsPayeurs">
         <MappingFragment StoreEntitySet="AgentsPayeurs">
+          <ScalarProperty Name="AgentPayeurCode" ColumnName="AgentPayeurCode" />
+          <ScalarProperty Name="TypeFinancementID" ColumnName="TypeFinancementID" />
+          <ScalarProperty Name="UtilisateurModification" ColumnName="UtilisateurModification" />
+          <ScalarProperty Name="UtilisateurCreation" ColumnName="UtilisateurCreation" />
+          <ScalarProperty Name="DateModification" ColumnName="DateModification" />
+          <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
+          <ScalarProperty Name="Contact" ColumnName="Contact" />
+          <ScalarProperty Name="Telephone" ColumnName="Telephone" />
+          <ScalarProperty Name="Adresse" ColumnName="Adresse" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
           <ScalarProperty Name="EstActif" ColumnName="EstActif" />
           <ScalarProperty Name="Nom" ColumnName="Nom" />
-          <ScalarProperty Name="Code" ColumnName="Code" />
           <ScalarProperty Name="AgentPayeurID" ColumnName="AgentPayeurID" />
         </MappingFragment>
       </EntityTypeMapping>
@@ -507,6 +516,16 @@
         </MappingFragment>
       </EntityTypeMapping>
     </EntitySetMapping>
+    <EntitySetMapping Name="TypesFinancementRef">
+      <EntityTypeMapping TypeName="WebPlatFormModel.TypesFinancementRef">
+        <MappingFragment StoreEntitySet="TypesFinancementRef">
+          <ScalarProperty Name="EstActif" ColumnName="EstActif" />
+          <ScalarProperty Name="DESCRIPTION" ColumnName="DESCRIPTION" />
+          <ScalarProperty Name="TypeFinancementCode" ColumnName="TypeFinancementCode" />
+          <ScalarProperty Name="TypeFinancementID" ColumnName="TypeFinancementID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
     <EntitySetMapping Name="TypesInfection">
       <EntityTypeMapping TypeName="WebPlatFormModel.TypesInfection">
         <MappingFragment StoreEntitySet="TypesInfection">
@@ -632,6 +651,33 @@
     <EntitySetMapping Name="Usagers">
       <EntityTypeMapping TypeName="WebPlatFormModel.Usagers">
         <MappingFragment StoreEntitySet="Usagers">
+          <ScalarProperty Name="CitpyenneteCanadienne" ColumnName="CitpyenneteCanadienne" />
+          <ScalarProperty Name="DateDernierChgmtTabagique" ColumnName="DateDernierChgmtTabagique" />
+          <ScalarProperty Name="NoRecouvrement" ColumnName="NoRecouvrement" />
+          <ScalarProperty Name="NoAssurance" ColumnName="NoAssurance" />
+          <ScalarProperty Name="Assurance" ColumnName="Assurance" />
+          <ScalarProperty Name="DerniereReference" ColumnName="DerniereReference" />
+          <ScalarProperty Name="AutreDossier_2" ColumnName="AutreDossier_2" />
+          <ScalarProperty Name="AutreDossier_1" ColumnName="AutreDossier_1" />
+          <ScalarProperty Name="ProjetRechercheDossier" ColumnName="ProjetRechercheDossier" />
+          <ScalarProperty Name="ProjetRecherche" ColumnName="ProjetRecherche" />
+          <ScalarProperty Name="Hopital" ColumnName="Hopital" />
+          <ScalarProperty Name="RueTransversale" ColumnName="RueTransversale" />
+          <ScalarProperty Name="LienTelephonique_3" ColumnName="LienTelephonique_3" />
+          <ScalarProperty Name="Adresse_3" ColumnName="Adresse_3" />
+          <ScalarProperty Name="Adresse_2" ColumnName="Adresse_2" />
+          <ScalarProperty Name="OrigineEthnique" ColumnName="OrigineEthnique" />
+          <ScalarProperty Name="Langue" ColumnName="Langue" />
+          <ScalarProperty Name="DateStatutSecondaire" ColumnName="DateStatutSecondaire" />
+          <ScalarProperty Name="StatutSecondaire" ColumnName="StatutSecondaire" />
+          <ScalarProperty Name="DateMiseAJour" ColumnName="DateMiseAJour" />
+          <ScalarProperty Name="DateCreationDossier" ColumnName="DateCreationDossier" />
+          <ScalarProperty Name="DossierRecherche" ColumnName="DossierRecherche" />
+          <ScalarProperty Name="DossierPatrimoine" ColumnName="DossierPatrimoine" />
+          <ScalarProperty Name="DossierRadie" ColumnName="DossierRadie" />
+          <ScalarProperty Name="AncienDossierTemporaire" ColumnName="AncienDossierTemporaire" />
+          <ScalarProperty Name="NoteGenerale" ColumnName="NoteGenerale" />
+          <ScalarProperty Name="GrandConsommateur" ColumnName="GrandConsommateur" />
           <ScalarProperty Name="DateModification" ColumnName="DateModification" />
           <ScalarProperty Name="ModifieParUserId" ColumnName="ModifieParUserId" />
           <ScalarProperty Name="DateCreation" ColumnName="DateCreation" />
