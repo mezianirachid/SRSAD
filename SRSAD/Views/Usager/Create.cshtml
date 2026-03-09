@@ -48,7 +48,7 @@
                         @Html.AntiForgeryToken()
                         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-                        <div class="row">
+                        <div class="row" style="margin:10px">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.Nom, new { @class = "control-label" })
@@ -65,7 +65,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" style="margin:10px">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.DateNaissance, new { @class = "control-label" })
@@ -82,7 +82,7 @@
                             </div>
                         </div>
 
-                        <div class="row">
+                        <div class="row" style="margin:10px">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     @Html.LabelFor(model => model.NoIPM, new { @class = "control-label" })

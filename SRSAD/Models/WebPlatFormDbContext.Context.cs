@@ -18,6 +18,7 @@ namespace SRSAD.Models
         public EntitiesDbConnection()
             : base("name=EntitiesDbConnection")
         {
+            this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

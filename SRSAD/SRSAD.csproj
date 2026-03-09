@@ -231,6 +231,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InfectionController.cs" />
     <Compile Include="Controllers\InfestationController.cs" />
+    <Compile Include="Controllers\IntervenantController.cs" />
     <Compile Include="Controllers\ManufacturierController.cs" />
     <Compile Include="Controllers\MotifCommandeCylindreController.cs" />
     <Compile Include="Controllers\ParticulariteController.cs" />
@@ -245,6 +246,7 @@
     <Compile Include="Controllers\TypeIntervenantController.cs" />
     <Compile Include="Controllers\UsagerController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Controllers\VisiteController.cs" />
     <Compile Include="Enum\StatutCommandeEnum.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -428,11 +430,14 @@
     <Compile Include="ViewModels\DonneesEClinibaseVewmodel.cs" />
     <Compile Include="ViewModels\HistoriqueActionViewModel.cs" />
     <Compile Include="ViewModels\ImportEClinibaseViewModel.cs" />
+    <Compile Include="ViewModels\IntervenantViewModel.cs" />
     <Compile Include="ViewModels\RechercheEClinibaseViewModel.cs" />
     <Compile Include="ViewModels\ResultatRechercheEClinibaseViewModel.cs" />
     <Compile Include="ViewModels\UsagerAdresseViewModel.cs" />
     <Compile Include="ViewModels\UsagerDetailsViewModel.cs" />
     <Compile Include="ViewModels\UsagerListViewModel.cs" />
+    <Compile Include="ViewModels\UsagerManuelViewModel.cs" />
+    <Compile Include="ViewModels\VisiteListViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="animal.ico" />
@@ -1595,6 +1600,20 @@
     <Content Include="Views\TypeLivraison\Details.cshtml" />
     <Content Include="Views\TypeLivraison\Edit.cshtml" />
     <Content Include="Views\TypeLivraison\Index.cshtml" />
+    <Content Include="Views\Usager\CreateManuel.cshtml" />
+    <Content Include="Views\Usager\EditManuel.cshtml" />
+    <Content Include="Views\Visite\Visites.cshtml" />
+    <Content Include="Views\Visite\Create.cshtml" />
+    <Content Include="Views\Visite\Edit.cshtml" />
+    <Content Include="Views\Visite\Delete.cshtml" />
+    <Content Include="Views\Visite\Index.cshtml" />
+    <Content Include="Views\Intervenant\Index.cshtml" />
+    <Content Include="Views\Intervenant\Create.cshtml" />
+    <Content Include="Views\Intervenant\Edit.cshtml" />
+    <Content Include="Views\Intervenant\Details.cshtml" />
+    <Content Include="Views\Intervenant\Delete.cshtml" />
+    <Content Include="Views\Visite\Toutes.cshtml" />
+    <Content Include="Views\Visite\CreateVisitePlanifie.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -30,11 +30,31 @@
         </div>
     }
 
+    @if (TempData["ErrorDetails"] != null)
+    {
+        <div class="alert alert-danger">
+            <strong>Détails des erreurs :</strong>
+            @Html.Raw(TempData["ErrorDetails"])
+        </div>
+    }
+
+    @if (ViewBag.TermeRecherche != null)
+    {
+        <div class="row">
+            <div class="col-md-12">
+                <div class="alert alert-info">
+                    <strong>@Model.Count()</strong> résultat(s) pour "<strong>@ViewBag.TermeRecherche</strong>"
+                    @Html.ActionLink("Voir tous les patients", "Index", null, new { @class = "btn btn-sm btn-default pull-right" })
+                </div>
+            </div>
+        </div>
+    }
+
     <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Recherche</h3>
+                    <h3 class="panel-title">Recherche avancée</h3>
                 </div>
                 <div class="panel-body">
                     @using (Html.BeginForm("Index", "Usager", FormMethod.Get, new { @class = "form-inline" }))
@@ -55,6 +75,10 @@
                             @Html.DropDownList("statutDossierId", (SelectList)ViewBag.Statuts, "Tous statuts", new { @class = "form-control" })
                         </div>
                         <button type="submit" class="btn btn-primary">Rechercher</button>
+                        if (Request.QueryString.Count > 0 && ViewBag.TermeRecherche == null)
+                        {
+                            <a href="@Url.Action("Index")" class="btn btn-default">Effacer les filtres</a>
+                        }
                     }
                 </div>
             </div>
@@ -110,6 +134,7 @@
                                         <td>@item.Telephone</td>
                                         <td>
                                             @Html.ActionLink("Détails", "Details", new { id = item.UsagerID }, new { @class = "btn btn-xs btn-info" })
+                                            @Html.ActionLink("Modifier", "Edit", new { id = item.UsagerID }, new { @class = "btn btn-xs btn-primary" })
                                         </td>
                                     </tr>
                                 }

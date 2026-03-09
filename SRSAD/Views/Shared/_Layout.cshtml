@@ -9,7 +9,6 @@
     @Scripts.Render("~/bundles/modernizr")
 
     <!-- Bootstrap 3 -->
-
     <link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap/css/font-awesome.min.css" rel="stylesheet" />
     <link href="~/Content/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
@@ -308,10 +307,91 @@
                     background: #fff1f1;
                     color: #b02a37;
                 }
+
+        /* Style pour la barre de recherche */
+        .navbar-form {
+            margin-left: 10px;
+            margin-right: 10px;
+        }
+
+            .navbar-form .form-control {
+                background-color: rgba(255,255,255,0.2);
+                border: none;
+                color: white;
+                transition: background-color 0.3s;
+            }
+
+                .navbar-form .form-control:focus {
+                    background-color: rgba(255,255,255,0.3);
+                    outline: none;
+                    box-shadow: none;
+                }
+
+            .navbar-form .btn-default {
+                background-color: rgba(255,255,255,0.1);
+                border: none;
+                color: white;
+            }
+
+                .navbar-form .btn-default:hover {
+                    background-color: rgba(255,255,255,0.2);
+                    color: white;
+                }
+
+        @@media (max-width: 767px) {
+            .navbar-form {
+                margin-left: 0;
+                margin-right: 0;
+                width: 100%;
+                display: flex;
+            }
+
+                .navbar-form .form-group {
+                    flex-grow: 1;
+                }
+
+                .navbar-form .form-control {
+                    width: 100% !important;
+                }
+        }
+
+        /* Améliorations du dropdown Patients */
+        .navbar-srsad .dropdown-menu .dropdown-header {
+            color: #aaccff;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 8px 20px;
+        }
+
+        .navbar-srsad .dropdown-menu button.btn-link {
+            display: block;
+            width: 100%;
+            text-align: left;
+            padding: 10px 20px;
+            color: #ffffff;
+            background: none;
+            border: none;
+            font-weight: normal;
+            line-height: 1.42857143;
+            white-space: nowrap;
+        }
+
+            .navbar-srsad .dropdown-menu button.btn-link:hover,
+            .navbar-srsad .dropdown-menu button.btn-link:focus {
+                background-color: #0055aa;
+                color: #ffffff;
+                text-decoration: none;
+            }
+
+            .navbar-srsad .dropdown-menu > li > a:hover,
+            .navbar-srsad .dropdown-menu > li > a:focus,
+            .navbar-srsad .dropdown-menu button.btn-link:hover {
+                background-color: #0055aa;
+            }
     </style>
 </head>
 <body>
-    <!-- Barre de navigation principale -->
     <!-- Barre de navigation principale -->
     <nav class="navbar navbar-srsad navbar-fixed-top">
         <div class="container-fluid">
@@ -336,7 +416,7 @@
             @if (!isLoginPage)
             {
                 <div class="collapse navbar-collapse" id="navbar-collapse">
-                    <!-- Tout votre menu existant reste ici -->
+                    <!-- Menu principal -->
                     <ul class="nav navbar-nav">
                         <!-- Dashboard -->
                         <li class="@(ViewContext.RouteData.Values["controller"].ToString() == "Dashboard" ? "active" : "")">
@@ -349,15 +429,29 @@
                                 Patients <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
+                                <li class="dropdown-header">Recherche et liste</li>
                                 <li>@Html.ActionLink("Liste des patients", "Index", "Usager")</li>
-                                <li role="separator" class="divider"></li>
-                                <li class="dropdown-header">Import E-Clinibase</li>
-                                <li>@Html.ActionLink("Créer depuis E-Clinibase", "Creer", "Usager")</li>
-                                <li>@Html.ActionLink("Synchroniser", "Synchroniser", "EClinibase")</li>
-                                <li role="separator" class="divider"></li>
-                                <li class="dropdown-header">Gestion</li>
                                 <li>@Html.ActionLink("Patients actifs", "Index", "Usager", new { actifUniquement = true }, null)</li>
                                 <li>@Html.ActionLink("Patients hospitalisés", "Index", "Usager", new { statutDossierId = 2 }, null)</li>
+                                <li role="separator" class="divider"></li>
+                                <li class="dropdown-header">Import E-Clinibase</li>
+                                <li>@Html.ActionLink("Créer depuis E-Clinibase", "Create", "Usager")</li>
+                                <li>
+                                    @using (Html.BeginForm("SynchroniserTous", "Usager", FormMethod.Post, new { style = "margin:0;padding:0;" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <button type="submit" class="btn btn-link" style="width:100%; text-align:left; padding:10px 20px; color:#fff; background:none; border:none; font-weight:normal;"
+                                                onclick="return confirm('Lancer la synchronisation massive avec E-Clinibase ? Cette opération peut prendre quelques minutes.');">
+                                            <span class="glyphicon glyphicon-refresh"></span> Synchroniser tous les dossiers
+                                        </button>
+                                    }
+                                </li>
+                                <li role="separator" class="divider"></li>
+
+                                <li class="dropdown-header">Gestion</li>
+                                <li>@Html.ActionLink("Nouvel usager", "Create", "Usager")</li>
+                                <li class="dropdown-header">Gestion</li>
+                                <li>@Html.ActionLink("Création manuelle", "CreateManuel", "Usager")</li>
                             </ul>
                         </li>
 
@@ -367,13 +461,12 @@
                                 Interventions <span class="caret"></span>
                             </a>
                             <ul class="dropdown-menu">
-                                <li>@Html.ActionLink("Visites", "Index", "Visite")</li>
-                                <li>@Html.ActionLink("Planifier une visite", "Create", "Visite")</li>
+                                <li>@Html.ActionLink("Visites", "Toutes", "Visite")</li>
+                                <li>@Html.ActionLink("Planifier une visite", "CreateVisitePlanifie", "Visite")</li>
                                 <li role="separator" class="divider"></li>
                                 <li>@Html.ActionLink("Assignations", "Index", "Assignation")</li>
                                 <li>@Html.ActionLink("Nouvelle assignation", "Create", "Assignation")</li>
                                 <li role="separator" class="divider"></li>
-                                <li>@Html.ActionLink("Calendrier", "Calendrier", "Visite")</li>
                             </ul>
                         </li>
 
@@ -424,6 +517,7 @@
                                 <li>@Html.ActionLink("CLSC", "Index", "CLSC")</li>
                                 <li>@Html.ActionLink("Secteurs", "Index", "Secteur")</li>
                                 <li>@Html.ActionLink("Types intervenants", "Index", "TypeIntervenant")</li>
+                                <li>@Html.ActionLink("Intervenants", "Index", "Intervenant")</li>
                                 <li>@Html.ActionLink("Statuts suivi", "Index", "StatutSuivi")</li>
                                 <li>@Html.ActionLink("Statuts dossier", "Index", "StatutDossier")</li>
                                 <li>@Html.ActionLink("Agents payeurs", "Index", "AgentPayeur")</li>
@@ -453,6 +547,16 @@
                             </li>
                         }
                     </ul>
+
+                    <!-- 🔍 Barre de recherche patient -->
+                    <form class="navbar-form navbar-left" role="search" action="@Url.Action("Recherche", "Usager")" method="get">
+                        <div class="form-group">
+                            <input type="text" class="form-control" name="terme" placeholder="Rechercher patient (nom, prénom, dossier...)" style="min-width: 250px;">
+                        </div>
+                        <button type="submit" class="btn btn-default" aria-label="Rechercher">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </form>
 
                     <!-- Menu utilisateur à droite -->
                     <ul class="nav navbar-nav navbar-right">
@@ -550,8 +654,6 @@
     </footer>
 
     <!-- Scripts -->
-
-
     <script src="~/Scripts/jquery.min.js"></script>
     <script src="~/Content/bootstrap/js/bootstrap.min.js"></script>
     <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
@@ -559,7 +661,6 @@
     <script src="~/Content/bootstrap/js/jquery.dataTables.min.js"></script>
     <script src="~/Content/bootstrap/js/dataTables.bootstrap.min.js"></script>
     <script src="~/Scripts/toastr.min.js"></script>
-
 
     @Scripts.Render("~/bundles/jqueryval")
     @RenderSection("Scripts", required: false)
@@ -601,7 +702,7 @@
                 }
             });
 
-            // Recherche dynamique
+            // Recherche dynamique (si utilisée dans certaines vues)
             $('#search-input').on('keyup', function() {
                 var value = $(this).val().toLowerCase();
                 $('.searchable-table tbody tr').filter(function() {

@@ -1,7 +1,7 @@
 ﻿@model SRSAD.ViewModels.UsagerDetailsViewModel
 
 @{
-    ViewBag.Title = "Détails de l'usager";
+    ViewBag.Title = "Détails du patient";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -9,203 +9,130 @@
     <div class="row">
         <div class="col-md-12">
             <h2>
-                @Model.NomComplet
+                @Model.Nom @Model.Prenom              
+
                 <small class="pull-right">
+
+                    @using (Html.BeginForm("Synchroniser", "Usager", new { id = Model.UsagerID }, FormMethod.Post, new { style = "display:inline;" }))
+                    {
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="btn btn-warning" onclick="return confirm('Voulez-vous synchroniser ce patient avec E-Clinibase ? Cela mettra à jour ses informations démographiques et ses adresses.');">
+                            <span class="glyphicon glyphicon-refresh"></span> Synchroniser
+                        </button>
+                    }
+                    @Html.ActionLink("Modifier (Eclinibase)", "Edit", new { id = Model.UsagerID }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Modifier (manuel)", "EditManuel", new { id = Model.UsagerID }, new { @class = "btn btn-primary" })
+                    @Html.ActionLink("Visites", "Index", "Visite", new { usagerId = Model.UsagerID }, new { @class = "btn btn-info" })
                     @Html.ActionLink("Retour à la liste", "Index", null, new { @class = "btn btn-default" })
                 </small>
+
+
             </h2>
             <hr />
         </div>
     </div>
 
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="tab" href="#info">Informations</a></li>
-        <li><a data-toggle="tab" href="#adresses">Adresses</a></li>
-    </ul>
-
-    <div class="tab-content">
-        <div id="info" class="tab-pane fade in active">
-            <div class="row" style="margin-top: 20px;">
-                <div class="col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Informations personnelles</h3>
-                        </div>
-                        <div class="panel-body">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th style="width: 30%">N° dossier SRSAD</th>
-                                    <td><strong>@Model.NoDossierSRSAD</strong></td>
-                                </tr>
-                                <tr>
-                                    <th>N° IPM</th>
-                                    <td>@Model.NoDossierIPM</td>
-                                </tr>
-                                <tr>
-                                    <th>RAMQ</th>
-                                    <td>@Model.RAMQ</td>
-                                </tr>
-                                <tr>
-                                    <th>Nom complet</th>
-                                    <td>@Model.NomComplet</td>
-                                </tr>
-                                <tr>
-                                    <th>Date naissance</th>
-                                    <td>@(Model.DateNaissance?.ToShortDateString() ?? "-")</td>
-                                </tr>
-                                <tr>
-                                    <th>Sexe</th>
-                                    <td>@Model.Sexe</td>
-                                </tr>
-                                <tr>
-                                    <th>Téléphone</th>
-                                    <td>@Model.Telephone</td>
-                                </tr>
-                                <tr>
-                                    <th>Statut tabagique</th>
-                                    <td>@Model.StatutTabagique</td>
-                                </tr>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Informations administratives</h3>
-                        </div>
-                        <div class="panel-body">
-                            <table class="table table-bordered">
-                                <tr>
-                                    <th style="width: 30%">Statut dossier</th>
-                                    <td>
-                                        @if (Model.StatutDossier == "Hospitalisé")
-                                        {
-                                            <span class="label label-warning">@Model.StatutDossier</span>
-                                        }
-                                        else if (Model.StatutDossier == "Radié")
-                                        {
-                                            <span class="label label-default">@Model.StatutDossier</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="label label-success">@Model.StatutDossier</span>
-                                        }
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Secteur</th>
-                                    <td>@Model.Secteur</td>
-                                </tr>
-                                <tr>
-                                    <th>CLSC</th>
-                                    <td>@Model.CLSC</td>
-                                </tr>
-                                <tr>
-                                    <th>Code Hydro-Québec</th>
-                                    <td>
-                                        @if (Model.CodeHydroQuebec)
-                                        {
-                                            <span class="label label-success">Oui</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="label label-default">Non</span>
-                                        }
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <th>Agent payeur</th>
-                                    <td>@Model.AgentPayeur</td>
-                                </tr>
-                                <tr>
-                                    <th>Centre de coût</th>
-                                    <td>@Model.CentreDeCout</td>
-                                </tr>
-                                <tr>
-                                    <th>Bon de commande</th>
-                                    <td>@Model.BonCommande</td>
-                                </tr>
-                                <tr>
-                                    <th>Date création</th>
-                                    <td>@Model.DateCreation.ToShortDateString()</td>
-                                </tr>
-                                @if (Model.DateDerniereSyncEClinibase.HasValue)
-                                {
-                                    <tr>
-                                        <th>Dernière sync E-Clinibase</th>
-                                        <td>@Model.DateDerniereSyncEClinibase.Value.ToShortDateString()</td>
-                                    </tr>
-                                }
-                            </table>
-                        </div>
-                    </div>
+    <!-- Le reste de votre vue Details (informations, adresses, etc.) -->
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">Informations personnelles</div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>N° SRSAD</dt>
+                        <dd>@Model.NoDossierSRSAD</dd>
+                        <dt>N° IPM</dt>
+                        <dd>@Model.NoDossierIPM</dd>
+                        <dt>RAMQ</dt>
+                        <dd>@Model.RAMQ</dd>
+                        <dt>Nom complet</dt>
+                        <dd>@Model.Nom @Model.Prenom</dd>
+                        <dt>Date naissance</dt>
+                        <dd>@(Model.DateNaissance?.ToShortDateString())</dd>
+                        <dt>Sexe</dt>
+                        <dd>@Model.Sexe</dd>
+                        <dt>Téléphone</dt>
+                        <dd>@Model.Telephone</dd>
+                    </dl>
                 </div>
             </div>
         </div>
+        <div class="col-md-6">
+            <div class="panel panel-warning">
+                <div class="panel-heading">Informations administratives</div>
+                <div class="panel-body">
+                    <dl class="dl-horizontal">
+                        <dt>Secteur</dt>
+                        <dd>@Model.Secteur</dd>
+                        <dt>CLSC</dt>
+                        <dd>@Model.CLSC</dd>
+                        <dt>Statut dossier</dt>
+                        <dd>@Model.StatutDossier</dd>
+                        <dt>Agent payeur</dt>
+                        <dd>@Model.AgentPayeur</dd>
+                        <dt>Statut tabagique</dt>
+                        <dd>@Model.StatutTabagique</dd>
+                        <dt>Code Hydro</dt>
+                        <dd>@(Model.CodeHydroQuebec ? "Oui" : "Non")</dd>
+                        <dt>Centre de coût</dt>
+                        <dd>@Model.CentreDeCout</dd>
+                        <dt>Bon commande</dt>
+                        <dd>@Model.BonCommande</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
 
-        <div id="adresses" class="tab-pane fade">
-            <div class="row" style="margin-top: 20px;">
-                <div class="col-md-12">
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h3 class="panel-title">Historique des adresses</h3>
-                        </div>
-                        <div class="panel-body">
-                            @if (Model.Adresses.Any())
-                            {
-                                <table class="table table-bordered">
-                                    <thead>
-                                        <tr>
-                                            <th>Type</th>
-                                            <th>Adresse</th>
-                                            <th>Téléphone</th>
-                                            <th>Période de validité</th>
-                                            <th>Source</th>
-                                            <th>ID E-Clinibase</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        @foreach (var adresse in Model.Adresses)
-                                        {
-                                            <tr class="@(adresse.EstCourante ? "success" : "")">
-                                                <td>
-                                                    <strong>@adresse.TypeAdresse</strong>
-                                                    @if (adresse.EstCourante)
-                                                    {
-                                                        <br /><span class="label label-success">Courante</span>
-                                                    }
-                                                </td>
-                                                <td>@adresse.AdresseComplete</td>
-                                                <td>@adresse.Telephone</td>
-                                                <td>
-                                                    @if (adresse.DateDebutValidite.HasValue)
-                                                    {
-                                                        @adresse.DateDebutValidite.Value.ToShortDateString()
-                                                    }
-                                                    @if (adresse.DateFinValidite.HasValue)
-                                                    {
-                                                        <text> - </text> @adresse.DateFinValidite.Value.ToShortDateString()
-                                                    }
-                                                    else if (adresse.EstActive)
-                                                    {
-                                                        <text> - Présent</text>
-                                                    }
-                                                </td>
-                                                <td>@adresse.SourceAdresse</td>
-                                                <td>@adresse.EClinibaseAdresseId</td>
-                                            </tr>
-                                        }
-                                    </tbody>
-                                </table>
-                            }
-                            else
-                            {
-                                <p class="text-muted">Aucune adresse enregistrée.</p>
-                            }
-                        </div>
-                    </div>
+    <!-- Section adresses -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">Adresses</div>
+                <div class="panel-body">
+                    @if (Model.Adresses.Any())
+                    {
+                        <table class="table table-bordered">
+                            <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Adresse</th>
+                                    <th>Téléphone</th>
+                                    <th>Validité</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var adresse in Model.Adresses)
+                                {
+                                    <tr>
+                                        <td>
+                                            @adresse.TypeAdresse
+                                            @if (adresse.EstCourante)
+                                            {
+                                                <span class="label label-success">Courante</span>
+                                            }
+                                        </td>
+                                        <td>@adresse.AdresseComplete</td>
+                                        <td>@adresse.Telephone</td>
+                                        <td>
+                                            @if (adresse.DateDebutValidite.HasValue)
+                                            {
+                                                @adresse.DateDebutValidite.Value.ToShortDateString()
+                                            }
+                                            @if (adresse.DateFinValidite.HasValue)
+                                            {
+                                                <text> - </text>@adresse.DateFinValidite.Value.ToShortDateString()
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p>Aucune adresse enregistrée.</p>
+                    }
                 </div>
             </div>
         </div>

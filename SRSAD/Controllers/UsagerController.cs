@@ -10,13 +10,29 @@ using System.Threading.Tasks;
 using System.ComponentModel.DataAnnotations;
 using SRSAD.Models;
 using SRSAD.ViewModels;
- 
+using System.Data.Entity.Validation;
 
 namespace SRSAD.ViewModels
 {
     public class UsagerController : Controller
     {
         private EntitiesDbConnection db = new EntitiesDbConnection();
+        private void RechargerListesDeroulantes(ImportEClinibaseViewModel model)
+        {
+            ViewBag.SecteurID = new SelectList(db.SecteursSRSAD.Where(s => s.EstActif), "SecteurID", "Nom", model.SecteurID);
+            ViewBag.CLSCID = new SelectList(db.CLSC.Where(c => c.EstActif), "CLSCID", "NomCLSC", model.CLSCID);
+            ViewBag.StatutDossierID = new SelectList(db.StatutsDossierUsager.Where(s => s.EstActif), "StatutDossierID", "Libelle", model.StatutDossierID);
+            ViewBag.AgentPayeurID = new SelectList(db.AgentsPayeurs.Where(a => a.EstActif), "AgentPayeurID", "Nom", model.AgentPayeurID);
+        }
+        // Méthode privée pour recharger les listes
+        private void ChargerListesDeroulantes(UsagerManuelViewModel model = null)
+        {
+            ViewBag.SecteurID = new SelectList(db.SecteursSRSAD.Where(s => s.EstActif), "SecteurID", "Nom", model?.SecteurID);
+            ViewBag.CLSCID = new SelectList(db.CLSC.Where(c => c.EstActif), "CLSCID", "NomCLSC", model?.CLSCID);
+            ViewBag.StatutDossierID = new SelectList(db.StatutsDossierUsager.Where(s => s.EstActif), "StatutDossierID", "Libelle", model?.StatutDossierID);
+            ViewBag.AgentPayeurID = new SelectList(db.AgentsPayeurs.Where(a => a.EstActif), "AgentPayeurID", "Nom", model?.AgentPayeurID);
+        }
+      
 
         // GET: Usager/Index (Liste des usagers)
         public ActionResult Index(string searchNom, string searchPrenom, string searchIPM, int? secteurId, int? statutDossierId)
@@ -194,112 +210,159 @@ namespace SRSAD.ViewModels
             return View(viewModel);
         }
 
-        // POST: Usager/Importer (Étape 3 : Création finale)
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Importer(ImportEClinibaseViewModel model)
         {
-            if (ModelState.IsValid)
+            // 1. Validation de base du modèle (attributs Required, StringLength, etc.)
+            if (!ModelState.IsValid)
             {
-                using (var transaction = db.Database.BeginTransaction())
+                RechargerListesDeroulantes(model);
+                return View(model);
+            }
+
+            // 2. Vérifier que l'IPM n'existe pas déjà (sécurité supplémentaire)
+            if (db.Usagers.Any(u => u.NoDossierIPM == model.NoDossierIPM))
+            {
+                ModelState.AddModelError("NoDossierIPM", "Ce numéro IPM existe déjà dans SRSAD.");
+                RechargerListesDeroulantes(model);
+                return View(model);
+            }
+
+            // 3. Vérifier l'existence des clés étrangères sélectionnées
+            if (!db.SecteursSRSAD.Any(s => s.SecteurID == model.SecteurID))
+                ModelState.AddModelError("SecteurID", "Le secteur sélectionné n'existe pas.");
+
+            if (!db.CLSC.Any(c => c.CLSCID == model.CLSCID))
+                ModelState.AddModelError("CLSCID", "Le CLSC sélectionné n'existe pas.");
+
+            if (!db.StatutsDossierUsager.Any(s => s.StatutDossierID == model.StatutDossierID))
+                ModelState.AddModelError("StatutDossierID", "Le statut de dossier sélectionné n'existe pas.");
+
+            if (model.AgentPayeurID.HasValue && !db.AgentsPayeurs.Any(a => a.AgentPayeurID == model.AgentPayeurID))
+                ModelState.AddModelError("AgentPayeurID", "L'agent payeur sélectionné n'existe pas.");
+
+            if (!ModelState.IsValid)
+            {
+                RechargerListesDeroulantes(model);
+                return View(model);
+            }
+
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                try
                 {
-                    try
+                    // Générer le numéro de dossier SRSAD
+                    string noDossierSRSAD = GenererNumeroDossierSRSAD();
+
+                    // Créer l'usager
+                    var usager = new Usagers
                     {
-                        // Générer le numéro de dossier SRSAD
-                        string noDossierSRSAD = GenererNumeroDossierSRSAD();
+                        NoDossierIPM = model.NoDossierIPM,
+                        NoDossierSRSAD = noDossierSRSAD,
+                        RAMQ = model.RAMQ,
+                        Nom = model.Nom,
+                        Prenom = model.Prenom,
+                        DateNaissance = model.DateNaissance,
+                        Sexe = model.Sexe,
+                        Telephone = model.Telephone,
 
-                        // Créer l'usager
-                        var usager = new Usagers
+                        // Adresse snapshot (prendre la première adresse permanente)
+                        Adresse = model.Adresses.FirstOrDefault(a => a.TypeAdresse == "PERMANENTE")?.Adresse1,
+                        Ville = model.Adresses.FirstOrDefault(a => a.TypeAdresse == "PERMANENTE")?.Ville,
+                        Province = model.Adresses.FirstOrDefault(a => a.TypeAdresse == "PERMANENTE")?.Province ?? "Québec",
+                        CodePostal = model.Adresses.FirstOrDefault(a => a.TypeAdresse == "PERMANENTE")?.CodePostal,
+                        Pays = model.Adresses.FirstOrDefault(a => a.TypeAdresse == "PERMANENTE")?.Pays ?? "Canada",
+
+                        // Informations administratives
+                        CLSCID = model.CLSCID,
+                        SecteurID = model.SecteurID,
+                        StatutDossierID = model.StatutDossierID,
+                        CodeHydroQuebec = model.CodeHydroQuebec,
+                        AgentPayeurID = model.AgentPayeurID,
+                        CentreDeCout = model.CentreDeCout,
+                        BonCommande = model.BonCommande,
+                        StatutTabagique = model.StatutTabagique,
+
+                        // Métadonnées (champs obligatoires)
+                        EstActif = true,
+                        DateCreation = DateTime.Now,
+                        CreeParUserId = User.Identity.GetUserId(),
+                        DateDerniereSyncEClinibase = DateTime.Now
+                    };
+
+                    db.Usagers.Add(usager);
+                    db.SaveChanges(); // Nécessaire pour obtenir l'ID généré
+
+                    // Ajouter toutes les adresses
+                    foreach (var adresseVM in model.Adresses)
+                    {
+                        // S'assurer que les champs obligatoires sont présents
+                        var adresse = new UsagerAdresses
                         {
-                            NoDossierIPM = model.NoDossierIPM,
-                            NoDossierSRSAD = noDossierSRSAD,
-                            RAMQ = model.RAMQ,
-                            Nom = model.Nom,
-                            Prenom = model.Prenom,
-                            DateNaissance = model.DateNaissance,
-                            Sexe = model.Sexe,
-                            Telephone = model.Telephone,
-
-                            // Adresse snapshot (prendre l'adresse permanente)
-                            Adresse = model.Adresses.FirstOrDefault(a => a.TypeAdresse == "PERMANENTE")?.Adresse1,
-                            Ville = model.Adresses.FirstOrDefault(a => a.TypeAdresse == "PERMANENTE")?.Ville,
-                            Province = model.Adresses.FirstOrDefault(a => a.TypeAdresse == "PERMANENTE")?.Province,
-                            CodePostal = model.Adresses.FirstOrDefault(a => a.TypeAdresse == "PERMANENTE")?.CodePostal,
-                            Pays = model.Adresses.FirstOrDefault(a => a.TypeAdresse == "PERMANENTE")?.Pays ?? "Canada",
-
-                            // Informations administratives
-                            CLSCID = model.CLSCID,
-                            SecteurID = model.SecteurID,
-                            StatutDossierID = model.StatutDossierID,
-                            CodeHydroQuebec = model.CodeHydroQuebec,
-                            AgentPayeurID = model.AgentPayeurID,
-                            CentreDeCout = model.CentreDeCout,
-                            BonCommande = model.BonCommande,
-                            StatutTabagique = model.StatutTabagique,
-
-                            // Métadonnées
-                            EstActif = true,
+                            UsagerID = usager.UsagerID,
+                            TypeAdresse = adresseVM.TypeAdresse ?? "AUTRE",   // Ne devrait pas être null
+                            SourceAdresse = adresseVM.SourceAdresse ?? "ECLINIBASE",
+                            EstCourante = adresseVM.EstCourante || adresseVM.TypeAdresse == "PERMANENTE",
+                            Adresse1 = adresseVM.Adresse1,
+                            Adresse2 = adresseVM.Adresse2,
+                            Ville = adresseVM.Ville,
+                            Province = adresseVM.Province ?? "Québec",
+                            CodePostal = adresseVM.CodePostal,
+                            Pays = adresseVM.Pays ?? "Canada",
+                            Telephone = adresseVM.Telephone,
+                            DateDebutValidite = adresseVM.DateDebutValidite,
+                            DateFinValidite = adresseVM.DateFinValidite,
+                            EClinibaseAdresseId = adresseVM.EClinibaseAdresseId,
                             DateCreation = DateTime.Now,
-                            CreeParUserId = User.Identity.GetUserId(),
-                            DateDerniereSyncEClinibase = DateTime.Now
+                            CreeParUserId = User.Identity.GetUserId()
                         };
-
-                        db.Usagers.Add(usager);
-                        db.SaveChanges();
-
-                        // Importer toutes les adresses
-                        foreach (var adresseVM in model.Adresses)
-                        {
-                            var adresse = new UsagerAdresses
-                            {
-                                UsagerID = usager.UsagerID,
-                                TypeAdresse = adresseVM.TypeAdresse,
-                                SourceAdresse = "ECLINIBASE",
-                                EstCourante = adresseVM.TypeAdresse == "PERMANENTE",
-                                Adresse1 = adresseVM.Adresse1,
-                                Adresse2 = adresseVM.Adresse2,
-                                Ville = adresseVM.Ville,
-                                Province = adresseVM.Province,
-                                CodePostal = adresseVM.CodePostal,
-                                Pays = adresseVM.Pays,
-                                Telephone = adresseVM.Telephone,
-                                DateDebutValidite = adresseVM.DateDebutValidite,
-                                DateFinValidite = adresseVM.DateFinValidite,
-                                EClinibaseAdresseId = adresseVM.EClinibaseAdresseId,
-                                DateCreation = DateTime.Now,
-                                CreeParUserId = User.Identity.GetUserId()
-                            };
-                            db.UsagerAdresses.Add(adresse);
-                        }
-
-                        db.SaveChanges();
-
-                        // Journaliser l'action
-                        JournaliserAction("IMPORT_ECLINIBASE", "Usagers", usager.UsagerID.ToString(), null,
-                            $"Création depuis E-Clinibase - IPM: {model.NoDossierIPM}");
-
-                        transaction.Commit();
-
-                        TempData["Success"] = $"✅ Patient créé avec succès !\n" +
-                            $"Numéro de dossier SRSAD : {noDossierSRSAD}\n" +
-                            $"{model.Adresses.Count} adresse(s) importée(s) depuis E-Clinibase.";
-
-                        return RedirectToAction("Details", new { id = usager.UsagerID });
+                        db.UsagerAdresses.Add(adresse);
                     }
-                    catch (Exception ex)
+
+                    db.SaveChanges();
+
+                    // Journaliser
+                    JournaliserAction("IMPORT_ECLINIBASE", "Usagers", usager.UsagerID.ToString(), null,
+                        $"Création depuis E-Clinibase - IPM: {model.NoDossierIPM}");
+
+                    transaction.Commit();
+
+                    TempData["Success"] = $"✅ Patient créé avec succès !\n" +
+                        $"Numéro de dossier SRSAD : {noDossierSRSAD}\n" +
+                        $"{model.Adresses.Count} adresse(s) importée(s).";
+
+                    return RedirectToAction("Details", new { id = usager.UsagerID });
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    transaction.Rollback();
+                    // Capturer les erreurs de validation Entity Framework
+                    foreach (var validationErrors in ex.EntityValidationErrors)
                     {
-                        transaction.Rollback();
-                        ModelState.AddModelError("", "❌ Erreur lors de la création : " + ex.Message);
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            ModelState.AddModelError("", $"Propriété: {validationError.PropertyName} - Erreur: {validationError.ErrorMessage}");
+                        }
                     }
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    // Afficher l'exception interne complète pour le débogage
+                    string errorMessage = "❌ Erreur lors de la création : " + ex.Message;
+                    if (ex.InnerException != null)
+                        errorMessage += " → " + ex.InnerException.Message;
+
+                    // Journaliser l'erreur complète (par exemple dans Debug Output)
+                    System.Diagnostics.Debug.WriteLine(ex.ToString());
+
+                    ModelState.AddModelError("", errorMessage);
                 }
             }
 
-            // Recharger les listes déroulantes en cas d'erreur
-            ViewBag.CLSCID = new SelectList(db.CLSC.Where(c => c.EstActif), "CLSCID", "NomCLSC", model.CLSCID);
-            ViewBag.SecteurID = new SelectList(db.SecteursSRSAD.Where(s => s.EstActif), "SecteurID", "Nom", model.SecteurID);
-            ViewBag.StatutDossierID = new SelectList(db.StatutsDossierUsager.Where(s => s.EstActif), "StatutDossierID", "Libelle", model.StatutDossierID);
-            ViewBag.AgentPayeurID = new SelectList(db.AgentsPayeurs.Where(a => a.EstActif), "AgentPayeurID", "Nom", model.AgentPayeurID);
-
+            // En cas d'erreur, recharger les listes déroulantes et retourner la vue
+            RechargerListesDeroulantes(model);
             return View(model);
         }
 
@@ -371,46 +434,64 @@ namespace SRSAD.ViewModels
             return View(model);
         }
 
-        // GET: Usager/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-
+            if (id == null) return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             var usager = db.Usagers.Find(id);
-            if (usager == null)
-                return HttpNotFound();
+            if (usager == null) return HttpNotFound();
 
-            ViewBag.CLSCID = new SelectList(db.CLSC.Where(c => c.EstActif), "CLSCID", "NomCLSC", usager.CLSCID);
-            ViewBag.SecteurID = new SelectList(db.SecteursSRSAD.Where(s => s.EstActif), "SecteurID", "Nom", usager.SecteurID);
-            ViewBag.StatutDossierID = new SelectList(db.StatutsDossierUsager.Where(s => s.EstActif), "StatutDossierID", "Libelle", usager.StatutDossierID);
-            ViewBag.AgentPayeurID = new SelectList(db.AgentsPayeurs.Where(a => a.EstActif), "AgentPayeurID", "Nom", usager.AgentPayeurID);
+            var secteurs = db.SecteursSRSAD.Where(s => s.EstActif).ToList();
+            System.Diagnostics.Debug.WriteLine($"Secteurs trouvés : {secteurs.Count}");
+            ViewBag.SecteurID = new SelectList(secteurs, "SecteurID", "Nom", usager.SecteurID);
+
+            var clsc = db.CLSC.Where(c => c.EstActif).ToList();
+            ViewBag.CLSCID = new SelectList(clsc, "CLSCID", "NomCLSC", usager.CLSCID);
+
+            var statuts = db.StatutsDossierUsager.Where(s => s.EstActif).ToList();
+            ViewBag.StatutDossierID = new SelectList(statuts, "StatutDossierID", "Libelle", usager.StatutDossierID);
+
+            var agents = db.AgentsPayeurs.Where(a => a.EstActif).ToList();
+            ViewBag.AgentPayeurID = new SelectList(agents, "AgentPayeurID", "Nom", usager.AgentPayeurID);
 
             return View(usager);
         }
 
-        // POST: Usager/Edit/5
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(Usagers usager)
+        public ActionResult Edit(Usagers usager) // Note: usager est partiellement rempli par le formulaire
         {
             if (ModelState.IsValid)
             {
                 var usagerOriginal = db.Usagers.AsNoTracking().FirstOrDefault(u => u.UsagerID == usager.UsagerID);
+                if (usagerOriginal == null)
+                    return HttpNotFound();
 
-                usager.DateModification = DateTime.Now;
-                usager.ModifieParUserId = User.Identity.GetUserId();
+                // Mettre à jour seulement les champs modifiables (les champs administratifs)
+                usagerOriginal.SecteurID = usager.SecteurID;
+                usagerOriginal.CLSCID = usager.CLSCID;
+                usagerOriginal.StatutDossierID = usager.StatutDossierID;
+                usagerOriginal.AgentPayeurID = usager.AgentPayeurID;
+                usagerOriginal.StatutTabagique = usager.StatutTabagique;
+                usagerOriginal.CodeHydroQuebec = usager.CodeHydroQuebec;
+                usagerOriginal.CentreDeCout = usager.CentreDeCout;
+                usagerOriginal.BonCommande = usager.BonCommande;
 
-                db.Entry(usager).State = EntityState.Modified;
+                // Métadonnées
+                usagerOriginal.DateModification = DateTime.Now;
+                usagerOriginal.ModifieParUserId = User.Identity.GetUserId();
+
+                db.Entry(usagerOriginal).State = EntityState.Modified;
                 db.SaveChanges();
 
-                JournaliserAction("UPDATE", "Usagers", usager.UsagerID.ToString(), usagerOriginal,
-                    $"Modification du patient {usager.Nom} {usager.Prenom}");
+                JournaliserAction("UPDATE", "Usagers", usagerOriginal.UsagerID.ToString(), usagerOriginal,
+                    $"Modification du patient {usagerOriginal.Nom} {usagerOriginal.Prenom}");
 
                 TempData["Success"] = "Patient modifié avec succès.";
-                return RedirectToAction("Details", new { id = usager.UsagerID });
+                return RedirectToAction("Details", new { id = usagerOriginal.UsagerID });
             }
 
+            // Si le modèle est invalide, recharger les listes déroulantes
             ViewBag.CLSCID = new SelectList(db.CLSC.Where(c => c.EstActif), "CLSCID", "NomCLSC", usager.CLSCID);
             ViewBag.SecteurID = new SelectList(db.SecteursSRSAD.Where(s => s.EstActif), "SecteurID", "Nom", usager.SecteurID);
             ViewBag.StatutDossierID = new SelectList(db.StatutsDossierUsager.Where(s => s.EstActif), "StatutDossierID", "Libelle", usager.StatutDossierID);
@@ -957,8 +1038,26 @@ namespace SRSAD.ViewModels
 
             // Données simulées pour la démonstration
             // Ces données seraient normalement retournées par l'API E-Clinibase
-            if (!string.IsNullOrEmpty(criteres.Nom) || !string.IsNullOrEmpty(criteres.RAMQ) || !string.IsNullOrEmpty(criteres.NoIPM))
+            if (!string.IsNullOrEmpty(criteres.Nom) || !string.IsNullOrEmpty(criteres.Prenom) || !string.IsNullOrEmpty(criteres.RAMQ) || !string.IsNullOrEmpty(criteres.NoIPM))
             {
+
+                // Simuler une correspondance exacte par RAMQ ou IPM
+                if (criteres.RAMQ == "FLOU12345601" || criteres.NoIPM == "I12345601" || (criteres.Nom == "Flou" && criteres.Prenom == "Clair"))
+                {
+                    resultats.Add(new ResultatRechercheEClinibaseViewModel
+                    {
+                        NoIPM = "I12345601",
+                        Nom = "Flou",
+                        Prenom = "Clair",
+                        DateNaissance = new DateTime(1977, 5, 15),
+                        RAMQ = "FLOU12345601",
+                        Sexe = "M",
+                        AdresseComplete = "888 Rue Sherbrooke, Montréal, QC H2B 1B2",
+                        Telephone = "514-333-1234"
+                    });
+                }
+
+
                 // Simuler une correspondance exacte par RAMQ ou IPM
                 if (criteres.RAMQ == "DUPJ75051501" || criteres.NoIPM == "IPM123456")
                 {
@@ -1011,7 +1110,64 @@ namespace SRSAD.ViewModels
         }
         private DonneesEClinibaseVewmodel RecupererDonneesCompletesEClinibase(string ipm)
         {
-            if (ipm == "IPM123456")
+            if (ipm == "I12345601")
+            {
+                return new DonneesEClinibaseVewmodel
+                {
+                    NoIPM = "I12345601",
+                    RAMQ = "FLOU12345601",
+                    Nom = "Flou",
+                    Prenom = "Clair",
+                    DateNaissance = new DateTime(1985, 5, 15),
+                    Sexe = "M",
+                    Telephone = "514-555-1255",
+                    Adresses = new List<AdresseEClinibaseViewModel>
+                    {
+                        new AdresseEClinibaseViewModel
+                        {
+                            TypeAdresse = "PERMANENTE",
+                            Adresse1 = "1 Rue Sherbrooke",
+                            Adresse2 = null,
+                            Ville = "Montréal",
+                            Province = "Québec",
+                            CodePostal = "H2A 1B2",
+                            Pays = "Canada",
+                            Telephone = "514-555-1234",
+                            DateDebutValidite = new DateTime(2020, 1, 1),
+                            EClinibaseAdresseId = "ADDR001"
+                        },
+                        new AdresseEClinibaseViewModel
+                        {
+                            TypeAdresse = "TEMPORAIRE",
+                            Adresse1 = "2 Rue Temporaire",
+                            Adresse2 = "App 3",
+                            Ville = "Montréal",
+                            Province = "Québec",
+                            CodePostal = "H3B 2Y5",
+                            Pays = "Canada",
+                            Telephone = "514-555-4321",
+                            DateDebutValidite = new DateTime(2024, 1, 1),
+                            DateFinValidite = new DateTime(2024, 6, 30),
+                            EClinibaseAdresseId = "ADDR003"
+                        },
+                        new AdresseEClinibaseViewModel
+                        {
+                            TypeAdresse = "ANTERIEURE",
+                            Adresse1 = "3 Rue Ancienne",
+                            Adresse2 = null,
+                            Ville = "Montréal",
+                            Province = "Québec",
+                            CodePostal = "H4C 1X2",
+                            Pays = "Canada",
+                            Telephone = "514-555-9999",
+                            DateDebutValidite = new DateTime(2015, 3, 1),
+                            DateFinValidite = new DateTime(2019, 12, 31),
+                            EClinibaseAdresseId = "ADDR004"
+                        }
+                    }
+                };
+            }
+            else  if (ipm == "IPM123456")
             {
                 return new DonneesEClinibaseVewmodel
                 {
@@ -1027,7 +1183,7 @@ namespace SRSAD.ViewModels
                         new AdresseEClinibaseViewModel
                         {
                             TypeAdresse = "PERMANENTE",
-                            Adresse1 = "456 Rue Sherbrooke",
+                            Adresse1 = "4 Rue Sherbrooke",
                             Adresse2 = null,
                             Ville = "Montréal",
                             Province = "Québec",
@@ -1040,7 +1196,7 @@ namespace SRSAD.ViewModels
                         new AdresseEClinibaseViewModel
                         {
                             TypeAdresse = "TEMPORAIRE",
-                            Adresse1 = "789 Rue Temporaire",
+                            Adresse1 = "5 Rue Temporaire",
                             Adresse2 = "App 3",
                             Ville = "Montréal",
                             Province = "Québec",
@@ -1054,7 +1210,7 @@ namespace SRSAD.ViewModels
                         new AdresseEClinibaseViewModel
                         {
                             TypeAdresse = "ANTERIEURE",
-                            Adresse1 = "111 Rue Ancienne",
+                            Adresse1 = "6 Rue Ancienne",
                             Adresse2 = null,
                             Ville = "Montréal",
                             Province = "Québec",
@@ -1084,7 +1240,7 @@ namespace SRSAD.ViewModels
                         new AdresseEClinibaseViewModel
                         {
                             TypeAdresse = "PERMANENTE",
-                            Adresse1 = "123 Rue Principale",
+                            Adresse1 = "7 Rue Principale",
                             Adresse2 = null,
                             Ville = "Laval",
                             Province = "Québec",
@@ -1133,6 +1289,12 @@ namespace SRSAD.ViewModels
 
         private void JournaliserAction(string action, string table, string clePrimaire, object ancien, string description)
         {
+            var settings = new Newtonsoft.Json.JsonSerializerSettings
+            {
+                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore,
+                PreserveReferencesHandling = Newtonsoft.Json.PreserveReferencesHandling.None
+            };
+
             var audit = new JournalAudit
             {
                 DateHeure = DateTime.Now,
@@ -1140,13 +1302,525 @@ namespace SRSAD.ViewModels
                 TableConcernee = table,
                 ClePrimaire = clePrimaire,
                 Description = description,
-                AnciennesValeurs = ancien != null ? Newtonsoft.Json.JsonConvert.SerializeObject(ancien) : null,
+                AnciennesValeurs = ancien != null ? Newtonsoft.Json.JsonConvert.SerializeObject(ancien, settings) : null,
                 UtilisateurId = User.Identity.GetUserId()
             };
 
             db.JournalAudit.Add(audit);
             db.SaveChanges();
         }
+
+        // GET: Usager/Recherche?terme=xxx
+        public ActionResult Recherche(string terme)
+        {
+            if (string.IsNullOrWhiteSpace(terme))
+                return RedirectToAction("Index");
+
+            var usagersQuery = db.Usagers
+                .Include(u => u.SecteursSRSAD)
+                .Include(u => u.StatutsDossierUsager)
+                .Include(u => u.UsagerAdresses)
+                .Where(u => u.EstActif);
+
+            usagersQuery = usagersQuery.Where(u =>
+                u.Nom.Contains(terme) ||
+                u.Prenom.Contains(terme) ||
+                (u.NoDossierInterne != null && u.NoDossierInterne.Contains(terme)) ||
+                (u.NoDossierSRSAD != null && u.NoDossierSRSAD.Contains(terme)) ||
+                (u.NoDossierIPM != null && u.NoDossierIPM.Contains(terme)) ||
+                (u.RAMQ != null && u.RAMQ.Contains(terme))
+            );
+
+            var model = usagersQuery
+                .OrderBy(u => u.Nom)
+                .ThenBy(u => u.Prenom)
+                .Select(u => new UsagerListViewModel
+                {
+                    UsagerID = u.UsagerID,
+                    NoDossierSRSAD = u.NoDossierSRSAD,
+                    NoDossierIPM = u.NoDossierIPM,
+                    NomComplet = u.Nom + " " + u.Prenom,
+                    DateNaissance = u.DateNaissance,
+                    RAMQ = u.RAMQ,
+                    Secteur = u.SecteursSRSAD.Nom,
+                    StatutDossier = u.StatutsDossierUsager.Libelle,
+                    EstActif = u.EstActif,
+                    AdresseCourante = u.UsagerAdresses
+                        .Where(a => a.EstCourante)
+                        .Select(a => a.Adresse1 + ", " + a.Ville)
+                        .FirstOrDefault(),
+                    Telephone = u.Telephone
+                })
+                .ToList();
+
+            ViewBag.TermeRecherche = terme;
+            ViewBag.Secteurs = new SelectList(db.SecteursSRSAD.Where(s => s.EstActif), "SecteurID", "Nom");
+            ViewBag.Statuts = new SelectList(db.StatutsDossierUsager.Where(s => s.EstActif), "StatutDossierID", "Libelle");
+
+            return View("Index", model);
+        }
+
+        // POST: Usager/Synchroniser/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Synchroniser(int id)
+        {
+            var usager = db.Usagers.Find(id);
+            if (usager == null)
+                return HttpNotFound();
+
+            if (string.IsNullOrEmpty(usager.NoDossierIPM))
+            {
+                TempData["Error"] = "Ce patient n'a pas de numéro IPM, impossible de synchroniser avec E-Clinibase.";
+                return RedirectToAction("Details", new { id });
+            }
+
+            try
+            {
+                // Appel au service externe (simulé)
+                var donnees = await Task.Run(() => RecupererDonneesCompletesEClinibase(usager.NoDossierIPM));
+
+                if (donnees == null)
+                {
+                    TempData["Error"] = "Impossible de récupérer les données d'E-Clinibase pour cet IPM.";
+                    return RedirectToAction("Details", new { id });
+                }
+
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        // Mise à jour des informations de base
+                        usager.Nom = donnees.Nom;
+                        usager.Prenom = donnees.Prenom;
+                        usager.DateNaissance = donnees.DateNaissance;
+                        usager.Sexe = donnees.Sexe;
+                        usager.Telephone = donnees.Telephone;
+                        usager.DateDerniereSyncEClinibase = DateTime.Now;
+                        usager.DateModification = DateTime.Now;
+                        usager.ModifieParUserId = User.Identity.GetUserId();
+
+                        // Gestion des adresses : on supprime les anciennes et on ajoute les nouvelles
+                        // (On pourrait aussi choisir de les fusionner, mais pour simplifier on remplace)
+                        var anciennesAdresses = db.UsagerAdresses.Where(a => a.UsagerID == id).ToList();
+                        db.UsagerAdresses.RemoveRange(anciennesAdresses);
+
+                        foreach (var a in donnees.Adresses)
+                        {
+                            var nouvelleAdresse = new UsagerAdresses
+                            {
+                                UsagerID = usager.UsagerID,
+                                TypeAdresse = a.TypeAdresse,
+                                SourceAdresse = "ECLINIBASE",
+                                EstCourante = a.TypeAdresse == "PERMANENTE",
+                                Adresse1 = a.Adresse1,
+                                Adresse2 = a.Adresse2,
+                                Ville = a.Ville,
+                                Province = a.Province,
+                                CodePostal = a.CodePostal,
+                                Pays = a.Pays,
+                                Telephone = a.Telephone,
+                                DateDebutValidite = a.DateDebutValidite,
+                                DateFinValidite = a.DateFinValidite,
+                                EClinibaseAdresseId = a.EClinibaseAdresseId,
+                                DateCreation = DateTime.Now,
+                                CreeParUserId = User.Identity.GetUserId()
+                            };
+                            db.UsagerAdresses.Add(nouvelleAdresse);
+                        }
+
+                        // Mettre à jour l'adresse snapshot dans Usagers (prendre la permanente)
+                        var permanente = donnees.Adresses.FirstOrDefault(a => a.TypeAdresse == "PERMANENTE");
+                        if (permanente != null)
+                        {
+                            usager.Adresse = permanente.Adresse1;
+                            usager.Ville = permanente.Ville;
+                            usager.Province = permanente.Province;
+                            usager.CodePostal = permanente.CodePostal;
+                            usager.Pays = permanente.Pays;
+                        }
+
+                        db.SaveChanges();
+
+                        JournaliserAction("SYNCHRONISER", "Usagers", usager.UsagerID.ToString(), null,
+                            $"Synchronisation avec E-Clinibase - IPM: {usager.NoDossierIPM}");
+
+                        transaction.Commit();
+
+                        TempData["Success"] = "Patient synchronisé avec succès avec E-Clinibase.";
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        // Log
+                        System.Diagnostics.Debug.WriteLine(ex.ToString());
+                        TempData["Error"] = "Erreur lors de la synchronisation : " + ex.Message;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                TempData["Error"] = "Erreur lors de l'appel à E-Clinibase : " + ex.Message;
+            }
+
+            return RedirectToAction("Details", new { id });
+        }
+
+
+
+        // POST: Usager/SynchroniserTous
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> SynchroniserTous()
+        {
+            // Récupérer tous les usagers avec un NoDossierIPM non vide
+            var usagers = db.Usagers.Where(u => !string.IsNullOrEmpty(u.NoDossierIPM)).ToList();
+
+            if (!usagers.Any())
+            {
+                TempData["Warning"] = "Aucun patient avec un numéro IPM à synchroniser.";
+                return RedirectToAction("Index");
+            }
+
+            int total = usagers.Count;
+            int success = 0;
+            int erreur = 0;
+            var listeErreurs = new List<string>();
+
+            using (var transaction = db.Database.BeginTransaction())
+            {
+                try
+                {
+                    foreach (var usager in usagers)
+                    {
+                        try
+                        {
+                            // Appel au service externe (simulé)
+                            var donnees = await Task.Run(() => RecupererDonneesCompletesEClinibase(usager.NoDossierIPM));
+
+                            if (donnees == null)
+                            {
+                                erreur++;
+                                listeErreurs.Add($"IPM {usager.NoDossierIPM} : données non trouvées");
+                                continue;
+                            }
+
+                            // Mise à jour des informations de base
+                            usager.Nom = donnees.Nom;
+                            usager.Prenom = donnees.Prenom;
+                            usager.DateNaissance = donnees.DateNaissance;
+                            usager.Sexe = donnees.Sexe;
+                            usager.Telephone = donnees.Telephone;
+                            usager.DateDerniereSyncEClinibase = DateTime.Now;
+                            usager.DateModification = DateTime.Now;
+                            usager.ModifieParUserId = User.Identity.GetUserId();
+
+                            // Gestion des adresses : suppression des anciennes et ajout des nouvelles
+                            var anciennesAdresses = db.UsagerAdresses.Where(a => a.UsagerID == usager.UsagerID).ToList();
+                            db.UsagerAdresses.RemoveRange(anciennesAdresses);
+
+                            foreach (var a in donnees.Adresses)
+                            {
+                                var nouvelleAdresse = new UsagerAdresses
+                                {
+                                    UsagerID = usager.UsagerID,
+                                    TypeAdresse = a.TypeAdresse,
+                                    SourceAdresse = "ECLINIBASE",
+                                    EstCourante = a.TypeAdresse == "PERMANENTE",
+                                    Adresse1 = a.Adresse1,
+                                    Adresse2 = a.Adresse2,
+                                    Ville = a.Ville,
+                                    Province = a.Province,
+                                    CodePostal = a.CodePostal,
+                                    Pays = a.Pays,
+                                    Telephone = a.Telephone,
+                                    DateDebutValidite = a.DateDebutValidite,
+                                    DateFinValidite = a.DateFinValidite,
+                                    EClinibaseAdresseId = a.EClinibaseAdresseId,
+                                    DateCreation = DateTime.Now,
+                                    CreeParUserId = User.Identity.GetUserId()
+                                };
+                                db.UsagerAdresses.Add(nouvelleAdresse);
+                            }
+
+                            // Mettre à jour l'adresse snapshot
+                            var permanente = donnees.Adresses.FirstOrDefault(a => a.TypeAdresse == "PERMANENTE");
+                            if (permanente != null)
+                            {
+                                usager.Adresse = permanente.Adresse1;
+                                usager.Ville = permanente.Ville;
+                                usager.Province = permanente.Province;
+                                usager.CodePostal = permanente.CodePostal;
+                                usager.Pays = permanente.Pays;
+                            }
+
+                            // Sauvegarde après chaque patient pour éviter de tout perdre en cas d'erreur
+                            db.SaveChanges();
+
+                            success++;
+                        }
+                        catch (Exception ex)
+                        {
+                            erreur++;
+                            listeErreurs.Add($"IPM {usager.NoDossierIPM} : {ex.Message}");
+                            System.Diagnostics.Debug.WriteLine(ex.ToString());
+                        }
+                    }
+
+                    transaction.Commit();
+
+                    JournaliserAction("SYNCHRONISER_TOUS", "Usagers", null, null,
+                        $"Synchronisation massive terminée : {success} succès, {erreur} erreurs.");
+
+                    TempData["Success"] = $"Synchronisation massive terminée. {success} patient(s) mis à jour, {erreur} erreur(s).";
+                    if (erreur > 0)
+                    {
+                        TempData["ErrorDetails"] = string.Join("<br/>", listeErreurs);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    transaction.Rollback();
+                    TempData["Error"] = "Erreur critique lors de la synchronisation massive : " + ex.Message;
+                }
+            }
+
+            return RedirectToAction("Index");
+        }
+
+
+        // GET: Usager/CreateManuel
+        public ActionResult CreateManuel()
+        {
+            var model = new UsagerManuelViewModel
+            {
+                Province = "Québec",
+                Pays = "Canada",
+                CodeHydroQuebec = false
+            };
+
+            ChargerListesDeroulantes();
+            return View(model);
+        }
+
+        // POST: Usager/CreateManuel
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CreateManuel(UsagerManuelViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                using (var transaction = db.Database.BeginTransaction())
+                {
+                    try
+                    {
+                        // Vérifier si l'IPM existe déjà
+                        if (db.Usagers.Any(u => u.NoDossierIPM == model.NoDossierIPM))
+                        {
+                            ModelState.AddModelError("NoDossierIPM", "Ce numéro IPM existe déjà.");
+                            ChargerListesDeroulantes(model);
+                            return View(model);
+                        }
+
+                        // Générer un numéro de dossier SRSAD
+                        string noDossierSRSAD = GenererNumeroDossierSRSAD();
+
+                        // Créer l'usager
+                        var usager = new Usagers
+                        {
+                            NoDossierIPM = model.NoDossierIPM,  // Ajout
+                            NoDossierSRSAD = noDossierSRSAD,
+                            Nom = model.Nom,
+                            Prenom = model.Prenom,
+                            DateNaissance = model.DateNaissance,
+                            Sexe = model.Sexe,
+                            RAMQ = model.RAMQ,
+                            Telephone = model.Telephone,
+                            Adresse = model.Adresse,
+                            Ville = model.Ville,
+                            Province = model.Province,
+                            CodePostal = model.CodePostal,
+                            Pays = model.Pays,
+                            CLSCID = model.CLSCID,
+                            SecteurID = model.SecteurID,
+                            StatutDossierID = model.StatutDossierID,
+                            CodeHydroQuebec = model.CodeHydroQuebec,
+                            AgentPayeurID = model.AgentPayeurID,
+                            CentreDeCout = model.CentreDeCout,
+                            BonCommande = model.BonCommande,
+                            StatutTabagique = model.StatutTabagique,
+                            EstActif = true,
+                            DateCreation = DateTime.Now,
+                            CreeParUserId = User.Identity.GetUserId()
+                        };
+
+                        db.Usagers.Add(usager);
+                        db.SaveChanges(); // Pour obtenir l'ID
+
+                        // Créer l'adresse principale
+                        var adresse = new UsagerAdresses
+                        {
+                            UsagerID = usager.UsagerID,
+                            TypeAdresse = "PERMANENTE",
+                            SourceAdresse = "MANUEL",
+                            EstCourante = true,
+                            Adresse1 = model.Adresse,
+                            Ville = model.Ville,
+                            Province = model.Province,
+                            CodePostal = model.CodePostal,
+                            Pays = model.Pays,
+                            Telephone = model.Telephone,
+                            DateDebutValidite = DateTime.Today,
+                            DateCreation = DateTime.Now,
+                            CreeParUserId = User.Identity.GetUserId()
+                        };
+                        db.UsagerAdresses.Add(adresse);
+                        db.SaveChanges();
+
+                        JournaliserAction("CREATE_MANUEL", "Usagers", usager.UsagerID.ToString(), null,
+                            $"Création manuelle du patient {usager.Nom} {usager.Prenom} (IPM: {model.NoDossierIPM})");
+
+                        transaction.Commit();
+
+                        TempData["Success"] = $"✅ Patient créé avec succès ! Numéro de dossier : {noDossierSRSAD}";
+                        return RedirectToAction("Details", new { id = usager.UsagerID });
+                    }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                        ModelState.AddModelError("", "❌ Erreur lors de la création : " + ex.Message);
+                    }
+                }
+            }
+
+            ChargerListesDeroulantes(model);
+            return View(model);
+        }
+
+        // GET: Usager/EditManuel/5
+        public ActionResult EditManuel(int? id)
+        {
+            if (id == null)
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+
+            var usager = db.Usagers.Find(id);
+            if (usager == null)
+                return HttpNotFound();
+
+            var model = new UsagerManuelViewModel
+            {
+                UsagerID = usager.UsagerID,
+                NoDossierIPM = usager.NoDossierIPM,  // Ajout
+                Nom = usager.Nom,
+                Prenom = usager.Prenom,
+                DateNaissance = usager.DateNaissance,
+                Sexe = usager.Sexe,
+                RAMQ = usager.RAMQ,
+                Telephone = usager.Telephone,
+                Adresse = usager.Adresse,
+                Ville = usager.Ville,
+                Province = usager.Province,
+                CodePostal = usager.CodePostal,
+                Pays = usager.Pays,
+                CLSCID = usager.CLSCID,
+                SecteurID = usager.SecteurID,
+                StatutDossierID = usager.StatutDossierID,
+                CodeHydroQuebec = usager.CodeHydroQuebec,
+                AgentPayeurID = usager.AgentPayeurID,
+                CentreDeCout = usager.CentreDeCout,
+                BonCommande = usager.BonCommande,
+                StatutTabagique = usager.StatutTabagique
+            };
+
+            ChargerListesDeroulantes(model);
+            return View(model);
+        }
+
+        // POST: Usager/EditManuel/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditManuel(UsagerManuelViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var usager = db.Usagers.Find(model.UsagerID);
+                if (usager == null)
+                    return HttpNotFound();
+
+                // Vérifier si l'IPM a changé et s'il n'est pas déjà utilisé par un autre
+                if (usager.NoDossierIPM != model.NoDossierIPM)
+                {
+                    if (db.Usagers.Any(u => u.NoDossierIPM == model.NoDossierIPM && u.UsagerID != model.UsagerID))
+                    {
+                        ModelState.AddModelError("NoDossierIPM", "Ce numéro IPM est déjà utilisé par un autre patient.");
+                        ChargerListesDeroulantes(model);
+                        return View(model);
+                    }
+                }
+
+                // Mise à jour des champs
+                usager.NoDossierIPM = model.NoDossierIPM;  // Ajout
+                usager.Nom = model.Nom;
+                usager.Prenom = model.Prenom;
+                usager.DateNaissance = model.DateNaissance;
+                usager.Sexe = model.Sexe;
+                usager.RAMQ = model.RAMQ;
+                usager.Telephone = model.Telephone;
+                usager.Adresse = model.Adresse;
+                usager.Ville = model.Ville;
+                usager.Province = model.Province;
+                usager.CodePostal = model.CodePostal;
+                usager.Pays = model.Pays;
+                usager.CLSCID = model.CLSCID;
+                usager.SecteurID = model.SecteurID;
+                usager.StatutDossierID = model.StatutDossierID;
+                usager.CodeHydroQuebec = model.CodeHydroQuebec;
+                usager.AgentPayeurID = model.AgentPayeurID;
+                usager.CentreDeCout = model.CentreDeCout;
+                usager.BonCommande = model.BonCommande;
+                usager.StatutTabagique = model.StatutTabagique;
+                usager.DateModification = DateTime.Now;
+                usager.ModifieParUserId = User.Identity.GetUserId();
+
+                db.Entry(usager).State = EntityState.Modified;
+                db.SaveChanges();
+
+                // Mettre à jour l'adresse principale associée (si elle existe)
+                var adressePrincipale = db.UsagerAdresses
+                    .FirstOrDefault(a => a.UsagerID == usager.UsagerID && a.TypeAdresse == "PERMANENTE" && a.SourceAdresse == "MANUEL");
+                if (adressePrincipale != null)
+                {
+                    adressePrincipale.Adresse1 = model.Adresse;
+                    adressePrincipale.Ville = model.Ville;
+                    adressePrincipale.Province = model.Province;
+                    adressePrincipale.CodePostal = model.CodePostal;
+                    adressePrincipale.Pays = model.Pays;
+                    adressePrincipale.Telephone = model.Telephone;
+                    adressePrincipale.DateModification = DateTime.Now;
+                    adressePrincipale.ModifieParUserId = User.Identity.GetUserId();
+                    db.Entry(adressePrincipale).State = EntityState.Modified;
+                    db.SaveChanges();
+                }
+
+                JournaliserAction("EDIT_MANUEL", "Usagers", usager.UsagerID.ToString(), null,
+                    $"Modification manuelle du patient {usager.Nom} {usager.Prenom} (IPM: {model.NoDossierIPM})");
+
+                TempData["Success"] = "✅ Patient modifié avec succès.";
+                return RedirectToAction("Details", new { id = usager.UsagerID });
+            }
+
+            ChargerListesDeroulantes(model);
+            return View(model);
+        }
+
+
+
+       
+
+
+
+
+
 
         protected override void Dispose(bool disposing)
         {
