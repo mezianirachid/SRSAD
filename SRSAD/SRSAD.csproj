@@ -227,6 +227,7 @@
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\CLSCController.cs" />
     <Compile Include="Controllers\DashboardController.cs" />
+    <Compile Include="Controllers\EquipementController.cs" />
     <Compile Include="Controllers\FournisseurController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\InfectionController.cs" />
@@ -236,6 +237,7 @@
     <Compile Include="Controllers\MotifCommandeCylindreController.cs" />
     <Compile Include="Controllers\ParticulariteController.cs" />
     <Compile Include="Controllers\PeriodeFinanciereController.cs" />
+    <Compile Include="Controllers\PretController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SecteurController.cs" />
     <Compile Include="Controllers\StatutDossierController.cs" />
@@ -428,9 +430,11 @@
     <Compile Include="ViewModels\AdresseEClinibaseViewModel.cs" />
     <Compile Include="ViewModels\AdresseImportViewModel.cs" />
     <Compile Include="ViewModels\DonneesEClinibaseVewmodel.cs" />
+    <Compile Include="ViewModels\EquipementListViewModel.cs" />
     <Compile Include="ViewModels\HistoriqueActionViewModel.cs" />
     <Compile Include="ViewModels\ImportEClinibaseViewModel.cs" />
     <Compile Include="ViewModels\IntervenantViewModel.cs" />
+    <Compile Include="ViewModels\PretListViewModel.cs" />
     <Compile Include="ViewModels\RechercheEClinibaseViewModel.cs" />
     <Compile Include="ViewModels\ResultatRechercheEClinibaseViewModel.cs" />
     <Compile Include="ViewModels\UsagerAdresseViewModel.cs" />
@@ -1614,6 +1618,19 @@
     <Content Include="Views\Intervenant\Delete.cshtml" />
     <Content Include="Views\Visite\Toutes.cshtml" />
     <Content Include="Views\Visite\CreateVisitePlanifie.cshtml" />
+    <Content Include="Views\Pret\Index.cshtml" />
+    <Content Include="Views\Pret\Details.cshtml" />
+    <Content Include="Views\Pret\Create.cshtml" />
+    <Content Include="Views\Pret\Edit.cshtml" />
+    <Content Include="Views\Pret\Delete.cshtml" />
+    <Content Include="Views\Pret\Valider.cshtml" />
+    <Content Include="Views\Equipement\Index.cshtml" />
+    <Content Include="Views\Equipement\Details.cshtml" />
+    <Content Include="Views\Equipement\Create.cshtml" />
+    <Content Include="Views\Equipement\Edit.cshtml" />
+    <Content Include="Views\Equipement\Delete.cshtml" />
+    <Content Include="Views\Equipement\Historique.cshtml" />
+    <Content Include="Views\Equipement\ChangerStatut.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
